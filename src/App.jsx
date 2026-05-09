@@ -287,8 +287,8 @@ const TRANSLATIONS = {
     flag: "🇬🇧", label: "EN",
     subtitle: "Unveil the secrets of your soul through the stars",
     enterData: "{t.enterData}",
-    dateOfBirth: {t.dateOfBirth},
-    timeOfBirth: {t.timeOfBirth},
+    dateOfBirth: "Date of Birth",
+    timeOfBirth: "Time of Birth",
     hour: "Hour (0-23)", minute: "Minutes",
     reveal: "{t.reveal}",
     cosmicMessage: "Cosmic Message",
@@ -597,7 +597,7 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
           <div style={{ marginBottom: "1.2rem" }}>
             <label style={labelStyle}>Time of Birth</label>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.7rem", marginTop: "0.5rem" }}>
-              {[{ name: "hour", placeholder: "Hour (0-23)" }, { name: "minute", placeholder: "Minutes" }].map(f => (
+              {[{ name: "hour", placeholder: t.hour }, { name: "minute", placeholder: t.minute }].map(f => (
                 <input key={f.name} type="number" name={f.name} placeholder={f.placeholder} value={form[f.name]} onChange={handleChange} style={inputStyle} />
               ))}
             </div>
