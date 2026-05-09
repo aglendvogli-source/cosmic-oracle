@@ -281,6 +281,150 @@ const SIGN_COLORS = {
   "Pisces":      { primary: "#48cae4", glow: "rgba(72,202,228,0.15)", border: "rgba(72,202,228,0.3)" },
 };
 
+
+const TRANSLATIONS = {
+  en: {
+    flag: "🇬🇧", label: "EN",
+    subtitle: "Unveil the secrets of your soul through the stars",
+    enterData: "{t.enterData}",
+    dateOfBirth: {t.dateOfBirth},
+    timeOfBirth: {t.timeOfBirth},
+    hour: "Hour (0-23)", minute: "Minutes",
+    reveal: "{t.reveal}",
+    cosmicMessage: "Cosmic Message",
+    moonPhase: "{t.moonPhase}",
+    tarotCard: "{t.tarotCard}",
+    energy: "Energy",
+    newReading: "{t.newReading}",
+    rising: "Rising",
+    bornOn: "Born",
+    at: "at",
+    tabs: { personality: {t.tabs.personality}, compatibility: {t.tabs.compatibility}, share: {t.tabs.share} },
+    sections: { essence: {t.sections.essence}, powers: {t.sections.powers}, shadows: {t.sections.shadows}, love: {t.sections.love}, fruit: {t.sections.fruit}, destiny: {t.sections.destiny} },
+    choosePartner: "{t.choosePartner}",
+    selectSign: "{t.selectSign}",
+    compatibility: "Compatibility",
+    labels: { soulmate: "Soulmate 💫", great: "Great chemistry 🌟", good: "Good match ✨", challenge: "Stimulating challenge ⚡", opposite: "Extreme opposites 🔥" },
+    shareTitle: "{t.shareTitle}",
+    preview: {t.preview},
+    copyBtn: "{t.copyBtn}",
+    copied: "{t.copied}",
+    support: "{t.support}",
+    supportText: "{t.supportText}",
+    coffeeBtn: "{t.coffeeBtn}",
+    fillFields: "Please fill in all fields!",
+    loading1: "{t.loading1}",
+    loading2: "{t.loading2}",
+    with: "With",
+    include: "Includes compatibility with",
+  },
+  it: {
+    flag: "🇮🇹", label: "IT",
+    subtitle: "Svela i segreti della tua anima attraverso le stelle",
+    enterData: "Inserisci i tuoi dati cosmici",
+    dateOfBirth: "Data di Nascita",
+    timeOfBirth: "Ora di Nascita",
+    hour: "Ora (0-23)", minute: "Minuti",
+    reveal: "✦ Rivela il Mio Destino ✦",
+    cosmicMessage: "Messaggio Cosmico",
+    moonPhase: "Fase Lunare di Oggi",
+    tarotCard: "Carta dei Tarocchi del Giorno",
+    energy: "Energia",
+    newReading: "✦ Nuova Lettura ✦",
+    rising: "Ascendente",
+    bornOn: "Nato il",
+    at: "alle",
+    tabs: { personality: "🌟 Personalità", compatibility: "💞 Compatibilità", share: "📤 Condividi" },
+    sections: { essence: "🌟 ESSENZA COSMICA", powers: "⚡ POTERI NASCOSTI", shadows: "🌑 OMBRE DELL'ANIMA", love: "❤️ AMORE E RELAZIONI", fruit: "🏴‍☠️ IL TUO FRUTTO DEL DIAVOLO", destiny: "🔮 DESTINO" },
+    choosePartner: "Scegli il segno del tuo partner",
+    selectSign: "— Seleziona segno —",
+    compatibility: "Compatibilità",
+    labels: { soulmate: "Anima gemella 💫", great: "Grande intesa 🌟", good: "Buona compatibilità ✨", challenge: "Sfida stimolante ⚡", opposite: "Opposti estremi 🔥" },
+    shareTitle: "Copia la tua lettura cosmica e condividila con il mondo",
+    preview: "Anteprima:",
+    copyBtn: "📋 Copia Lettura Cosmica",
+    copied: "✓ Copiato negli appunti!",
+    support: "☕ SUPPORTA L'ORACOLO",
+    supportText: "Se le stelle ti hanno parlato, offri un caffè",
+    coffeeBtn: "☕ Offrimi un caffè",
+    fillFields: "Compila tutti i campi!",
+    loading1: "Le stelle stanno parlando...",
+    loading2: "L'oracolo sta leggendo la tua anima",
+    with: "Con",
+    include: "Include compatibilità con",
+  },
+  es: {
+    flag: "🇪🇸", label: "ES",
+    subtitle: "Desvela los secretos de tu alma a través de las estrellas",
+    enterData: "Ingresa tus datos cósmicos",
+    dateOfBirth: "Fecha de Nacimiento",
+    timeOfBirth: "Hora de Nacimiento",
+    hour: "Hora (0-23)", minute: "Minutos",
+    reveal: "✦ Revela Mi Destino ✦",
+    cosmicMessage: "Mensaje Cósmico",
+    moonPhase: "Fase Lunar de Hoy",
+    tarotCard: "Carta del Tarot del Día",
+    energy: "Energía",
+    newReading: "✦ Nueva Lectura ✦",
+    rising: "Ascendente",
+    bornOn: "Nacido el",
+    at: "a las",
+    tabs: { personality: "🌟 Personalidad", compatibility: "💞 Compatibilidad", share: "📤 Compartir" },
+    sections: { essence: "🌟 ESENCIA CÓSMICA", powers: "⚡ PODERES OCULTOS", shadows: "🌑 SOMBRAS DEL ALMA", love: "❤️ AMOR Y RELACIONES", fruit: "🏴‍☠️ TU FRUTA DEL DIABLO", destiny: "🔮 DESTINO" },
+    choosePartner: "Elige el signo de tu pareja",
+    selectSign: "— Selecciona un signo —",
+    compatibility: "Compatibilidad",
+    labels: { soulmate: "Alma gemela 💫", great: "Gran química 🌟", good: "Buena pareja ✨", challenge: "Desafío estimulante ⚡", opposite: "Opuestos extremos 🔥" },
+    shareTitle: "Copia tu lectura cósmica y compártela con el mundo",
+    preview: "Vista previa:",
+    copyBtn: "📋 Copiar Lectura Cósmica",
+    copied: "✓ ¡Copiado al portapapeles!",
+    support: "☕ APOYA EL ORÁCULO",
+    supportText: "Si las estrellas te hablaron, considera invitarme un café",
+    coffeeBtn: "☕ Invítame un café",
+    fillFields: "¡Por favor completa todos los campos!",
+    loading1: "Las estrellas están hablando...",
+    loading2: "El oráculo está leyendo tu alma",
+    with: "Con",
+    include: "Incluye compatibilidad con",
+  },
+  fr: {
+    flag: "🇫🇷", label: "FR",
+    subtitle: "Dévoilez les secrets de votre âme à travers les étoiles",
+    enterData: "Entrez vos données cosmiques",
+    dateOfBirth: "Date de Naissance",
+    timeOfBirth: "Heure de Naissance",
+    hour: "Heure (0-23)", minute: "Minutes",
+    reveal: "✦ Révélez Mon Destin ✦",
+    cosmicMessage: "Message Cosmique",
+    moonPhase: "Phase Lunaire d'Aujourd'hui",
+    tarotCard: "Carte de Tarot du Jour",
+    energy: "Énergie",
+    newReading: "✦ Nouvelle Lecture ✦",
+    rising: "Ascendant",
+    bornOn: "Né le",
+    at: "à",
+    tabs: { personality: "🌟 Personnalité", compatibility: "💞 Compatibilité", share: "📤 Partager" },
+    sections: { essence: "🌟 ESSENCE COSMIQUE", powers: "⚡ POUVOIRS CACHÉS", shadows: "🌑 OMBRES DE L'ÂME", love: "❤️ AMOUR ET RELATIONS", fruit: "🏴‍☠️ VOTRE FRUIT DU DÉMON", destiny: "🔮 DESTIN" },
+    choosePartner: "Choisissez le signe de votre partenaire",
+    selectSign: "— Sélectionner un signe —",
+    compatibility: "Compatibilité",
+    labels: { soulmate: "Âme sœur 💫", great: "Grande chimie 🌟", good: "Bonne compatibilité ✨", challenge: "Défi stimulant ⚡", opposite: "Opposés extrêmes 🔥" },
+    shareTitle: "Copiez votre lecture cosmique et partagez-la avec le monde",
+    preview: "Aperçu:",
+    copyBtn: "📋 Copier la Lecture Cosmique",
+    copied: "✓ Copié dans le presse-papiers!",
+    support: "☕ SOUTENEZ L'ORACLE",
+    supportText: "Si les étoiles vous ont parlé, offrez-moi un café",
+    coffeeBtn: "☕ Offrez-moi un café",
+    fillFields: "Veuillez remplir tous les champs!",
+    loading1: "Les étoiles parlent...",
+    loading2: "L'oracle lit votre âme",
+    with: "Avec",
+    include: "Inclut la compatibilité avec",
+  },
+};
+
 function getZodiacSign(day, month) {
   const d = parseInt(day), m = parseInt(month);
   if ((m === 3 && d >= 21) || (m === 4 && d <= 19)) return "Aries";
@@ -327,6 +471,8 @@ const labelStyle = { color: "#c9a84c", fontSize: "0.75rem", letterSpacing: "0.2e
 const textStyle = { margin: "0.3rem 0", lineHeight: 1.8, color: "#c8b89a", fontSize: "0.95rem" };
 
 export default function App() {
+  const [lang, setLang] = useState("en");
+  const t = TRANSLATIONS[lang];
   const [step, setStep] = useState("form");
   const [form, setForm] = useState({ day: "", month: "", year: "", hour: "", minute: "" });
   const [partnerSign, setPartnerSign] = useState("");
@@ -348,7 +494,7 @@ export default function App() {
 
   const analyze = () => {
     if (!form.day || !form.month || !form.year || !form.hour || !form.minute) {
-      alert("Please fill in all fields!");
+      alert(t.fillFields);
       return;
     }
     setStep("loading");
@@ -399,7 +545,7 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
   const activeSign = result ? result.sign : autoSign;
   const signColor = SIGN_COLORS[activeSign] || { primary: "#c9a84c", glow: "rgba(147,51,234,0.12)", border: "rgba(201,168,76,0.2)" };
   const compatScore = compat ? compat[0] : null;
-  const compatLabel = compatScore >= 85 ? "Soulmate 💫" : compatScore >= 70 ? "Great chemistry 🌟" : compatScore >= 55 ? "Good match ✨" : compatScore >= 40 ? "Stimulating challenge ⚡" : "Extreme opposites 🔥";
+  const compatLabel = compatScore >= 85 ? t.labels.soulmate : compatScore >= 70 ? t.labels.great : compatScore >= 55 ? t.labels.good : compatScore >= 40 ? t.labels.challenge : t.labels.opposite;
 
   return (
     <div style={{ minHeight: "100vh", background: "radial-gradient(ellipse at top, #0d0a1a 0%, #050308 60%, #0a0515 100%)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "2rem 1rem", fontFamily: "Georgia, serif", position: "relative", overflow: "hidden" }}>
@@ -422,7 +568,14 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
       <div style={{ textAlign: "center", marginBottom: "2rem", position: "relative", zIndex: 1 }}>
         <div style={{ fontSize: "2.5rem", filter: "drop-shadow(0 0 15px rgba(201,168,76,0.9))" }}>✦ 🔮 ✦</div>
         <h1 style={{ fontFamily: "'Cinzel', serif", fontSize: "clamp(1.6rem, 5vw, 2.8rem)", fontWeight: 900, background: "linear-gradient(135deg, #c9a84c, #f0d080, #c9a84c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", margin: "0.3rem 0", letterSpacing: "0.1em" }}>COSMIC ORACLE</h1>
-        <p style={{ color: "#6b5c7a", fontStyle: "italic", margin: 0, fontSize: "0.9rem" }}>Unveil the secrets of your soul through the stars</p>
+        <p style={{ color: "#6b5c7a", fontStyle: "italic", margin: 0, fontSize: "0.9rem" }}>{t.subtitle}</p>
+        <div style={{ display: "flex", gap: "0.4rem", justifyContent: "center", marginTop: "0.8rem" }}>
+          {Object.entries(TRANSLATIONS).map(([code, tr]) => (
+            <button key={code} onClick={() => setLang(code)} style={{ padding: "0.3rem 0.7rem", background: lang === code ? "rgba(201,168,76,0.2)" : "transparent", border: lang === code ? "1px solid rgba(201,168,76,0.4)" : "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", color: lang === code ? "#c9a84c" : "#6b5c7a", fontSize: "0.75rem", cursor: "pointer", fontFamily: "'Cinzel', serif" }}>
+              {tr.flag} {tr.label}
+            </button>
+          ))}
+        </div>
       </div>
 
 
@@ -430,7 +583,7 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
       {/* FORM */}
       {step === "form" && (
         <div style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${signColor.border}`, borderRadius: "20px", padding: "2rem", width: "100%", maxWidth: "460px", backdropFilter: "blur(10px)", position: "relative", zIndex: 1, animation: "fadeIn 0.5s ease", boxShadow: `0 0 40px ${signColor.glow}`, transition: "all 0.8s ease" }}>
-          <p style={{ color: "#6b5c7a", textAlign: "center", marginTop: 0, fontStyle: "italic", fontSize: "0.9rem" }}>Enter your cosmic data</p>
+          <p style={{ color: "#6b5c7a", textAlign: "center", marginTop: 0, fontStyle: "italic", fontSize: "0.9rem" }}>{t.enterData}</p>
 
           <div style={{ marginBottom: "1.2rem" }}>
             <label style={labelStyle}>Date of Birth</label>
@@ -459,12 +612,12 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
           )}
 
           <button onClick={analyze} style={{ width: "100%", padding: "1rem", background: "linear-gradient(135deg, #c9a84c, #8b6914)", border: "none", borderRadius: "12px", color: "#0d0a1a", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "1rem", letterSpacing: "0.12em", cursor: "pointer", textTransform: "uppercase", boxShadow: "0 0 25px rgba(201,168,76,0.25)" }}>
-            ✦ Reveal My Destiny ✦
+            {t.reveal}
           </button>
 
           {/* Cosmic Daily Quote */}
           <div style={{ marginTop: "1.5rem", borderTop: "1px solid rgba(201,168,76,0.12)", paddingTop: "1.2rem", textAlign: "center" }}>
-            <div style={{ color: "#c9a84c", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.5rem" }}>✦ Cosmic Message — {formatTodayDate()} ✦</div>
+            <div style={{ color: "#c9a84c", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.5rem" }}>✦ {t.cosmicMessage} — {formatTodayDate()} ✦</div>
             <p style={{ color: "#8a7a9b", fontStyle: "italic", margin: 0, lineHeight: 1.7, fontSize: "0.85rem" }}>"{getCosmicDailyQuote()}"</p>
           </div>
 
@@ -473,10 +626,10 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
             const moon = getMoonPhase();
             return (
               <div style={{ marginTop: "1rem", background: "rgba(147,51,234,0.06)", border: "1px solid rgba(147,51,234,0.2)", borderRadius: "14px", padding: "1rem 1.2rem", textAlign: "center" }}>
-                <div style={{ color: "#9b72cf", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.4rem" }}>🌙 Moon Phase Today</div>
+                <div style={{ color: "#9b72cf", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.4rem" }}>🌙 {t.moonPhase}</div>
                 <div style={{ fontSize: "2rem", marginBottom: "0.3rem" }}>{moon.emoji}</div>
                 <div style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "0.95rem", marginBottom: "0.3rem" }}>{moon.name}</div>
-                <div style={{ color: "#9b72cf", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.4rem" }}>Energy: {moon.energy}</div>
+                <div style={{ color: "#9b72cf", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.4rem" }}>{t.energy}: {moon.energy}</div>
                 <p style={{ color: "#8a7a9b", fontStyle: "italic", margin: 0, lineHeight: 1.6, fontSize: "0.82rem" }}>{moon.meaning}</p>
               </div>
             );
@@ -487,10 +640,10 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
             const card = getDailyTarot();
             return (
               <div style={{ marginTop: "1rem", background: "rgba(201,168,76,0.04)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: "14px", padding: "1rem 1.2rem", textAlign: "center" }}>
-                <div style={{ color: "#c9a84c", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.4rem" }}>🎴 Tarot Card of the Day</div>
+                <div style={{ color: "#c9a84c", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.4rem" }}>🎴 {t.tarotCard}</div>
                 <div style={{ fontSize: "2rem", marginBottom: "0.3rem" }}>{card.emoji}</div>
                 <div style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "0.95rem", marginBottom: "0.2rem" }}>{card.number} — {card.name}</div>
-                <div style={{ color: "#9b72cf", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.4rem" }}>Energy: {card.energy}</div>
+                <div style={{ color: "#9b72cf", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.4rem" }}>{t.energy}: {card.energy}</div>
                 <p style={{ color: "#8a7a9b", fontStyle: "italic", margin: 0, lineHeight: 1.6, fontSize: "0.82rem" }}>{card.meaning}</p>
               </div>
             );
@@ -502,8 +655,8 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
       {step === "loading" && (
         <div style={{ textAlign: "center", position: "relative", zIndex: 1 }}>
           <div style={{ fontSize: "4rem", animation: "spin 3s linear infinite", display: "inline-block" }}>🔮</div>
-          <p style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", marginTop: "1rem", letterSpacing: "0.1em" }}>The stars are speaking...</p>
-          <p style={{ color: "#6b5c7a", fontStyle: "italic" }}>The oracle is reading your soul</p>
+          <p style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", marginTop: "1rem", letterSpacing: "0.1em" }}>{t.loading1}</p>
+          <p style={{ color: "#6b5c7a", fontStyle: "italic" }}>{t.loading2}</p>
         </div>
       )}
 
@@ -514,32 +667,32 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
           <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
             <div style={{ fontSize: "2.5rem" }}>{ZODIAC_SIGNS.find(s => s.name === result.sign)?.symbol}</div>
             <h2 style={{ fontFamily: "'Cinzel', serif", color: "#c9a84c", margin: "0.4rem 0", fontSize: "1.4rem" }}>{result.sign}</h2>
-            <div style={{ color: "#6b5c7a", fontSize: "0.8rem" }}>Rising {result.ascendant} • Born {form.day}/{form.month}/{form.year} at {form.hour}:{form.minute.padStart(2, "0")}</div>
+            <div style={{ color: "#6b5c7a", fontSize: "0.8rem" }}>{t.rising} {result.ascendant} • Born {form.day}/{form.month}/{form.year} at {form.hour}:{form.minute.padStart(2, "0")}</div>
           </div>
 
           {/* Tabs */}
           <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1.5rem", background: "rgba(0,0,0,0.2)", borderRadius: "10px", padding: "0.3rem" }}>
-            {[["personality", "🌟 Personality"], ["compatibility", "💞 Compatibility"], ["share", "📤 Share"]].map(([id, label]) => (
+            {[["personality", {t.tabs.personality}], ["compatibility", {t.tabs.compatibility}], ["share", {t.tabs.share}]].map(([id, label]) => (
               <button key={id} onClick={() => setActiveTab(id)} style={{ flex: 1, padding: "0.6rem 0.3rem", background: activeTab === id ? "rgba(201,168,76,0.2)" : "transparent", border: activeTab === id ? "1px solid rgba(201,168,76,0.4)" : "1px solid transparent", borderRadius: "8px", color: activeTab === id ? "#c9a84c" : "#6b5c7a", fontSize: "0.75rem", cursor: "pointer", fontFamily: "'Cinzel', serif", transition: "all 0.2s" }}>{label}</button>
             ))}
           </div>
 
           {activeTab === "personality" && (
             <div style={{ animation: "fadeIn 0.3s ease" }}>
-              <Section title="🌟 COSMIC ESSENCE"><p style={textStyle}>{result.essence}</p></Section>
-              <Section title="⚡ HIDDEN POWERS">{result.strengths.map((s, i) => <p key={i} style={textStyle}>• {s}</p>)}</Section>
-              <Section title="🌑 SHADOWS OF THE SOUL">{result.shadows.map((s, i) => <p key={i} style={textStyle}>• {s}</p>)}</Section>
-              <Section title="❤️ LOVE & RELATIONSHIPS"><p style={textStyle}>{result.love}</p></Section>
-              <Section title="🏴‍☠️ YOUR DEVIL FRUIT"><p style={textStyle}>{result.fruit}</p></Section>
-              <Section title="🔮 DESTINY"><p style={{ ...textStyle, fontStyle: "italic", color: "#c9a84c" }}>{result.destiny}</p></Section>
+              <Section title={t.sections.essence}><p style={textStyle}>{result.essence}</p></Section>
+              <Section title={t.sections.powers}>{result.strengths.map((s, i) => <p key={i} style={textStyle}>• {s}</p>)}</Section>
+              <Section title={t.sections.shadows}>{result.shadows.map((s, i) => <p key={i} style={textStyle}>• {s}</p>)}</Section>
+              <Section title={t.sections.love}><p style={textStyle}>{result.love}</p></Section>
+              <Section title={t.sections.fruit}><p style={textStyle}>{result.fruit}</p></Section>
+              <Section title={t.sections.destiny}><p style={{ ...textStyle, fontStyle: "italic", color: "#c9a84c" }}>{result.destiny}</p></Section>
             </div>
           )}
 
           {activeTab === "compatibility" && (
             <div style={{ animation: "fadeIn 0.3s ease" }}>
-              <p style={{ color: "#6b5c7a", fontStyle: "italic", textAlign: "center", marginBottom: "1.2rem", fontSize: "0.9rem" }}>Choose your partner's sign</p>
+              <p style={{ color: "#6b5c7a", fontStyle: "italic", textAlign: "center", marginBottom: "1.2rem", fontSize: "0.9rem" }}>{t.choosePartner}</p>
               <select value={partnerSign} onChange={e => setPartnerSign(e.target.value)} style={{ ...inputStyle, marginBottom: "1.2rem", cursor: "pointer" }}>
-                <option value="">— Select a sign —</option>
+                <option value="">{t.selectSign}</option>
                 {ZODIAC_SIGNS.map(s => <option key={s.name} value={s.name}>{s.symbol} {s.name}</option>)}
               </select>
 
@@ -570,25 +723,25 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
           {activeTab === "share" && (
             <div style={{ animation: "fadeIn 0.3s ease", textAlign: "center" }}>
               <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>📤</div>
-              <p style={{ color: "#8a7a9b", fontStyle: "italic", marginBottom: "1.5rem", fontSize: "0.9rem" }}>Copy your cosmic reading and share it with the world</p>
+              <p style={{ color: "#8a7a9b", fontStyle: "italic", marginBottom: "1.5rem", fontSize: "0.9rem" }}>{t.shareTitle}</p>
               <div style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: "12px", padding: "1.2rem", textAlign: "left", marginBottom: "1.5rem" }}>
                 <p style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontSize: "0.85rem", margin: "0 0 0.5rem 0" }}>Preview:</p>
                 <p style={{ color: "#6b5c7a", fontSize: "0.8rem", lineHeight: 1.6, margin: 0 }}>
-                  🔮 COSMIC ORACLE — {result.sign} | Rising {result.ascendant}<br />
+                  🔮 COSMIC ORACLE — {result.sign} | {t.rising} {result.ascendant}<br />
                   🌟 {result.essence.substring(0, 80)}...<br />
                   🏴‍☠️ {result.fruit}<br />
                   {compat ? `💞 With ${partnerSign}: ${compatScore}%` : ""}
                 </p>
               </div>
               <button onClick={handleShare} style={{ width: "100%", padding: "1rem", background: copied ? "linear-gradient(135deg, #3a7a3a, #2a5a2a)" : "linear-gradient(135deg, #c9a84c, #8b6914)", border: "none", borderRadius: "12px", color: copied ? "#90ff90" : "#0d0a1a", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "1rem", cursor: "pointer", letterSpacing: "0.1em", transition: "all 0.3s ease", boxShadow: copied ? "0 0 20px rgba(0,200,0,0.3)" : "0 0 20px rgba(201,168,76,0.2)" }}>
-                {copied ? "✓ Copied to clipboard!" : "📋 Copy Cosmic Reading"}
+                {copied ? "{t.copied}" : "{t.copyBtn}"}
               </button>
 
               <div style={{ marginTop: "1.5rem", padding: "1rem", background: "rgba(201,168,76,0.05)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: "12px" }}>
-                <p style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontSize: "0.8rem", margin: "0 0 0.8rem 0" }}>☕ SUPPORT THE ORACLE</p>
-                <p style={{ color: "#6b5c7a", fontSize: "0.8rem", margin: "0 0 0.8rem 0", fontStyle: "italic" }}>If the stars spoke to you, consider buying me a coffee</p>
+                <p style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontSize: "0.8rem", margin: "0 0 0.8rem 0" }}>{t.support}</p>
+                <p style={{ color: "#6b5c7a", fontSize: "0.8rem", margin: "0 0 0.8rem 0", fontStyle: "italic" }}>{t.supportText}</p>
                 <a href="https://ko-fi.com" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", padding: "0.6rem 1.5rem", background: "linear-gradient(135deg, #FF5E5B, #c0392b)", borderRadius: "8px", color: "white", textDecoration: "none", fontSize: "0.85rem", fontFamily: "'Cinzel', serif" }}>
-                  ☕ Buy me a coffee
+                  {t.coffeeBtn}
                 </a>
               </div>
 
@@ -597,7 +750,7 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
           )}
 
           <button onClick={reset} style={{ width: "100%", padding: "0.8rem", marginTop: "1.5rem", background: "transparent", border: "1px solid rgba(201,168,76,0.25)", borderRadius: "12px", color: "#6b5c7a", fontFamily: "'Cinzel', serif", fontSize: "0.8rem", letterSpacing: "0.15em", cursor: "pointer", textTransform: "uppercase" }}>
-            ✦ New Reading ✦
+            {t.newReading}
           </button>
         </div>
       )}
@@ -613,3 +766,4 @@ function Section({ title, children }) {
     </div>
   );
 }
+
