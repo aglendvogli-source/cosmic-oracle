@@ -265,6 +265,22 @@ function getDailyTarot() {
   return TAROT_CARDS[dayOfYear % TAROT_CARDS.length];
 }
 
+
+const SIGN_COLORS = {
+  "Aries":       { primary: "#e63946", glow: "rgba(230,57,70,0.15)", border: "rgba(230,57,70,0.3)" },
+  "Taurus":      { primary: "#2d6a4f", glow: "rgba(45,106,79,0.15)", border: "rgba(45,106,79,0.3)" },
+  "Gemini":      { primary: "#e9c46a", glow: "rgba(233,196,106,0.15)", border: "rgba(233,196,106,0.3)" },
+  "Cancer":      { primary: "#a8dadc", glow: "rgba(168,218,220,0.15)", border: "rgba(168,218,220,0.3)" },
+  "Leo":         { primary: "#f4a261", glow: "rgba(244,162,97,0.15)", border: "rgba(244,162,97,0.3)" },
+  "Virgo":       { primary: "#6a994e", glow: "rgba(106,153,78,0.15)", border: "rgba(106,153,78,0.3)" },
+  "Libra":       { primary: "#e07a9c", glow: "rgba(224,122,156,0.15)", border: "rgba(224,122,156,0.3)" },
+  "Scorpio":     { primary: "#9b2335", glow: "rgba(155,35,53,0.15)", border: "rgba(155,35,53,0.3)" },
+  "Sagittarius": { primary: "#7b2d8b", glow: "rgba(123,45,139,0.15)", border: "rgba(123,45,139,0.3)" },
+  "Capricorn":   { primary: "#1d3557", glow: "rgba(29,53,87,0.2)",  border: "rgba(29,53,87,0.4)" },
+  "Aquarius":    { primary: "#4cc9f0", glow: "rgba(76,201,240,0.15)", border: "rgba(76,201,240,0.3)" },
+  "Pisces":      { primary: "#48cae4", glow: "rgba(72,202,228,0.15)", border: "rgba(72,202,228,0.3)" },
+};
+
 function getZodiacSign(day, month) {
   const d = parseInt(day), m = parseInt(month);
   if ((m === 3 && d >= 21) || (m === 4 && d <= 19)) return "Aries";
@@ -380,6 +396,8 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
 
   const signData = autoSign ? ZODIAC_SIGNS.find(s => s.name === autoSign) : null;
   const compat = result && partnerSign ? COMPATIBILITY[result.sign]?.[partnerSign] : null;
+  const activeSign = result ? result.sign : autoSign;
+  const signColor = SIGN_COLORS[activeSign] || { primary: "#c9a84c", glow: "rgba(147,51,234,0.12)", border: "rgba(201,168,76,0.2)" };
   const compatScore = compat ? compat[0] : null;
   const compatLabel = compatScore >= 85 ? "Soulmate 💫" : compatScore >= 70 ? "Great chemistry 🌟" : compatScore >= 55 ? "Good match ✨" : compatScore >= 40 ? "Stimulating challenge ⚡" : "Extreme opposites 🔥";
 
@@ -398,7 +416,7 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
       `}</style>
 
       {stars.map(s => <div key={s.id} style={{ position: "fixed", width: `${s.size}px`, height: `${s.size}px`, background: "white", borderRadius: "50%", top: s.top, left: s.left, opacity: s.opacity, animation: `twinkle ${2 + Math.random() * 3}s ease-in-out infinite`, animationDelay: `${Math.random() * 3}s` }} />)}
-      <div style={{ position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)", width: "500px", height: "500px", background: "radial-gradient(circle, rgba(147,51,234,0.12) 0%, transparent 70%)", borderRadius: "50%", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)", width: "500px", height: "500px", background: `radial-gradient(circle, ${signColor.glow} 0%, transparent 70%)`, borderRadius: "50%", pointerEvents: "none", transition: "background 1s ease" }} />
 
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "2rem", position: "relative", zIndex: 1 }}>
@@ -411,7 +429,7 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
 
       {/* FORM */}
       {step === "form" && (
-        <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,168,76,0.2)", borderRadius: "20px", padding: "2rem", width: "100%", maxWidth: "460px", backdropFilter: "blur(10px)", position: "relative", zIndex: 1, animation: "fadeIn 0.5s ease" }}>
+        <div style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${signColor.border}`, borderRadius: "20px", padding: "2rem", width: "100%", maxWidth: "460px", backdropFilter: "blur(10px)", position: "relative", zIndex: 1, animation: "fadeIn 0.5s ease", boxShadow: `0 0 40px ${signColor.glow}`, transition: "all 0.8s ease" }}>
           <p style={{ color: "#6b5c7a", textAlign: "center", marginTop: 0, fontStyle: "italic", fontSize: "0.9rem" }}>Enter your cosmic data</p>
 
           <div style={{ marginBottom: "1.2rem" }}>
@@ -433,9 +451,9 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
           </div>
 
           {signData && (
-            <div style={{ background: "rgba(201,168,76,0.07)", border: "1px solid rgba(201,168,76,0.25)", borderRadius: "12px", padding: "0.8rem", textAlign: "center", marginBottom: "1.2rem" }}>
+            <div style={{ background: signColor.glow, border: `1px solid ${signColor.border}`, borderRadius: "12px", padding: "0.8rem", textAlign: "center", marginBottom: "1.2rem", transition: "all 0.8s ease" }}>
               <span style={{ fontSize: "1.8rem" }}>{signData.symbol}</span>
-              <span style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontWeight: "bold", marginLeft: "0.5rem" }}>{signData.name}</span>
+              <span style={{ color: signColor.primary, fontFamily: "'Cinzel', serif", fontWeight: "bold", marginLeft: "0.5rem", transition: "color 0.8s ease" }}>{signData.name}</span>
               <span style={{ color: "#6b5c7a", fontSize: "0.8rem", marginLeft: "0.5rem" }}>• {signData.element}</span>
             </div>
           )}
@@ -491,7 +509,7 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
 
       {/* RESULT */}
       {step === "result" && result && (
-        <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,168,76,0.2)", borderRadius: "20px", padding: "2rem", width: "100%", maxWidth: "580px", backdropFilter: "blur(10px)", position: "relative", zIndex: 1, maxHeight: "78vh", overflowY: "auto", animation: "fadeIn 0.6s ease" }}>
+        <div style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${signColor.border}`, borderRadius: "20px", padding: "2rem", width: "100%", maxWidth: "580px", backdropFilter: "blur(10px)", position: "relative", zIndex: 1, maxHeight: "78vh", overflowY: "auto", animation: "fadeIn 0.6s ease", boxShadow: `0 0 60px ${signColor.glow}` }}>
 
           <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
             <div style={{ fontSize: "2.5rem" }}>{ZODIAC_SIGNS.find(s => s.name === result.sign)?.symbol}</div>
@@ -595,5 +613,3 @@ function Section({ title, children }) {
     </div>
   );
 }
-
-
