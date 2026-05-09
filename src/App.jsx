@@ -209,6 +209,31 @@ function formatTodayDate() {
   return new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
 }
 
+
+function getMoonPhase() {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  
+  // Calculate moon phase (0-29.5 days cycle)
+  const c = Math.floor((year - 1900) * 12.3685);
+  const e = c + month - 1;
+  const jd = e * 29.5305882 + 2415020.75933 + day;
+  const phase = ((jd - 2451550.1) / 29.5305882) % 1;
+  const normalizedPhase = phase < 0 ? phase + 1 : phase;
+  const dayInCycle = Math.floor(normalizedPhase * 29.5);
+
+  if (dayInCycle === 0) return { name: "New Moon", emoji: "🌑", meaning: "New beginnings. Plant your intentions. The universe is ready to receive your desires.", energy: "Manifestation" };
+  if (dayInCycle <= 6) return { name: "Waxing Crescent", emoji: "🌒", meaning: "Your intentions are taking root. Nurture your dreams with action and faith.", energy: "Growth" };
+  if (dayInCycle === 7) return { name: "First Quarter", emoji: "🌓", meaning: "Face the challenges. Decisions made now shape your destiny. Choose boldly.", energy: "Decision" };
+  if (dayInCycle <= 13) return { name: "Waxing Gibbous", emoji: "🌔", meaning: "Refinement time. Your goals are almost within reach. Adjust and persist.", energy: "Refinement" };
+  if (dayInCycle === 14) return { name: "Full Moon", emoji: "🌕", meaning: "Peak energy. Emotions are heightened. Release what no longer serves your soul.", energy: "Release & Clarity" };
+  if (dayInCycle <= 20) return { name: "Waning Gibbous", emoji: "🌖", meaning: "Time to share your wisdom. Gratitude amplifies your cosmic connection.", energy: "Gratitude" };
+  if (dayInCycle === 21) return { name: "Last Quarter", emoji: "🌗", meaning: "Let go of old patterns. Forgiveness — of self and others — unlocks your next level.", energy: "Release" };
+  return { name: "Waning Crescent", emoji: "🌘", meaning: "Rest. Reflect. Surrender. The universe is preparing something extraordinary for you.", energy: "Rest & Surrender" };
+}
+
 function getZodiacSign(day, month) {
   const d = parseInt(day), m = parseInt(month);
   if ((m === 3 && d >= 21) || (m === 4 && d <= 19)) return "Aries";
@@ -393,6 +418,20 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
             <div style={{ color: "#c9a84c", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.5rem" }}>✦ Cosmic Message — {formatTodayDate()} ✦</div>
             <p style={{ color: "#8a7a9b", fontStyle: "italic", margin: 0, lineHeight: 1.7, fontSize: "0.85rem" }}>"{getCosmicDailyQuote()}"</p>
           </div>
+
+          {/* Moon Phase */}
+          {(() => {
+            const moon = getMoonPhase();
+            return (
+              <div style={{ marginTop: "1rem", background: "rgba(147,51,234,0.06)", border: "1px solid rgba(147,51,234,0.2)", borderRadius: "14px", padding: "1rem 1.2rem", textAlign: "center" }}>
+                <div style={{ color: "#9b72cf", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.4rem" }}>🌙 Moon Phase Today</div>
+                <div style={{ fontSize: "2rem", marginBottom: "0.3rem" }}>{moon.emoji}</div>
+                <div style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "0.95rem", marginBottom: "0.3rem" }}>{moon.name}</div>
+                <div style={{ color: "#9b72cf", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.4rem" }}>Energy: {moon.energy}</div>
+                <p style={{ color: "#8a7a9b", fontStyle: "italic", margin: 0, lineHeight: 1.6, fontSize: "0.82rem" }}>{moon.meaning}</p>
+              </div>
+            );
+          })()}
         </div>
       )}
 
@@ -511,3 +550,4 @@ function Section({ title, children }) {
     </div>
   );
 }
+
