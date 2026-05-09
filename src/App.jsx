@@ -234,6 +234,37 @@ function getMoonPhase() {
   return { name: "Waning Crescent", emoji: "🌘", meaning: "Rest. Reflect. Surrender. The universe is preparing something extraordinary for you.", energy: "Rest & Surrender" };
 }
 
+
+const TAROT_CARDS = [
+  { name: "The Fool", emoji: "🃏", number: "0", meaning: "New beginnings, innocence, spontaneity. A leap of faith awaits you.", energy: "Freedom" },
+  { name: "The Magician", emoji: "🔮", number: "I", meaning: "You have all the tools you need. Willpower and manifestation are your allies today.", energy: "Power" },
+  { name: "The High Priestess", emoji: "🌙", number: "II", meaning: "Trust your intuition. Secrets are being revealed to those who listen in silence.", energy: "Intuition" },
+  { name: "The Empress", emoji: "🌸", number: "III", meaning: "Abundance flows to you. Nurture yourself and watch everything bloom.", energy: "Abundance" },
+  { name: "The Emperor", emoji: "👑", number: "IV", meaning: "Take control. Structure and discipline create the freedom you seek.", energy: "Authority" },
+  { name: "The Hierophant", emoji: "🏛️", number: "V", meaning: "Seek wisdom from tradition or mentors. The answers have been here all along.", energy: "Wisdom" },
+  { name: "The Lovers", emoji: "💞", number: "VI", meaning: "A choice of the heart approaches. Alignment between values and desires is key.", energy: "Union" },
+  { name: "The Chariot", emoji: "⚡", number: "VII", meaning: "Victory through determination. You are unstoppable when you focus your will.", energy: "Victory" },
+  { name: "Strength", emoji: "🦁", number: "VIII", meaning: "Inner strength conquers all. Patience and compassion are more powerful than force.", energy: "Courage" },
+  { name: "The Hermit", emoji: "🕯️", number: "IX", meaning: "Withdraw and reflect. The answers you seek are found within the silence.", energy: "Solitude" },
+  { name: "Wheel of Fortune", emoji: "☸️", number: "X", meaning: "The wheel turns in your favor. Embrace the cycles — what rises must fall and rise again.", energy: "Change" },
+  { name: "Justice", emoji: "⚖️", number: "XI", meaning: "Truth and fairness prevail. What you have sown, you are now ready to reap.", energy: "Balance" },
+  { name: "The Hanged Man", emoji: "🌀", number: "XII", meaning: "Surrender brings clarity. A new perspective reveals what force could not.", energy: "Surrender" },
+  { name: "Death", emoji: "🦋", number: "XIII", meaning: "Transformation is here. Something must end so your truest self can emerge.", energy: "Rebirth" },
+  { name: "Temperance", emoji: "✨", number: "XIV", meaning: "Find your balance. Patience and moderation are creating something extraordinary.", energy: "Harmony" },
+  { name: "The Devil", emoji: "🔗", number: "XV", meaning: "Examine your chains. What binds you also holds the key to your liberation.", energy: "Liberation" },
+  { name: "The Tower", emoji: "⚡", number: "XVI", meaning: "Sudden change breaks old structures. From the rubble, something truer will rise.", energy: "Breakthrough" },
+  { name: "The Star", emoji: "⭐", number: "XVII", meaning: "Hope is restored. After the storm, you are guided by starlight toward your destiny.", energy: "Hope" },
+  { name: "The Moon", emoji: "🌕", number: "XVIII", meaning: "Illusions dissolve in moonlight. Trust your dreams — they carry hidden truths.", energy: "Illusion" },
+  { name: "The Sun", emoji: "☀️", number: "XIX", meaning: "Joy, success and vitality surround you. Today the universe celebrates your existence.", energy: "Joy" },
+  { name: "Judgement", emoji: "🎺", number: "XX", meaning: "A powerful awakening calls you. Rise, answer it, and step into your highest self.", energy: "Awakening" },
+  { name: "The World", emoji: "🌍", number: "XXI", meaning: "Completion and wholeness. You have arrived. Celebrate how far you have come.", energy: "Completion" },
+];
+
+function getDailyTarot() {
+  const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+  return TAROT_CARDS[dayOfYear % TAROT_CARDS.length];
+}
+
 function getZodiacSign(day, month) {
   const d = parseInt(day), m = parseInt(month);
   if ((m === 3 && d >= 21) || (m === 4 && d <= 19)) return "Aries";
@@ -432,6 +463,20 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
               </div>
             );
           })()}
+
+          {/* Daily Tarot */}
+          {(() => {
+            const card = getDailyTarot();
+            return (
+              <div style={{ marginTop: "1rem", background: "rgba(201,168,76,0.04)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: "14px", padding: "1rem 1.2rem", textAlign: "center" }}>
+                <div style={{ color: "#c9a84c", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.4rem" }}>🎴 Tarot Card of the Day</div>
+                <div style={{ fontSize: "2rem", marginBottom: "0.3rem" }}>{card.emoji}</div>
+                <div style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "0.95rem", marginBottom: "0.2rem" }}>{card.number} — {card.name}</div>
+                <div style={{ color: "#9b72cf", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.4rem" }}>Energy: {card.energy}</div>
+                <p style={{ color: "#8a7a9b", fontStyle: "italic", margin: 0, lineHeight: 1.6, fontSize: "0.82rem" }}>{card.meaning}</p>
+              </div>
+            );
+          })()}
         </div>
       )}
 
@@ -550,4 +595,5 @@ function Section({ title, children }) {
     </div>
   );
 }
+
 
