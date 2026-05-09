@@ -45,6 +45,170 @@ const PERSONALITIES = {
   "Pisces": { essence: "You are the boundary between dream and reality. You live in both worlds simultaneously — this is your gift and your burden.", strengths: ["Oceanic empathy — you absorb others' emotions like a sponge", "Dreamlike creativity — you create worlds where others see only empty space", "Spiritual connection — you feel what cannot be seen"], shadows: ["The boundary between you and others often vanishes — and you get lost", "Reality weighs on you — escape is always tempting"], love: "You love with a romantic intensity that can overwhelm. You need someone with their feet on the ground.", fruit: "Mero Mero no Mi (Love) — you touch souls, not bodies. Your power is emotional and absolute.", destiny: "Your greatest work has not yet begun. Wait for the moment — you will recognize it." },
 };
 
+
+const DAILY_QUOTES = {
+  "Aries": [
+    "Your fire cannot be contained. Today, let it illuminate rather than consume.",
+    "The boldest move is always the right one. Trust your instincts.",
+    "You were born to lead. Step forward — the world is waiting.",
+    "Courage is not the absence of fear. It is you, moving anyway.",
+    "Today the universe gives you permission to be unstoppable.",
+    "Your energy is your superpower. Direct it with intention.",
+    "The warrior in you knows no defeat — only lessons.",
+  ],
+  "Taurus": [
+    "Slow and steady does not mean passive. It means purposeful.",
+    "Your roots run deep. No storm can uproot what you have built.",
+    "Beauty surrounds you today. Open your eyes and receive it.",
+    "Patience is not waiting. It is knowing the right moment will come.",
+    "Your loyalty is your greatest gift. Give it only to those who deserve it.",
+    "The earth beneath your feet is yours. Stand firm.",
+    "Today, trust the process. Your season is coming.",
+  ],
+  "Gemini": [
+    "Your mind is a universe. Today, explore its furthest edges.",
+    "Two paths appear before you. You are wise enough to walk both.",
+    "Words are your magic. Choose them like spells.",
+    "Curiosity is not a weakness — it is your greatest strength.",
+    "Today your duality is your power, not your paradox.",
+    "The conversation you need most may be with yourself.",
+    "Your adaptability is a gift the world rarely understands.",
+  ],
+  "Cancer": [
+    "Your sensitivity is not fragility. It is your greatest intelligence.",
+    "Home is not a place. It is the feeling you create wherever you go.",
+    "Today, protect your energy as fiercely as you protect those you love.",
+    "The moon guides you. Trust the tides of your emotions.",
+    "Your intuition is speaking. Be still enough to hear it.",
+    "You do not need to carry everyone. Put yourself down first.",
+    "Vulnerability is not weakness. It is the highest form of courage.",
+  ],
+  "Leo": [
+    "You were born to shine. Today, do not dim yourself for anyone.",
+    "The spotlight finds you because you deserve it. Own it.",
+    "Your heart is your compass. Let it lead today.",
+    "Generosity flows through you naturally. Give freely.",
+    "A lion does not lose sleep over the opinions of sheep.",
+    "Today your presence alone is enough to change the room.",
+    "Roar quietly. The most powerful lions rarely need to.",
+  ],
+  "Virgo": [
+    "Perfection is a direction, not a destination. Keep moving.",
+    "Your attention to detail today will create tomorrow's masterpiece.",
+    "Not everything broken needs fixing. Some things need releasing.",
+    "Your mind is your greatest tool. Sharpen it with rest today.",
+    "Service to others is sacred. But service to yourself comes first.",
+    "The details you notice are the ones others will thank you for later.",
+    "Progress, not perfection. You are exactly where you need to be.",
+  ],
+  "Libra": [
+    "Balance is not stillness. It is constant, graceful adjustment.",
+    "Your sense of justice is a gift to a world that has forgotten fairness.",
+    "Beauty is not superficial when you create it — it is intentional.",
+    "Today, make the decision you have been avoiding. Trust your scales.",
+    "Harmony begins within. Find your center before seeking it outside.",
+    "Your diplomacy today will open doors others cannot even see.",
+    "Indecision is also a choice. Choose yourself first.",
+  ],
+  "Scorpio": [
+    "What others fear to face, you walk toward. This is your power.",
+    "Transformation is not loss. It is evolution in disguise.",
+    "Your silence speaks volumes. Today, let it say what needs saying.",
+    "The depth you carry is not a burden — it is a treasure.",
+    "Trust is earned in drops and lost in floods. Guard yours wisely.",
+    "You see through illusions effortlessly. Trust what you perceive.",
+    "From the ashes of who you were, your truest self emerges.",
+  ],
+  "Sagittarius": [
+    "The horizon is not a limit. It is an invitation.",
+    "Your optimism is not naivety — it is a revolutionary act.",
+    "Today, follow the question that excites you most.",
+    "Freedom is not found. It is created, daily, by your choices.",
+    "Your arrow flies truest when you release without hesitation.",
+    "Adventure does not always mean distance. Sometimes it means depth.",
+    "The truth you speak today may be the one someone needed to hear.",
+  ],
+  "Capricorn": [
+    "Every step forward, no matter how small, is still a step forward.",
+    "Your discipline today is building the life you will live tomorrow.",
+    "Rest is not failure. It is strategy.",
+    "You do not climb mountains for others to see. You climb them for yourself.",
+    "Legacy is built one quiet, consistent day at a time.",
+    "The summit is closer than it appears. Keep going.",
+    "Your ambition is not cold. It is focused love for your future self.",
+  ],
+  "Aquarius": [
+    "The future you imagine is closer than the world believes.",
+    "Your difference is your contribution. Never apologize for it.",
+    "Today, the idea that sounds impossible is the one worth pursuing.",
+    "You are not ahead of your time. Your time is simply arriving.",
+    "Revolution begins with a single mind willing to think differently.",
+    "Your detachment is not coldness. It is clarity.",
+    "The world needs your vision more than your conformity.",
+  ],
+  "Pisces": [
+    "Your dreams are not escapes. They are blueprints.",
+    "The boundary between you and the universe is thinner than you think.",
+    "Today, your empathy is your compass. Follow it wisely.",
+    "What you feel, others cannot yet name. You are ahead of the emotion.",
+    "Your creativity is not a hobby. It is your highest calling.",
+    "The ocean within you is deeper than anyone has yet explored.",
+    "Trust the invisible currents. They are always guiding you home.",
+  ],
+};
+
+function getDailyQuote(sign) {
+  const quotes = DAILY_QUOTES[sign];
+  if (!quotes) return "";
+  const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+  return quotes[dayOfYear % quotes.length];
+}
+
+
+
+const COSMIC_DAILY_QUOTES = [
+  "The universe conspires in favor of those who dare to dream.",
+  "Every star in the sky was once just a wish someone made in the dark.",
+  "You are made of stardust and ancient light. Act accordingly.",
+  "The cosmos does not rush, yet everything is accomplished.",
+  "What you seek is also seeking you.",
+  "Trust the timing of your life. The stars are never wrong.",
+  "Your soul chose this exact moment to exist. That is not an accident.",
+  "The moon does not apologize for its phases. Neither should you.",
+  "Energy flows where intention goes. Direct yours wisely today.",
+  "Even the darkest night will end, and the stars will shine again.",
+  "You are the universe experiencing itself. Make it beautiful.",
+  "Alignment is not found. It is created, one conscious choice at a time.",
+  "The planets have been waiting for this version of you.",
+  "Silence is the language the cosmos speaks most fluently.",
+  "Your light does not dim others. It shows them where to find their own.",
+  "Every ending in your life is a star being born somewhere else.",
+  "The answers you seek are already written in the sky above you.",
+  "Breathe. The universe has been here before. It knows the way.",
+  "You do not need to understand the storm to dance in the rain.",
+  "What is meant for you will find you, even in the dark.",
+  "The greatest telescope is turned inward.",
+  "A single shift in perspective can change your entire constellation.",
+  "You are not lost. You are exploring.",
+  "The cosmos rewards those who show up, even imperfectly.",
+  "Your story is still being written by the stars.",
+  "Let the universe surprise you today.",
+  "Some things cannot be rushed — growth, tides, and destiny.",
+  "The space between the stars is not empty. It is full of potential.",
+  "Today is a page in a story greater than you can yet imagine.",
+  "You carry entire galaxies within you. Do not forget that.",
+  "The stars do not compete. They simply shine.",
+];
+
+function getCosmicDailyQuote() {
+  const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+  return COSMIC_DAILY_QUOTES[dayOfYear % COSMIC_DAILY_QUOTES.length];
+}
+
+function formatTodayDate() {
+  return new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+}
+
 function getZodiacSign(day, month) {
   const d = parseInt(day), m = parseInt(month);
   if ((m === 3 && d >= 21) || (m === 4 && d <= 19)) return "Aries";
@@ -187,6 +351,8 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
         <p style={{ color: "#6b5c7a", fontStyle: "italic", margin: 0, fontSize: "0.9rem" }}>Unveil the secrets of your soul through the stars</p>
       </div>
 
+
+
       {/* FORM */}
       {step === "form" && (
         <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,168,76,0.2)", borderRadius: "20px", padding: "2rem", width: "100%", maxWidth: "460px", backdropFilter: "blur(10px)", position: "relative", zIndex: 1, animation: "fadeIn 0.5s ease" }}>
@@ -221,6 +387,12 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
           <button onClick={analyze} style={{ width: "100%", padding: "1rem", background: "linear-gradient(135deg, #c9a84c, #8b6914)", border: "none", borderRadius: "12px", color: "#0d0a1a", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "1rem", letterSpacing: "0.12em", cursor: "pointer", textTransform: "uppercase", boxShadow: "0 0 25px rgba(201,168,76,0.25)" }}>
             ✦ Reveal My Destiny ✦
           </button>
+
+          {/* Cosmic Daily Quote */}
+          <div style={{ marginTop: "1.5rem", borderTop: "1px solid rgba(201,168,76,0.12)", paddingTop: "1.2rem", textAlign: "center" }}>
+            <div style={{ color: "#c9a84c", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.5rem" }}>✦ Cosmic Message — {formatTodayDate()} ✦</div>
+            <p style={{ color: "#8a7a9b", fontStyle: "italic", margin: 0, lineHeight: 1.7, fontSize: "0.85rem" }}>"{getCosmicDailyQuote()}"</p>
+          </div>
         </div>
       )}
 
