@@ -412,11 +412,17 @@ function generateCosmicCard({ result, form, partnerSign, compatScore, compatText
   return canvas;
 }
 
-// ── STRIPE PAYMENT ──────────────────────────────────────────────────────────
-async function openStripePayment({ amount, description, onSuccess }) {
-  // Test mode simulation — replace with real backend PaymentIntent in production
-  const confirmed = window.confirm(`🔮 ${description}\n\nAmount: €${(amount / 100).toFixed(2)}\n\n(Test mode — click OK to simulate payment)`);
-  if (confirmed) setTimeout(() => onSuccess(), 300);
+// ── STRIPE PAYMENT LINKS ─────────────────────────────────────────────────────
+const STRIPE_ANNUAL_LINK = "https://buy.stripe.com/7sYcN7csM1tBfTq1h7f3a01"; // Annual Destiny €2.99
+const STRIPE_GIFT_LINK   = "https://buy.stripe.com/9B6eVf1O84FNcHe8Jzf3a02"; // Gift a Reading €1.99
+
+function openStripePayment({ type, onSuccess }) {
+  const link = type === "annual" ? STRIPE_ANNUAL_LINK : STRIPE_GIFT_LINK;
+  // Open Stripe checkout in a new tab
+  window.open(link, "_blank");
+  // After user returns / confirms payment, unlock content
+  const confirmed = window.confirm("✅ Did you complete the payment? Click OK to unlock your content.");
+  if (confirmed) onSuccess();
 }
 
 const stars = Array.from({ length: 80 }, (_, i) => ({ id: i, top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%`, size: Math.random() * 2 + 1, opacity: Math.random() * 0.6 + 0.2 }));
@@ -431,14 +437,11 @@ function AnnualDestinyModal({ result, onClose }) {
   const destiny = ANNUAL_DESTINY[result.sign];
   const signColor = SIGN_COLORS[result.sign] || { primary: "#c9a84c", glow: "rgba(201,168,76,0.12)", border: "rgba(201,168,76,0.2)" };
 
-  const handlePay = async () => {
-    setPaying(true);
-    await openStripePayment({
-      amount: 299,
-      description: `Annual Cosmic Destiny 2026 — ${result.sign}`,
+  const handlePay = () => {
+    openStripePayment({
+      type: "annual",
       onSuccess: () => { setUnlocked(true); setPaying(false); }
     });
-    setPaying(false);
   };
 
   return (
@@ -500,12 +503,10 @@ function GiftReadingModal({ onClose }) {
   const [giftResult, setGiftResult] = useState(null);
   const [copied, setCopied] = useState(false);
 
-  const handlePay = async () => {
+  const handlePay = () => {
     if (!giftForm.name || !giftForm.day || !giftForm.month || !giftForm.year || !giftForm.hour || !giftForm.minute) { alert("Please fill in all fields!"); return; }
-    setPaying(true);
-    await openStripePayment({
-      amount: 199,
-      description: `Cosmic Reading Gift for ${giftForm.name}`,
+    openStripePayment({
+      type: "gift",
       onSuccess: () => {
         const sign = getZodiacSign(giftForm.day, giftForm.month);
         const p = PERSONALITIES[sign] || {};
@@ -514,7 +515,6 @@ function GiftReadingModal({ onClose }) {
         setUnlocked(true); setPaying(false);
       }
     });
-    setPaying(false);
   };
 
   const handleCopyGift = () => {
