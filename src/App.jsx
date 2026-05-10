@@ -1,4 +1,4 @@
-import { useState } from "react";
+    import { useState, useRef } from "react";
 
 const ZODIAC_SIGNS = [
   { name: "Aries", symbol: "♈", dates: "Mar 21 - Apr 19", element: "Fire" },
@@ -47,114 +47,18 @@ const PERSONALITIES = {
 
 
 const DAILY_QUOTES = {
-  "Aries": [
-    "Your fire cannot be contained. Today, let it illuminate rather than consume.",
-    "The boldest move is always the right one. Trust your instincts.",
-    "You were born to lead. Step forward — the world is waiting.",
-    "Courage is not the absence of fear. It is you, moving anyway.",
-    "Today the universe gives you permission to be unstoppable.",
-    "Your energy is your superpower. Direct it with intention.",
-    "The warrior in you knows no defeat — only lessons.",
-  ],
-  "Taurus": [
-    "Slow and steady does not mean passive. It means purposeful.",
-    "Your roots run deep. No storm can uproot what you have built.",
-    "Beauty surrounds you today. Open your eyes and receive it.",
-    "Patience is not waiting. It is knowing the right moment will come.",
-    "Your loyalty is your greatest gift. Give it only to those who deserve it.",
-    "The earth beneath your feet is yours. Stand firm.",
-    "Today, trust the process. Your season is coming.",
-  ],
-  "Gemini": [
-    "Your mind is a universe. Today, explore its furthest edges.",
-    "Two paths appear before you. You are wise enough to walk both.",
-    "Words are your magic. Choose them like spells.",
-    "Curiosity is not a weakness — it is your greatest strength.",
-    "Today your duality is your power, not your paradox.",
-    "The conversation you need most may be with yourself.",
-    "Your adaptability is a gift the world rarely understands.",
-  ],
-  "Cancer": [
-    "Your sensitivity is not fragility. It is your greatest intelligence.",
-    "Home is not a place. It is the feeling you create wherever you go.",
-    "Today, protect your energy as fiercely as you protect those you love.",
-    "The moon guides you. Trust the tides of your emotions.",
-    "Your intuition is speaking. Be still enough to hear it.",
-    "You do not need to carry everyone. Put yourself down first.",
-    "Vulnerability is not weakness. It is the highest form of courage.",
-  ],
-  "Leo": [
-    "You were born to shine. Today, do not dim yourself for anyone.",
-    "The spotlight finds you because you deserve it. Own it.",
-    "Your heart is your compass. Let it lead today.",
-    "Generosity flows through you naturally. Give freely.",
-    "A lion does not lose sleep over the opinions of sheep.",
-    "Today your presence alone is enough to change the room.",
-    "Roar quietly. The most powerful lions rarely need to.",
-  ],
-  "Virgo": [
-    "Perfection is a direction, not a destination. Keep moving.",
-    "Your attention to detail today will create tomorrow's masterpiece.",
-    "Not everything broken needs fixing. Some things need releasing.",
-    "Your mind is your greatest tool. Sharpen it with rest today.",
-    "Service to others is sacred. But service to yourself comes first.",
-    "The details you notice are the ones others will thank you for later.",
-    "Progress, not perfection. You are exactly where you need to be.",
-  ],
-  "Libra": [
-    "Balance is not stillness. It is constant, graceful adjustment.",
-    "Your sense of justice is a gift to a world that has forgotten fairness.",
-    "Beauty is not superficial when you create it — it is intentional.",
-    "Today, make the decision you have been avoiding. Trust your scales.",
-    "Harmony begins within. Find your center before seeking it outside.",
-    "Your diplomacy today will open doors others cannot even see.",
-    "Indecision is also a choice. Choose yourself first.",
-  ],
-  "Scorpio": [
-    "What others fear to face, you walk toward. This is your power.",
-    "Transformation is not loss. It is evolution in disguise.",
-    "Your silence speaks volumes. Today, let it say what needs saying.",
-    "The depth you carry is not a burden — it is a treasure.",
-    "Trust is earned in drops and lost in floods. Guard yours wisely.",
-    "You see through illusions effortlessly. Trust what you perceive.",
-    "From the ashes of who you were, your truest self emerges.",
-  ],
-  "Sagittarius": [
-    "The horizon is not a limit. It is an invitation.",
-    "Your optimism is not naivety — it is a revolutionary act.",
-    "Today, follow the question that excites you most.",
-    "Freedom is not found. It is created, daily, by your choices.",
-    "Your arrow flies truest when you release without hesitation.",
-    "Adventure does not always mean distance. Sometimes it means depth.",
-    "The truth you speak today may be the one someone needed to hear.",
-  ],
-  "Capricorn": [
-    "Every step forward, no matter how small, is still a step forward.",
-    "Your discipline today is building the life you will live tomorrow.",
-    "Rest is not failure. It is strategy.",
-    "You do not climb mountains for others to see. You climb them for yourself.",
-    "Legacy is built one quiet, consistent day at a time.",
-    "The summit is closer than it appears. Keep going.",
-    "Your ambition is not cold. It is focused love for your future self.",
-  ],
-  "Aquarius": [
-    "The future you imagine is closer than the world believes.",
-    "Your difference is your contribution. Never apologize for it.",
-    "Today, the idea that sounds impossible is the one worth pursuing.",
-    "You are not ahead of your time. Your time is simply arriving.",
-    "Revolution begins with a single mind willing to think differently.",
-    "Your detachment is not coldness. It is clarity.",
-    "The world needs your vision more than your conformity.",
-  ],
-  "Pisces": [
-    "Your dreams are not escapes. They are blueprints.",
-    "The boundary between you and the universe is thinner than you think.",
-    "Today, your empathy is your compass. Follow it wisely.",
-    "What you feel, others cannot yet name. You are ahead of the emotion.",
-    "Your creativity is not a hobby. It is your highest calling.",
-    "The ocean within you is deeper than anyone has yet explored.",
-    "Trust the invisible currents. They are always guiding you home.",
-  ],
+  "Aries": ["Your fire cannot be contained. Today, let it illuminate rather than consume.","The boldest move is always the right one. Trust your instincts.","You were born to lead. Step forward — the world is waiting.","Courage is not the absence of fear. It is you, moving anyway.","Today the universe gives you permission to be unstoppable.","Your energy is your superpower. Direct it with intention.","The warrior in you knows no defeat — only lessons."],
+  "Taurus": ["Slow and steady does not mean passive. It means purposeful.","Your roots run deep. No storm can uproot what you have built.","Beauty surrounds you today. Open your eyes and receive it.","Patience is not waiting. It is knowing the right moment will come.","Your loyalty is your greatest gift. Give it only to those who deserve it.","The earth beneath your feet is yours. Stand firm.","Today, trust the process. Your season is coming."],
+  "Gemini": ["Your mind is a universe. Today, explore its furthest edges.","Two paths appear before you. You are wise enough to walk both.","Words are your magic. Choose them like spells.","Curiosity is not a weakness — it is your greatest strength.","Today your duality is your power, not your paradox.","The conversation you need most may be with yourself.","Your adaptability is a gift the world rarely understands."],
+  "Cancer": ["Your sensitivity is not fragility. It is your greatest intelligence.","Home is not a place. It is the feeling you create wherever you go.","Today, protect your energy as fiercely as you protect those you love.","The moon guides you. Trust the tides of your emotions.","Your intuition is speaking. Be still enough to hear it.","You do not need to carry everyone. Put yourself down first.","Vulnerability is not weakness. It is the highest form of courage."],
+  "Leo": ["You were born to shine. Today, do not dim yourself for anyone.","The spotlight finds you because you deserve it. Own it.","Your heart is your compass. Let it lead today.","Generosity flows through you naturally. Give freely.","A lion does not lose sleep over the opinions of sheep.","Today your presence alone is enough to change the room.","Roar quietly. The most powerful lions rarely need to."],
+  "Virgo": ["Perfection is a direction, not a destination. Keep moving.","Your attention to detail today will create tomorrow's masterpiece.","Not everything broken needs fixing. Some things need releasing.","Your mind is your greatest tool. Sharpen it with rest today.","Service to others is sacred. But service to yourself comes first.","The details you notice are the ones others will thank you for later.","Progress, not perfection. You are exactly where you need to be."],
+  "Libra": ["Balance is not stillness. It is constant, graceful adjustment.","Your sense of justice is a gift to a world that has forgotten fairness.","Beauty is not superficial when you create it — it is intentional.","Today, make the decision you have been avoiding. Trust your scales.","Harmony begins within. Find your center before seeking it outside.","Your diplomacy today will open doors others cannot even see.","Indecision is also a choice. Choose yourself first."],
+  "Scorpio": ["What others fear to face, you walk toward. This is your power.","Transformation is not loss. It is evolution in disguise.","Your silence speaks volumes. Today, let it say what needs saying.","The depth you carry is not a burden — it is a treasure.","Trust is earned in drops and lost in floods. Guard yours wisely.","You see through illusions effortlessly. Trust what you perceive.","From the ashes of who you were, your truest self emerges."],
+  "Sagittarius": ["The horizon is not a limit. It is an invitation.","Your optimism is not naivety — it is a revolutionary act.","Today, follow the question that excites you most.","Freedom is not found. It is created, daily, by your choices.","Your arrow flies truest when you release without hesitation.","Adventure does not always mean distance. Sometimes it means depth.","The truth you speak today may be the one someone needed to hear."],
+  "Capricorn": ["Every step forward, no matter how small, is still a step forward.","Your discipline today is building the life you will live tomorrow.","Rest is not failure. It is strategy.","You do not climb mountains for others to see. You climb them for yourself.","Legacy is built one quiet, consistent day at a time.","The summit is closer than it appears. Keep going.","Your ambition is not cold. It is focused love for your future self."],
+  "Aquarius": ["The future you imagine is closer than the world believes.","Your difference is your contribution. Never apologize for it.","Today, the idea that sounds impossible is the one worth pursuing.","You are not ahead of your time. Your time is simply arriving.","Revolution begins with a single mind willing to think differently.","Your detachment is not coldness. It is clarity.","The world needs your vision more than your conformity."],
+  "Pisces": ["Your dreams are not escapes. They are blueprints.","The boundary between you and the universe is thinner than you think.","Today, your empathy is your compass. Follow it wisely.","What you feel, others cannot yet name. You are ahead of the emotion.","Your creativity is not a hobby. It is your highest calling.","The ocean within you is deeper than anyone has yet explored.","Trust the invisible currents. They are always guiding you home."],
 };
 
 function getDailyQuote(sign) {
@@ -163,8 +67,6 @@ function getDailyQuote(sign) {
   const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
   return quotes[dayOfYear % quotes.length];
 }
-
-
 
 const COSMIC_DAILY_QUOTES = [
   "The universe conspires in favor of those who dare to dream.",
@@ -209,21 +111,17 @@ function formatTodayDate() {
   return new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
 }
 
-
 function getMoonPhase() {
   const date = new Date();
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
-  
-  // Calculate moon phase (0-29.5 days cycle)
   const c = Math.floor((year - 1900) * 12.3685);
   const e = c + month - 1;
   const jd = e * 29.5305882 + 2415020.75933 + day;
   const phase = ((jd - 2451550.1) / 29.5305882) % 1;
   const normalizedPhase = phase < 0 ? phase + 1 : phase;
   const dayInCycle = Math.floor(normalizedPhase * 29.5);
-
   if (dayInCycle === 0) return { name: "New Moon", emoji: "🌑", meaning: "New beginnings. Plant your intentions. The universe is ready to receive your desires.", energy: "Manifestation" };
   if (dayInCycle <= 6) return { name: "Waxing Crescent", emoji: "🌒", meaning: "Your intentions are taking root. Nurture your dreams with action and faith.", energy: "Growth" };
   if (dayInCycle === 7) return { name: "First Quarter", emoji: "🌓", meaning: "Face the challenges. Decisions made now shape your destiny. Choose boldly.", energy: "Decision" };
@@ -233,7 +131,6 @@ function getMoonPhase() {
   if (dayInCycle === 21) return { name: "Last Quarter", emoji: "🌗", meaning: "Let go of old patterns. Forgiveness — of self and others — unlocks your next level.", energy: "Release" };
   return { name: "Waning Crescent", emoji: "🌘", meaning: "Rest. Reflect. Surrender. The universe is preparing something extraordinary for you.", energy: "Rest & Surrender" };
 }
-
 
 const TAROT_CARDS = [
   { name: "The Fool", emoji: "🃏", number: "0", meaning: "New beginnings, innocence, spontaneity. A leap of faith awaits you.", energy: "Freedom" },
@@ -265,7 +162,6 @@ function getDailyTarot() {
   return TAROT_CARDS[dayOfYear % TAROT_CARDS.length];
 }
 
-
 const SIGN_COLORS = {
   "Aries":       { primary: "#e63946", glow: "rgba(230,57,70,0.15)", border: "rgba(230,57,70,0.3)" },
   "Taurus":      { primary: "#2d6a4f", glow: "rgba(45,106,79,0.15)", border: "rgba(45,106,79,0.3)" },
@@ -281,40 +177,40 @@ const SIGN_COLORS = {
   "Pisces":      { primary: "#48cae4", glow: "rgba(72,202,228,0.15)", border: "rgba(72,202,228,0.3)" },
 };
 
-
 const TRANSLATIONS = {
   en: {
     flag: "🇬🇧", label: "EN",
     subtitle: "Unveil the secrets of your soul through the stars",
-    enterData: "{t.enterData}",
+    enterData: "Enter your cosmic data",
     dateOfBirth: "Date of Birth",
     timeOfBirth: "Time of Birth",
     hour: "Hour (0-23)", minute: "Minutes",
-    reveal: "{t.reveal}",
+    reveal: "✦ Reveal My Destiny ✦",
     cosmicMessage: "Cosmic Message",
-    moonPhase: "{t.moonPhase}",
-    tarotCard: "{t.tarotCard}",
+    moonPhase: "Moon Phase Today",
+    tarotCard: "Tarot Card of the Day",
     energy: "Energy",
-    newReading: "{t.newReading}",
+    newReading: "✦ New Reading ✦",
     rising: "Rising",
     bornOn: "Born",
     at: "at",
-    tabs: { personality: {t.tabs.personality}, compatibility: {t.tabs.compatibility}, share: {t.tabs.share} },
-    sections: { essence: {t.sections.essence}, powers: {t.sections.powers}, shadows: {t.sections.shadows}, love: {t.sections.love}, fruit: {t.sections.fruit}, destiny: {t.sections.destiny} },
-    choosePartner: "{t.choosePartner}",
-    selectSign: "{t.selectSign}",
+    tabs: { personality: "🌟 Personality", compatibility: "💞 Compatibility", share: "📤 Share" },
+    sections: { essence: "🌟 COSMIC ESSENCE", powers: "⚡ HIDDEN POWERS", shadows: "🌑 SHADOWS OF THE SOUL", love: "❤️ LOVE & RELATIONSHIPS", fruit: "🏴‍☠️ YOUR DEVIL FRUIT", destiny: "🔮 DESTINY" },
+    choosePartner: "Choose your partner's sign",
+    selectSign: "— Select sign —",
     compatibility: "Compatibility",
     labels: { soulmate: "Soulmate 💫", great: "Great chemistry 🌟", good: "Good match ✨", challenge: "Stimulating challenge ⚡", opposite: "Extreme opposites 🔥" },
-    shareTitle: "{t.shareTitle}",
-    preview: {t.preview},
-    copyBtn: "{t.copyBtn}",
-    copied: "{t.copied}",
-    support: "{t.support}",
-    supportText: "{t.supportText}",
-    coffeeBtn: "{t.coffeeBtn}",
+    shareTitle: "Copy your cosmic reading and share it with the world",
+    preview: "Preview:",
+    copyBtn: "📋 Copy Cosmic Reading",
+    copied: "✓ Copied to clipboard!",
+    downloadBtn: "🖼️ Download Cosmic Card",
+    support: "☕ SUPPORT THE ORACLE",
+    supportText: "If the stars spoke to you, consider buying me a coffee",
+    coffeeBtn: "☕ Buy me a coffee",
     fillFields: "Please fill in all fields!",
-    loading1: "{t.loading1}",
-    loading2: "{t.loading2}",
+    loading1: "The stars are speaking...",
+    loading2: "The oracle is reading your soul",
     with: "With",
     include: "Includes compatibility with",
   },
@@ -344,6 +240,7 @@ const TRANSLATIONS = {
     preview: "Anteprima:",
     copyBtn: "📋 Copia Lettura Cosmica",
     copied: "✓ Copiato negli appunti!",
+    downloadBtn: "🖼️ Scarica Cosmic Card",
     support: "☕ SUPPORTA L'ORACOLO",
     supportText: "Se le stelle ti hanno parlato, offri un caffè",
     coffeeBtn: "☕ Offrimi un caffè",
@@ -379,6 +276,7 @@ const TRANSLATIONS = {
     preview: "Vista previa:",
     copyBtn: "📋 Copiar Lectura Cósmica",
     copied: "✓ ¡Copiado al portapapeles!",
+    downloadBtn: "🖼️ Descargar Cosmic Card",
     support: "☕ APOYA EL ORÁCULO",
     supportText: "Si las estrellas te hablaron, considera invitarme un café",
     coffeeBtn: "☕ Invítame un café",
@@ -414,6 +312,7 @@ const TRANSLATIONS = {
     preview: "Aperçu:",
     copyBtn: "📋 Copier la Lecture Cosmique",
     copied: "✓ Copié dans le presse-papiers!",
+    downloadBtn: "🖼️ Télécharger la Cosmic Card",
     support: "☕ SOUTENEZ L'ORACLE",
     supportText: "Si les étoiles vous ont parlé, offrez-moi un café",
     coffeeBtn: "☕ Offrez-moi un café",
@@ -463,6 +362,217 @@ function ScoreBar({ score }) {
       <div style={{ width: `${score}%`, background: `linear-gradient(90deg, ${color}, ${color}cc)`, height: "100%", borderRadius: "999px", transition: "width 1s ease", boxShadow: `0 0 8px ${color}66` }} />
     </div>
   );
+}
+
+// ── COSMIC CARD GENERATOR ──────────────────────────────────────────────────
+function generateCosmicCard({ result, form, partnerSign, compatScore, compatText, signColor, signSymbol }) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 1080;
+  canvas.height = 1080;
+  const ctx = canvas.getContext("2d");
+
+  // Background
+  const bgGrad = ctx.createRadialGradient(540, 300, 0, 540, 300, 900);
+  bgGrad.addColorStop(0, "#110d22");
+  bgGrad.addColorStop(0.5, "#090614");
+  bgGrad.addColorStop(1, "#050308");
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0, 0, 1080, 1080);
+
+  // Stars
+  ctx.save();
+  for (let i = 0; i < 180; i++) {
+    const x = Math.random() * 1080;
+    const y = Math.random() * 1080;
+    const r = Math.random() * 1.8 + 0.3;
+    const alpha = Math.random() * 0.7 + 0.15;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+    ctx.fill();
+  }
+  ctx.restore();
+
+  // Glow circle behind symbol
+  const glowGrad = ctx.createRadialGradient(540, 340, 0, 540, 340, 260);
+  glowGrad.addColorStop(0, signColor.glow.replace("0.15", "0.35"));
+  glowGrad.addColorStop(1, "transparent");
+  ctx.fillStyle = glowGrad;
+  ctx.fillRect(0, 0, 1080, 1080);
+
+  // Decorative top border line
+  ctx.save();
+  const topLine = ctx.createLinearGradient(100, 0, 980, 0);
+  topLine.addColorStop(0, "transparent");
+  topLine.addColorStop(0.5, "#c9a84c");
+  topLine.addColorStop(1, "transparent");
+  ctx.strokeStyle = topLine;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(100, 55);
+  ctx.lineTo(980, 55);
+  ctx.stroke();
+  ctx.restore();
+
+  // Header: COSMIC ORACLE
+  ctx.save();
+  ctx.font = "bold 52px Georgia, serif";
+  ctx.textAlign = "center";
+  const headerGrad = ctx.createLinearGradient(340, 0, 740, 0);
+  headerGrad.addColorStop(0, "#c9a84c");
+  headerGrad.addColorStop(0.5, "#f0d080");
+  headerGrad.addColorStop(1, "#c9a84c");
+  ctx.fillStyle = headerGrad;
+  ctx.letterSpacing = "8px";
+  ctx.fillText("✦ COSMIC ORACLE ✦", 540, 110);
+  ctx.restore();
+
+  // Zodiac symbol (big)
+  ctx.save();
+  ctx.font = "130px Georgia, serif";
+  ctx.textAlign = "center";
+  ctx.fillStyle = signColor.primary;
+  ctx.shadowColor = signColor.primary;
+  ctx.shadowBlur = 40;
+  ctx.fillText(signSymbol, 540, 280);
+  ctx.restore();
+
+  // Sign name
+  ctx.save();
+  ctx.font = "bold 68px Georgia, serif";
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#c9a84c";
+  ctx.shadowColor = "rgba(201,168,76,0.5)";
+  ctx.shadowBlur = 20;
+  ctx.fillText(result.sign.toUpperCase(), 540, 360);
+  ctx.restore();
+
+  // Rising / born info
+  ctx.save();
+  ctx.font = "24px Georgia, serif";
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#6b5c7a";
+  ctx.fillText(`Rising ${result.ascendant}  •  Born ${form.day}/${form.month}/${form.year}`, 540, 400);
+  ctx.restore();
+
+  // Divider
+  ctx.save();
+  const divGrad = ctx.createLinearGradient(180, 0, 900, 0);
+  divGrad.addColorStop(0, "transparent");
+  divGrad.addColorStop(0.5, "rgba(201,168,76,0.4)");
+  divGrad.addColorStop(1, "transparent");
+  ctx.strokeStyle = divGrad;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(180, 430);
+  ctx.lineTo(900, 430);
+  ctx.stroke();
+  ctx.restore();
+
+  // Essence text (wrapped)
+  ctx.save();
+  ctx.font = "italic 26px Georgia, serif";
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#c8b89a";
+  const essenceWords = result.essence.split(" ");
+  let line = "";
+  let y = 480;
+  const maxWidth = 800;
+  for (let i = 0; i < essenceWords.length; i++) {
+    const testLine = line + essenceWords[i] + " ";
+    if (ctx.measureText(testLine).width > maxWidth && i > 0) {
+      ctx.fillText(line.trim(), 540, y);
+      line = essenceWords[i] + " ";
+      y += 38;
+    } else {
+      line = testLine;
+    }
+  }
+  ctx.fillText(line.trim(), 540, y);
+  ctx.restore();
+
+  // Devil fruit section
+  const fruitY = y + 60;
+  ctx.save();
+  ctx.font = "bold 20px Georgia, serif";
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#c9a84c";
+  ctx.fillText("🏴‍☠️  YOUR DEVIL FRUIT", 540, fruitY);
+  ctx.restore();
+
+  ctx.save();
+  ctx.font = "italic 22px Georgia, serif";
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#8a7a9b";
+  // wrap fruit text
+  const fruitWords = result.fruit.split(" ");
+  let fLine = "";
+  let fy = fruitY + 36;
+  for (let i = 0; i < fruitWords.length; i++) {
+    const testLine = fLine + fruitWords[i] + " ";
+    if (ctx.measureText(testLine).width > 820 && i > 0) {
+      ctx.fillText(fLine.trim(), 540, fy);
+      fLine = fruitWords[i] + " ";
+      fy += 32;
+    } else {
+      fLine = testLine;
+    }
+  }
+  ctx.fillText(fLine.trim(), 540, fy);
+  ctx.restore();
+
+  // Compatibility block (if available)
+  if (partnerSign && compatScore !== null) {
+    const compatY = fy + 60;
+    // Background pill
+    ctx.save();
+    ctx.beginPath();
+    ctx.roundRect(190, compatY - 32, 700, 110, 16);
+    ctx.fillStyle = "rgba(201,168,76,0.07)";
+    ctx.strokeStyle = "rgba(201,168,76,0.25)";
+    ctx.lineWidth = 1;
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.save();
+    ctx.font = "bold 22px Georgia, serif";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#c9a84c";
+    ctx.fillText(`💞  ${result.sign} & ${partnerSign} — ${compatScore}% compatibility`, 540, compatY + 5);
+    ctx.restore();
+
+    ctx.save();
+    ctx.font = "italic 21px Georgia, serif";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#8a7a9b";
+    ctx.fillText(compatText, 540, compatY + 42);
+    ctx.restore();
+  }
+
+  // Bottom divider
+  ctx.save();
+  const botDiv = ctx.createLinearGradient(180, 0, 900, 0);
+  botDiv.addColorStop(0, "transparent");
+  botDiv.addColorStop(0.5, "rgba(201,168,76,0.3)");
+  botDiv.addColorStop(1, "transparent");
+  ctx.strokeStyle = botDiv;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(180, 1020);
+  ctx.lineTo(900, 1020);
+  ctx.stroke();
+  ctx.restore();
+
+  // Footer URL
+  ctx.save();
+  ctx.font = "22px Georgia, serif";
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#4a3a5a";
+  ctx.fillText("cosmicoracleapp.com", 540, 1055);
+  ctx.restore();
+
+  return canvas;
 }
 
 const stars = Array.from({ length: 80 }, (_, i) => ({ id: i, top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%`, size: Math.random() * 2 + 1, opacity: Math.random() * 0.6 + 0.2 }));
@@ -540,6 +650,28 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
     });
   };
 
+  const handleDownloadCard = () => {
+    if (!result) return;
+    const compat = partnerSign ? COMPATIBILITY[result.sign]?.[partnerSign] : null;
+    const signSymbol = ZODIAC_SIGNS.find(s => s.name === result.sign)?.symbol || "";
+    const signColor = SIGN_COLORS[result.sign] || { primary: "#c9a84c", glow: "rgba(201,168,76,0.15)", border: "rgba(201,168,76,0.3)" };
+
+    const canvas = generateCosmicCard({
+      result,
+      form,
+      partnerSign,
+      compatScore: compat ? compat[0] : null,
+      compatText: compat ? compat[1] : "",
+      signColor,
+      signSymbol,
+    });
+
+    const link = document.createElement("a");
+    link.download = `cosmic-card-${result.sign.toLowerCase()}.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  };
+
   const signData = autoSign ? ZODIAC_SIGNS.find(s => s.name === autoSign) : null;
   const compat = result && partnerSign ? COMPATIBILITY[result.sign]?.[partnerSign] : null;
   const activeSign = result ? result.sign : autoSign;
@@ -578,31 +710,26 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
         </div>
       </div>
 
-
-
       {/* FORM */}
       {step === "form" && (
         <div style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${signColor.border}`, borderRadius: "20px", padding: "2rem", width: "100%", maxWidth: "460px", backdropFilter: "blur(10px)", position: "relative", zIndex: 1, animation: "fadeIn 0.5s ease", boxShadow: `0 0 40px ${signColor.glow}`, transition: "all 0.8s ease" }}>
           <p style={{ color: "#6b5c7a", textAlign: "center", marginTop: 0, fontStyle: "italic", fontSize: "0.9rem" }}>{t.enterData}</p>
-
           <div style={{ marginBottom: "1.2rem" }}>
-            <label style={labelStyle}>Date of Birth</label>
+            <label style={labelStyle}>{t.dateOfBirth}</label>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1.5fr", gap: "0.7rem", marginTop: "0.5rem" }}>
               {[{ name: "day", placeholder: "DD" }, { name: "month", placeholder: "MM" }, { name: "year", placeholder: "YYYY" }].map(f => (
                 <input key={f.name} type="number" name={f.name} placeholder={f.placeholder} value={form[f.name]} onChange={handleChange} style={inputStyle} />
               ))}
             </div>
           </div>
-
           <div style={{ marginBottom: "1.2rem" }}>
-            <label style={labelStyle}>Time of Birth</label>
+            <label style={labelStyle}>{t.timeOfBirth}</label>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.7rem", marginTop: "0.5rem" }}>
               {[{ name: "hour", placeholder: t.hour }, { name: "minute", placeholder: t.minute }].map(f => (
                 <input key={f.name} type="number" name={f.name} placeholder={f.placeholder} value={form[f.name]} onChange={handleChange} style={inputStyle} />
               ))}
             </div>
           </div>
-
           {signData && (
             <div style={{ background: signColor.glow, border: `1px solid ${signColor.border}`, borderRadius: "12px", padding: "0.8rem", textAlign: "center", marginBottom: "1.2rem", transition: "all 0.8s ease" }}>
               <span style={{ fontSize: "1.8rem" }}>{signData.symbol}</span>
@@ -610,18 +737,13 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
               <span style={{ color: "#6b5c7a", fontSize: "0.8rem", marginLeft: "0.5rem" }}>• {signData.element}</span>
             </div>
           )}
-
           <button onClick={analyze} style={{ width: "100%", padding: "1rem", background: "linear-gradient(135deg, #c9a84c, #8b6914)", border: "none", borderRadius: "12px", color: "#0d0a1a", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "1rem", letterSpacing: "0.12em", cursor: "pointer", textTransform: "uppercase", boxShadow: "0 0 25px rgba(201,168,76,0.25)" }}>
             {t.reveal}
           </button>
-
-          {/* Cosmic Daily Quote */}
           <div style={{ marginTop: "1.5rem", borderTop: "1px solid rgba(201,168,76,0.12)", paddingTop: "1.2rem", textAlign: "center" }}>
             <div style={{ color: "#c9a84c", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.5rem" }}>✦ {t.cosmicMessage} — {formatTodayDate()} ✦</div>
             <p style={{ color: "#8a7a9b", fontStyle: "italic", margin: 0, lineHeight: 1.7, fontSize: "0.85rem" }}>"{getCosmicDailyQuote()}"</p>
           </div>
-
-          {/* Moon Phase */}
           {(() => {
             const moon = getMoonPhase();
             return (
@@ -634,8 +756,6 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
               </div>
             );
           })()}
-
-          {/* Daily Tarot */}
           {(() => {
             const card = getDailyTarot();
             return (
@@ -663,16 +783,15 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
       {/* RESULT */}
       {step === "result" && result && (
         <div style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${signColor.border}`, borderRadius: "20px", padding: "2rem", width: "100%", maxWidth: "580px", backdropFilter: "blur(10px)", position: "relative", zIndex: 1, maxHeight: "78vh", overflowY: "auto", animation: "fadeIn 0.6s ease", boxShadow: `0 0 60px ${signColor.glow}` }}>
-
           <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
             <div style={{ fontSize: "2.5rem" }}>{ZODIAC_SIGNS.find(s => s.name === result.sign)?.symbol}</div>
             <h2 style={{ fontFamily: "'Cinzel', serif", color: "#c9a84c", margin: "0.4rem 0", fontSize: "1.4rem" }}>{result.sign}</h2>
-            <div style={{ color: "#6b5c7a", fontSize: "0.8rem" }}>{t.rising} {result.ascendant} • Born {form.day}/{form.month}/{form.year} at {form.hour}:{form.minute.padStart(2, "0")}</div>
+            <div style={{ color: "#6b5c7a", fontSize: "0.8rem" }}>{t.rising} {result.ascendant} • {t.bornOn} {form.day}/{form.month}/{form.year} {t.at} {form.hour}:{form.minute.padStart(2, "0")}</div>
           </div>
 
           {/* Tabs */}
           <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1.5rem", background: "rgba(0,0,0,0.2)", borderRadius: "10px", padding: "0.3rem" }}>
-            {[["personality", {t.tabs.personality}], ["compatibility", {t.tabs.compatibility}], ["share", {t.tabs.share}]].map(([id, label]) => (
+            {[["personality", t.tabs.personality], ["compatibility", t.tabs.compatibility], ["share", t.tabs.share]].map(([id, label]) => (
               <button key={id} onClick={() => setActiveTab(id)} style={{ flex: 1, padding: "0.6rem 0.3rem", background: activeTab === id ? "rgba(201,168,76,0.2)" : "transparent", border: activeTab === id ? "1px solid rgba(201,168,76,0.4)" : "1px solid transparent", borderRadius: "8px", color: activeTab === id ? "#c9a84c" : "#6b5c7a", fontSize: "0.75rem", cursor: "pointer", fontFamily: "'Cinzel', serif", transition: "all 0.2s" }}>{label}</button>
             ))}
           </div>
@@ -695,7 +814,6 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
                 <option value="">{t.selectSign}</option>
                 {ZODIAC_SIGNS.map(s => <option key={s.name} value={s.name}>{s.symbol} {s.name}</option>)}
               </select>
-
               {compat && (
                 <div style={{ animation: "fadeIn 0.4s ease" }}>
                   <div style={{ textAlign: "center", marginBottom: "1.2rem" }}>
@@ -710,7 +828,6 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
                   </div>
                 </div>
               )}
-
               {!partnerSign && (
                 <div style={{ textAlign: "center", padding: "2rem", color: "#4a3a5a" }}>
                   <div style={{ fontSize: "2rem" }}>💫</div>
@@ -724,28 +841,39 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
             <div style={{ animation: "fadeIn 0.3s ease", textAlign: "center" }}>
               <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>📤</div>
               <p style={{ color: "#8a7a9b", fontStyle: "italic", marginBottom: "1.5rem", fontSize: "0.9rem" }}>{t.shareTitle}</p>
-              <div style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: "12px", padding: "1.2rem", textAlign: "left", marginBottom: "1.5rem" }}>
-                <p style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontSize: "0.85rem", margin: "0 0 0.5rem 0" }}>Preview:</p>
+              <div style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: "12px", padding: "1.2rem", textAlign: "left", marginBottom: "1rem" }}>
+                <p style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontSize: "0.85rem", margin: "0 0 0.5rem 0" }}>{t.preview}</p>
                 <p style={{ color: "#6b5c7a", fontSize: "0.8rem", lineHeight: 1.6, margin: 0 }}>
                   🔮 COSMIC ORACLE — {result.sign} | {t.rising} {result.ascendant}<br />
                   🌟 {result.essence.substring(0, 80)}...<br />
                   🏴‍☠️ {result.fruit}<br />
-                  {compat ? `💞 With ${partnerSign}: ${compatScore}%` : ""}
+                  {compat ? `💞 ${t.with} ${partnerSign}: ${compatScore}%` : ""}
                 </p>
               </div>
-              <button onClick={handleShare} style={{ width: "100%", padding: "1rem", background: copied ? "linear-gradient(135deg, #3a7a3a, #2a5a2a)" : "linear-gradient(135deg, #c9a84c, #8b6914)", border: "none", borderRadius: "12px", color: copied ? "#90ff90" : "#0d0a1a", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "1rem", cursor: "pointer", letterSpacing: "0.1em", transition: "all 0.3s ease", boxShadow: copied ? "0 0 20px rgba(0,200,0,0.3)" : "0 0 20px rgba(201,168,76,0.2)" }}>
-                {copied ? "{t.copied}" : "{t.copyBtn}"}
+
+              {/* Copy button */}
+              <button onClick={handleShare} style={{ width: "100%", padding: "0.9rem", background: copied ? "linear-gradient(135deg, #3a7a3a, #2a5a2a)" : "linear-gradient(135deg, #c9a84c, #8b6914)", border: "none", borderRadius: "12px", color: copied ? "#90ff90" : "#0d0a1a", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "0.95rem", cursor: "pointer", letterSpacing: "0.1em", transition: "all 0.3s ease", boxShadow: copied ? "0 0 20px rgba(0,200,0,0.3)" : "0 0 20px rgba(201,168,76,0.2)", marginBottom: "0.7rem" }}>
+                {copied ? t.copied : t.copyBtn}
               </button>
 
-              <div style={{ marginTop: "1.5rem", padding: "1rem", background: "rgba(201,168,76,0.05)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: "12px" }}>
+              {/* Download Cosmic Card button */}
+              <button onClick={handleDownloadCard} style={{ width: "100%", padding: "0.9rem", background: "linear-gradient(135deg, #2a1a4a, #1a0d30)", border: "1px solid rgba(201,168,76,0.4)", borderRadius: "12px", color: "#c9a84c", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "0.95rem", cursor: "pointer", letterSpacing: "0.1em", transition: "all 0.3s ease", boxShadow: "0 0 20px rgba(201,168,76,0.1)", marginBottom: "1.5rem" }}>
+                {t.downloadBtn}
+              </button>
+
+              {/* Hint */}
+              <p style={{ color: "#4a3a5a", fontSize: "0.75rem", fontStyle: "italic", marginBottom: "1.2rem" }}>
+                ✦ Download a beautiful 1080×1080 image perfect for Instagram & Stories ✦
+              </p>
+
+              <div style={{ marginTop: "0.5rem", padding: "1rem", background: "rgba(201,168,76,0.05)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: "12px" }}>
                 <p style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontSize: "0.8rem", margin: "0 0 0.8rem 0" }}>{t.support}</p>
                 <p style={{ color: "#6b5c7a", fontSize: "0.8rem", margin: "0 0 0.8rem 0", fontStyle: "italic" }}>{t.supportText}</p>
                 <a href="https://ko-fi.com" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", padding: "0.6rem 1.5rem", background: "linear-gradient(135deg, #FF5E5B, #c0392b)", borderRadius: "8px", color: "white", textDecoration: "none", fontSize: "0.85rem", fontFamily: "'Cinzel', serif" }}>
                   {t.coffeeBtn}
                 </a>
               </div>
-
-              {compat && <p style={{ color: "#6b5c7a", fontSize: "0.8rem", marginTop: "0.8rem", fontStyle: "italic" }}>Includes compatibility with {partnerSign}</p>}
+              {compat && <p style={{ color: "#6b5c7a", fontSize: "0.8rem", marginTop: "0.8rem", fontStyle: "italic" }}>{t.include} {partnerSign}</p>}
             </div>
           )}
 
@@ -766,3 +894,5 @@ function Section({ title, children }) {
     </div>
   );
 }
+
+    
