@@ -1,5 +1,7 @@
     import { useState, useRef } from "react";
 
+const STRIPE_KEY = "pk_test_51TVYAtRp4QfVQI1qPi3T8cM2Uip3jFlnbdot89FNIgj99jPHOBu0D3DuvmooDwECFH4Z3b5Exq2EXozgUy32DyWn00IdhuZcqo";
+
 const ZODIAC_SIGNS = [
   { name: "Aries", symbol: "♈", dates: "Mar 21 - Apr 19", element: "Fire" },
   { name: "Taurus", symbol: "♉", dates: "Apr 20 - May 20", element: "Earth" },
@@ -45,6 +47,20 @@ const PERSONALITIES = {
   "Pisces": { essence: "You are the boundary between dream and reality. You live in both worlds simultaneously — this is your gift and your burden.", strengths: ["Oceanic empathy — you absorb others' emotions like a sponge", "Dreamlike creativity — you create worlds where others see only empty space", "Spiritual connection — you feel what cannot be seen"], shadows: ["The boundary between you and others often vanishes — and you get lost", "Reality weighs on you — escape is always tempting"], love: "You love with a romantic intensity that can overwhelm. You need someone with their feet on the ground.", fruit: "Mero Mero no Mi (Love) — you touch souls, not bodies. Your power is emotional and absolute.", destiny: "Your greatest work has not yet begun. Wait for the moment — you will recognize it." },
 };
 
+const ANNUAL_DESTINY = {
+  "Aries": { theme: "The Year of the Warrior's Awakening", overview: "2026 marks a turning point in your cosmic journey. The fire within you has been building — this is the year it ignites your greatest transformation yet.", quarters: [{ q: "Q1 — Jan to Mar", love: "A new connection surprises you. Someone you least expect carries the energy you've been searching for.", work: "Your leadership is finally recognized. A project you believed in alone will gain powerful allies.", growth: "Release the identity that no longer fits. You are becoming someone new." }, { q: "Q2 — Apr to Jun", love: "Depth over intensity. The relationship that survives this quarter is built to last.", work: "Financial opportunity arrives — but requires courage to seize. Trust your instincts.", growth: "Your body is asking for rest. Honor it without guilt." }, { q: "Q3 — Jul to Sep", love: "Passion returns with force. Summer ignites something dormant in your heart.", work: "A collaboration brings unexpected results. Your solo approach evolves into something greater.", growth: "The wound you've been avoiding finally asks to be healed. This is the portal." }, { q: "Q4 — Oct to Dec", love: "Clarity replaces confusion. You know exactly what you want — and who.", work: "End the year with bold moves. What you build now carries into the next decade.", growth: "Gratitude unlocks the final door. You've come further than you know." }], challenge: "Your greatest obstacle is your own impatience. The universe is not slow — it is precise.", gift: "Unstoppable momentum when aligned with purpose." },
+  "Taurus": { theme: "The Year of the Sacred Foundation", overview: "2026 asks you to build what will outlast you. The stars are aligning a rare window for lasting achievement — in love, wealth, and soul.", quarters: [{ q: "Q1 — Jan to Mar", love: "A relationship deepens beyond what you thought possible. Let yourself be seen.", work: "Financial clarity arrives. Old debts — emotional and material — begin to resolve.", growth: "Your body holds wisdom. Begin listening to it more carefully." }, { q: "Q2 — Apr to Jun", love: "Spring brings renewal. A conflict resolves, clearing space for genuine intimacy.", work: "An investment made now — in skill, in people, in vision — pays dividends for years.", growth: "Beauty heals you. Surround yourself with it intentionally." }, { q: "Q3 — Jul to Sep", love: "Your loyalty is tested. Trust what you know, not what you fear.", work: "Unexpected opportunity arrives from an unexpected direction. Stay open.", growth: "The comfort zone calls. Step outside it — just once. That's enough." }, { q: "Q4 — Oct to Dec", love: "The year ends with warmth and solidity. You are exactly where you chose to be.", work: "Recognition comes quietly, as it always does for you. Receive it.", growth: "What you've built this year is real. Rest in that knowledge." }], challenge: "Resistance to change will cost you more than change itself.", gift: "The rare ability to make things permanent." },
+  "Gemini": { theme: "The Year of the Dual Revelation", overview: "2026 is the year your two selves finally make peace. The tension you've carried dissolves into a clarity that will redefine everything.", quarters: [{ q: "Q1 — Jan to Mar", love: "Mixed signals become clear. Someone shows you exactly who they are — believe them.", work: "Your communication skills open a door that logic alone never could.", growth: "The racing mind slows. In the silence, the real answer waits." }, { q: "Q2 — Apr to Jun", love: "A connection that stimulates your mind and your heart — rare, and real.", work: "Multiple opportunities arrive simultaneously. Choose depth over breadth.", growth: "Write it down. Your thoughts this quarter contain gold." }, { q: "Q3 — Jul to Sep", love: "Vulnerability creates the intimacy you've been searching for.", work: "A creative project reaches new heights. Collaboration amplifies your gift.", growth: "Rest is not the enemy of productivity. It is its source." }, { q: "Q4 — Oct to Dec", love: "The year ends with a sense of arriving somewhere you've always been heading.", work: "Your ideas plant seeds that will bloom in years to come. Trust them.", growth: "Integration. Both sides of you, finally, walking in the same direction." }], challenge: "Commitment feels like a cage. It is actually a launchpad.", gift: "The ability to see what others miss entirely." },
+  "Cancer": { theme: "The Year of the Tidal Healing", overview: "2026 brings the deepest healing of your adult life. The ocean within you finally finds its shore.", quarters: [{ q: "Q1 — Jan to Mar", love: "Someone from your past resurfaces — bringing closure, or a second chance.", work: "Intuition leads you to the right decision before logic can confirm it.", growth: "The wound you inherited from your family asks to stop here, with you." }, { q: "Q2 — Apr to Jun", love: "Nurture yourself as fiercely as you nurture others. The relationship that thrives here reflects that.", work: "Your emotional intelligence becomes your greatest professional asset.", growth: "Home — physical or internal — transforms into sanctuary." }, { q: "Q3 — Jul to Sep", love: "Full moon energy amplifies everything. In love, this is intensity and truth.", work: "A creative or caring project reaches its culmination. You did this.", growth: "The shell you wore for protection no longer fits who you've become." }, { q: "Q4 — Oct to Dec", love: "Deep, quiet love. The kind that doesn't announce itself — it simply is.", work: "Recognition comes for the work you almost gave up on. Hold on.", growth: "You end the year softer, stronger, and more fully yourself than ever before." }], challenge: "The past has your attention. The future needs it more.", gift: "Healing others simply by being present." },
+  "Leo": { theme: "The Year of the Sovereign Heart", overview: "2026 is your coronation. Not by others — by yourself. The Leo who emerges this year leads from love, not fear.", quarters: [{ q: "Q1 — Jan to Mar", love: "Someone sees you — truly sees you — and doesn't look away. Let them.", work: "A creative vision that felt too big begins to take real shape.", growth: "The ego softens. What remains is something far more powerful." }, { q: "Q2 — Apr to Jun", love: "A relationship is tested — and survives stronger. Or it ends, making space for what's real.", work: "Collaboration with a creative equal produces something extraordinary.", growth: "Generosity without expectation unlocks a new level of abundance." }, { q: "Q3 — Jul to Sep", love: "Summer brings passion and clarity in equal measure. You know your worth now.", work: "The spotlight finds you. You are ready for it this time.", growth: "Joy as a practice, not a reward. Begin now." }, { q: "Q4 — Oct to Dec", love: "The year closes with love that feels like coming home.", work: "What you built this year is a foundation, not a peak. The climb has just begun.", growth: "You are not too much. You were always exactly enough." }], challenge: "The need for validation will dim your light. Shine without permission.", gift: "The power to make others believe in themselves." },
+  "Virgo": { theme: "The Year of the Precise Miracle", overview: "2026 rewards your dedication with results you've quietly worked toward for years. The universe has been taking notes.", quarters: [{ q: "Q1 — Jan to Mar", love: "Someone who notices the details — about you — arrives. Pay attention.", work: "A system you built begins to work exactly as designed. Trust the process.", growth: "Perfection postponed is a life unlived. Begin imperfectly." }, { q: "Q2 — Apr to Jun", love: "Depth of connection surprises you. You didn't expect to feel this much.", work: "An opportunity to lead arrives. You are more ready than you believe.", growth: "Your body knows before your mind does. Listen to it." }, { q: "Q3 — Jul to Sep", love: "Criticism dissolves into acceptance. You stop editing yourself for others.", work: "The detail others missed becomes the solution that changes everything.", growth: "Rest without agenda. It is not laziness — it is wisdom." }, { q: "Q4 — Oct to Dec", love: "A relationship settles into something quiet, reliable, and deeply nourishing.", work: "The year closes with tangible proof of your dedication. You earned this.", growth: "You are not your productivity. You are infinitely more." }], challenge: "Helping everyone else first depletes the wellspring. Fill yourself first.", gift: "Finding solutions hidden in plain sight." },
+  "Libra": { theme: "The Year of the Beautiful Decision", overview: "2026 asks you to choose — and to trust that choosing is not losing. The scales tip toward your authentic life.", quarters: [{ q: "Q1 — Jan to Mar", love: "A relationship reaches a crossroads. The honest conversation is the loving one.", work: "Collaboration brings beautiful results. Your diplomatic genius shines.", growth: "The decision you've been avoiding holds your next chapter inside it." }, { q: "Q2 — Apr to Jun", love: "Romance blooms under spring skies. Beauty surrounds this season's connections.", work: "An aesthetic or creative project earns recognition beyond expectations.", growth: "Balance is not found — it is practiced, daily, imperfectly." }, { q: "Q3 — Jul to Sep", love: "Your authenticity attracts what your performance never could.", work: "A partnership forms that changes the trajectory of your work.", growth: "Justice begins with yourself. Treat yourself fairly." }, { q: "Q4 — Oct to Dec", love: "The year ends in harmony. Not the absence of tension — the presence of understanding.", work: "What you've co-created this year outlasts the collaboration.", growth: "You chose yourself this year. That is the most elegant thing you've ever done." }], challenge: "Indecision is also a decision — and it chooses for you.", gift: "Creating harmony where others see only conflict." },
+  "Scorpio": { theme: "The Year of the Phoenix Rising", overview: "2026 is your rebirth year. Something must end — completely — for the most powerful version of you to emerge.", quarters: [{ q: "Q1 — Jan to Mar", love: "A truth surfaces that changes everything. The pain is real — so is the freedom.", work: "Hidden information comes to light. What you do with it defines the year.", growth: "The transformation has already begun. Stop resisting what is already happening." }, { q: "Q2 — Apr to Jun", love: "Deep, magnetic connection. The kind that leaves a mark.", work: "A power dynamic shifts in your favor. Stay ethical in how you use it.", growth: "Resentment released this quarter creates space for something extraordinary." }, { q: "Q3 — Jul to Sep", love: "Passion and power balance in a relationship that demands your full presence.", work: "An investigation — of data, of people, of possibilities — yields profound insight.", growth: "The old skin is gone. Who are you now?" }, { q: "Q4 — Oct to Dec", love: "The year closes with intimacy that reaches the parts of you others never touch.", work: "What you've built from the ashes is stronger than what burned.", growth: "You are not who you were in January. That is the gift." }], challenge: "Control is an illusion that costs more than surrender ever would.", gift: "Seeing the truth that others hide even from themselves." },
+  "Sagittarius": { theme: "The Year of the Sacred Journey", overview: "2026 takes you somewhere you've never been — inside yourself. The greatest adventure of the year is internal.", quarters: [{ q: "Q1 — Jan to Mar", love: "Someone who shares your hunger for meaning enters your life.", work: "A vision that seemed too large becomes the only one worth pursuing.", growth: "The question you're afraid to ask holds the answer you need most." }, { q: "Q2 — Apr to Jun", love: "Freedom and commitment stop feeling like opposites.", work: "Teaching, writing, or sharing your philosophy reaches further than expected.", growth: "Slow down long enough to notice what's already here." }, { q: "Q3 — Jul to Sep", love: "Adventure shared with the right person becomes something sacred.", work: "An opportunity requires you to leave your comfort zone.", growth: "Your optimism is not denial — it is vision. Protect it." }, { q: "Q4 — Oct to Dec", love: "The year closes with a love that has become a home.", work: "The seeds you planted this year take root. The harvest comes next year.", growth: "You found what you were seeking. It was never as far as you thought." }], challenge: "Running from depth will cost you the meaning you're searching for.", gift: "Turning every experience into wisdom." },
+  "Capricorn": { theme: "The Year of the Summit Reached", overview: "2026 delivers what you've been building toward for years. The mountain was never the obstacle — you were always the path.", quarters: [{ q: "Q1 — Jan to Mar", love: "A relationship built on respect and shared vision deepens into something rare.", work: "A long-term plan reaches a critical milestone. Stay the course.", growth: "Rest is not weakness. It is how peaks are reached." }, { q: "Q2 — Apr to Jun", love: "Vulnerability, practiced carefully, transforms a good relationship into a great one.", work: "Recognition arrives for work done quietly, consistently, over years.", growth: "What you've sacrificed asks to be acknowledged. Honor the cost." }, { q: "Q3 — Jul to Sep", love: "A summer of genuine warmth. You allow yourself to receive, not just provide.", work: "Leadership is confirmed — not just by title, but by the trust others place in you.", growth: "The summit reveals a view no one else has. Share what you see." }, { q: "Q4 — Oct to Dec", love: "The year ends with love that is solid, chosen, and built to last decades.", work: "You close 2026 with the quiet certainty that you've earned what you have.", growth: "Legacy begins now. Everything you do from here forward echoes forward." }], challenge: "Achievement without intimacy is a summit with no one to share the view.", gift: "Making the impossible inevitable through sustained effort." },
+  "Aquarius": { theme: "The Year of the Revolutionary Heart", overview: "2026 is the year your vision meets the world — and changes it. The future you've been imagining is closer than any algorithm can calculate.", quarters: [{ q: "Q1 — Jan to Mar", love: "An unconventional connection defies every category. It belongs to no template.", work: "An idea dismissed by others begins to find its audience.", growth: "Emotion is data, not weakness. Start collecting it." }, { q: "Q2 — Apr to Jun", love: "Intellectual equals become something more. Mind and heart align.", work: "A collaborative project disrupts something that needed disrupting.", growth: "Belonging doesn't require becoming someone else." }, { q: "Q3 — Jul to Sep", love: "Freedom within commitment — the paradox you've always needed — becomes real.", work: "Your vision is adopted by others. Watch what they do with it.", growth: "The detachment that protected you is ready to become presence." }, { q: "Q4 — Oct to Dec", love: "The year closes with connection that honors both your individuality and your union.", work: "What you imagined in January exists in the world by December.", growth: "You are not strange. You are early. The world is catching up." }], challenge: "Loving humanity in theory while keeping individuals at arm's length.", gift: "Imagining futures that then become inevitable." },
+  "Pisces": { theme: "The Year of the Dream Made Real", overview: "2026 is the year the invisible becomes visible. What you've felt, sensed, and dreamed finally takes form in the physical world.", quarters: [{ q: "Q1 — Jan to Mar", love: "A soul-level recognition. You have met this person before — in another form.", work: "Creative inspiration arrives in waves. Capture every one.", growth: "The boundary between you and others clarifies. This is protection, not isolation." }, { q: "Q2 — Apr to Jun", love: "Love that heals something old. Something ancestral, even.", work: "A creative or spiritual project gains tangible momentum.", growth: "Your sensitivity is not a burden. It is your most accurate instrument." }, { q: "Q3 — Jul to Sep", love: "Summer brings romantic intensity and artistic inspiration in equal measure.", work: "An opportunity to bring your inner world into the outer one. Take it.", growth: "Escapism signals a need. What is the need? Answer that." }, { q: "Q4 — Oct to Dec", love: "The year closes with love that feels like a prayer answered.", work: "What you've created this year carries your soul's signature. It will endure.", growth: "You are not lost in the dream. You are dreaming the world into being." }], challenge: "The boundary between empathy and dissolution must be tended daily.", gift: "Touching the hearts of others without trying — simply by being." },
+};
 
 const DAILY_QUOTES = {
   "Aries": ["Your fire cannot be contained. Today, let it illuminate rather than consume.","The boldest move is always the right one. Trust your instincts.","You were born to lead. Step forward — the world is waiting.","Courage is not the absence of fear. It is you, moving anyway.","Today the universe gives you permission to be unstoppable.","Your energy is your superpower. Direct it with intention.","The warrior in you knows no defeat — only lessons."],
@@ -68,39 +84,7 @@ function getDailyQuote(sign) {
   return quotes[dayOfYear % quotes.length];
 }
 
-const COSMIC_DAILY_QUOTES = [
-  "The universe conspires in favor of those who dare to dream.",
-  "Every star in the sky was once just a wish someone made in the dark.",
-  "You are made of stardust and ancient light. Act accordingly.",
-  "The cosmos does not rush, yet everything is accomplished.",
-  "What you seek is also seeking you.",
-  "Trust the timing of your life. The stars are never wrong.",
-  "Your soul chose this exact moment to exist. That is not an accident.",
-  "The moon does not apologize for its phases. Neither should you.",
-  "Energy flows where intention goes. Direct yours wisely today.",
-  "Even the darkest night will end, and the stars will shine again.",
-  "You are the universe experiencing itself. Make it beautiful.",
-  "Alignment is not found. It is created, one conscious choice at a time.",
-  "The planets have been waiting for this version of you.",
-  "Silence is the language the cosmos speaks most fluently.",
-  "Your light does not dim others. It shows them where to find their own.",
-  "Every ending in your life is a star being born somewhere else.",
-  "The answers you seek are already written in the sky above you.",
-  "Breathe. The universe has been here before. It knows the way.",
-  "You do not need to understand the storm to dance in the rain.",
-  "What is meant for you will find you, even in the dark.",
-  "The greatest telescope is turned inward.",
-  "A single shift in perspective can change your entire constellation.",
-  "You are not lost. You are exploring.",
-  "The cosmos rewards those who show up, even imperfectly.",
-  "Your story is still being written by the stars.",
-  "Let the universe surprise you today.",
-  "Some things cannot be rushed — growth, tides, and destiny.",
-  "The space between the stars is not empty. It is full of potential.",
-  "Today is a page in a story greater than you can yet imagine.",
-  "You carry entire galaxies within you. Do not forget that.",
-  "The stars do not compete. They simply shine.",
-];
+const COSMIC_DAILY_QUOTES = ["The universe conspires in favor of those who dare to dream.","Every star in the sky was once just a wish someone made in the dark.","You are made of stardust and ancient light. Act accordingly.","The cosmos does not rush, yet everything is accomplished.","What you seek is also seeking you.","Trust the timing of your life. The stars are never wrong.","Your soul chose this exact moment to exist. That is not an accident.","The moon does not apologize for its phases. Neither should you.","Energy flows where intention goes. Direct yours wisely today.","Even the darkest night will end, and the stars will shine again.","You are the universe experiencing itself. Make it beautiful.","Alignment is not found. It is created, one conscious choice at a time.","The planets have been waiting for this version of you.","Silence is the language the cosmos speaks most fluently.","Your light does not dim others. It shows them where to find their own.","Every ending in your life is a star being born somewhere else.","The answers you seek are already written in the sky above you.","Breathe. The universe has been here before. It knows the way.","You do not need to understand the storm to dance in the rain.","What is meant for you will find you, even in the dark.","The greatest telescope is turned inward.","A single shift in perspective can change your entire constellation.","You are not lost. You are exploring.","The cosmos rewards those who show up, even imperfectly.","Your story is still being written by the stars.","Let the universe surprise you today.","Some things cannot be rushed — growth, tides, and destiny.","The space between the stars is not empty. It is full of potential.","Today is a page in a story greater than you can yet imagine.","You carry entire galaxies within you. Do not forget that.","The stars do not compete. They simply shine."];
 
 function getCosmicDailyQuote() {
   const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
@@ -112,12 +96,8 @@ function formatTodayDate() {
 }
 
 function getMoonPhase() {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const c = Math.floor((year - 1900) * 12.3685);
-  const e = c + month - 1;
+  const date = new Date(), year = date.getFullYear(), month = date.getMonth() + 1, day = date.getDate();
+  const c = Math.floor((year - 1900) * 12.3685), e = c + month - 1;
   const jd = e * 29.5305882 + 2415020.75933 + day;
   const phase = ((jd - 2451550.1) / 29.5305882) % 1;
   const normalizedPhase = phase < 0 ? phase + 1 : phase;
@@ -163,18 +143,18 @@ function getDailyTarot() {
 }
 
 const SIGN_COLORS = {
-  "Aries":       { primary: "#e63946", glow: "rgba(230,57,70,0.15)", border: "rgba(230,57,70,0.3)" },
-  "Taurus":      { primary: "#2d6a4f", glow: "rgba(45,106,79,0.15)", border: "rgba(45,106,79,0.3)" },
-  "Gemini":      { primary: "#e9c46a", glow: "rgba(233,196,106,0.15)", border: "rgba(233,196,106,0.3)" },
-  "Cancer":      { primary: "#a8dadc", glow: "rgba(168,218,220,0.15)", border: "rgba(168,218,220,0.3)" },
-  "Leo":         { primary: "#f4a261", glow: "rgba(244,162,97,0.15)", border: "rgba(244,162,97,0.3)" },
-  "Virgo":       { primary: "#6a994e", glow: "rgba(106,153,78,0.15)", border: "rgba(106,153,78,0.3)" },
-  "Libra":       { primary: "#e07a9c", glow: "rgba(224,122,156,0.15)", border: "rgba(224,122,156,0.3)" },
-  "Scorpio":     { primary: "#9b2335", glow: "rgba(155,35,53,0.15)", border: "rgba(155,35,53,0.3)" },
+  "Aries": { primary: "#e63946", glow: "rgba(230,57,70,0.15)", border: "rgba(230,57,70,0.3)" },
+  "Taurus": { primary: "#2d6a4f", glow: "rgba(45,106,79,0.15)", border: "rgba(45,106,79,0.3)" },
+  "Gemini": { primary: "#e9c46a", glow: "rgba(233,196,106,0.15)", border: "rgba(233,196,106,0.3)" },
+  "Cancer": { primary: "#a8dadc", glow: "rgba(168,218,220,0.15)", border: "rgba(168,218,220,0.3)" },
+  "Leo": { primary: "#f4a261", glow: "rgba(244,162,97,0.15)", border: "rgba(244,162,97,0.3)" },
+  "Virgo": { primary: "#6a994e", glow: "rgba(106,153,78,0.15)", border: "rgba(106,153,78,0.3)" },
+  "Libra": { primary: "#e07a9c", glow: "rgba(224,122,156,0.15)", border: "rgba(224,122,156,0.3)" },
+  "Scorpio": { primary: "#9b2335", glow: "rgba(155,35,53,0.15)", border: "rgba(155,35,53,0.3)" },
   "Sagittarius": { primary: "#7b2d8b", glow: "rgba(123,45,139,0.15)", border: "rgba(123,45,139,0.3)" },
-  "Capricorn":   { primary: "#1d3557", glow: "rgba(29,53,87,0.2)",  border: "rgba(29,53,87,0.4)" },
-  "Aquarius":    { primary: "#4cc9f0", glow: "rgba(76,201,240,0.15)", border: "rgba(76,201,240,0.3)" },
-  "Pisces":      { primary: "#48cae4", glow: "rgba(72,202,228,0.15)", border: "rgba(72,202,228,0.3)" },
+  "Capricorn": { primary: "#1d3557", glow: "rgba(29,53,87,0.2)", border: "rgba(29,53,87,0.4)" },
+  "Aquarius": { primary: "#4cc9f0", glow: "rgba(76,201,240,0.15)", border: "rgba(76,201,240,0.3)" },
+  "Pisces": { primary: "#48cae4", glow: "rgba(72,202,228,0.15)", border: "rgba(72,202,228,0.3)" },
 };
 
 const TRANSLATIONS = {
@@ -213,6 +193,9 @@ const TRANSLATIONS = {
     loading2: "The oracle is reading your soul",
     with: "With",
     include: "Includes compatibility with",
+    giftBtn: "💌 Gift a Reading — €1.99",
+    annualBtn: "🔮 2026 Annual Destiny — €2.99",
+    giftShareBtn: "💌 Gift a Reading to a Friend — €1.99",
   },
   it: {
     flag: "🇮🇹", label: "IT",
@@ -249,6 +232,9 @@ const TRANSLATIONS = {
     loading2: "L'oracolo sta leggendo la tua anima",
     with: "Con",
     include: "Include compatibilità con",
+    giftBtn: "💌 Regala una Lettura — €1,99",
+    annualBtn: "🔮 Destino Annuale 2026 — €2,99",
+    giftShareBtn: "💌 Regala una Lettura a un Amico — €1,99",
   },
   es: {
     flag: "🇪🇸", label: "ES",
@@ -285,6 +271,9 @@ const TRANSLATIONS = {
     loading2: "El oráculo está leyendo tu alma",
     with: "Con",
     include: "Incluye compatibilidad con",
+    giftBtn: "💌 Regalar una Lectura — €1,99",
+    annualBtn: "🔮 Destino Anual 2026 — €2,99",
+    giftShareBtn: "💌 Regalar una Lectura a un Amigo — €1,99",
   },
   fr: {
     flag: "🇫🇷", label: "FR",
@@ -321,6 +310,9 @@ const TRANSLATIONS = {
     loading2: "L'oracle lit votre âme",
     with: "Avec",
     include: "Inclut la compatibilité avec",
+    giftBtn: "💌 Offrir une Lecture — €1,99",
+    annualBtn: "🔮 Destin Annuel 2026 — €2,99",
+    giftShareBtn: "💌 Offrir une Lecture à un Ami — €1,99",
   },
 };
 
@@ -364,215 +356,67 @@ function ScoreBar({ score }) {
   );
 }
 
-// ── COSMIC CARD GENERATOR ──────────────────────────────────────────────────
 function generateCosmicCard({ result, form, partnerSign, compatScore, compatText, signColor, signSymbol }) {
   const canvas = document.createElement("canvas");
-  canvas.width = 1080;
-  canvas.height = 1080;
+  canvas.width = 1080; canvas.height = 1080;
   const ctx = canvas.getContext("2d");
-
-  // Background
   const bgGrad = ctx.createRadialGradient(540, 300, 0, 540, 300, 900);
-  bgGrad.addColorStop(0, "#110d22");
-  bgGrad.addColorStop(0.5, "#090614");
-  bgGrad.addColorStop(1, "#050308");
-  ctx.fillStyle = bgGrad;
-  ctx.fillRect(0, 0, 1080, 1080);
-
-  // Stars
-  ctx.save();
+  bgGrad.addColorStop(0, "#110d22"); bgGrad.addColorStop(0.5, "#090614"); bgGrad.addColorStop(1, "#050308");
+  ctx.fillStyle = bgGrad; ctx.fillRect(0, 0, 1080, 1080);
   for (let i = 0; i < 180; i++) {
-    const x = Math.random() * 1080;
-    const y = Math.random() * 1080;
-    const r = Math.random() * 1.8 + 0.3;
-    const alpha = Math.random() * 0.7 + 0.15;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-    ctx.fill();
+    const x = Math.random() * 1080, y = Math.random() * 1080, r = Math.random() * 1.8 + 0.3, alpha = Math.random() * 0.7 + 0.15;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fillStyle = `rgba(255,255,255,${alpha})`; ctx.fill();
   }
-  ctx.restore();
-
-  // Glow circle behind symbol
   const glowGrad = ctx.createRadialGradient(540, 340, 0, 540, 340, 260);
-  glowGrad.addColorStop(0, signColor.glow.replace("0.15", "0.35"));
-  glowGrad.addColorStop(1, "transparent");
-  ctx.fillStyle = glowGrad;
-  ctx.fillRect(0, 0, 1080, 1080);
-
-  // Decorative top border line
-  ctx.save();
+  glowGrad.addColorStop(0, signColor.glow.replace("0.15", "0.35")); glowGrad.addColorStop(1, "transparent");
+  ctx.fillStyle = glowGrad; ctx.fillRect(0, 0, 1080, 1080);
   const topLine = ctx.createLinearGradient(100, 0, 980, 0);
-  topLine.addColorStop(0, "transparent");
-  topLine.addColorStop(0.5, "#c9a84c");
-  topLine.addColorStop(1, "transparent");
-  ctx.strokeStyle = topLine;
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(100, 55);
-  ctx.lineTo(980, 55);
-  ctx.stroke();
-  ctx.restore();
-
-  // Header: COSMIC ORACLE
-  ctx.save();
-  ctx.font = "bold 52px Georgia, serif";
-  ctx.textAlign = "center";
+  topLine.addColorStop(0, "transparent"); topLine.addColorStop(0.5, "#c9a84c"); topLine.addColorStop(1, "transparent");
+  ctx.strokeStyle = topLine; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(100, 55); ctx.lineTo(980, 55); ctx.stroke();
+  ctx.font = "bold 52px Georgia, serif"; ctx.textAlign = "center";
   const headerGrad = ctx.createLinearGradient(340, 0, 740, 0);
-  headerGrad.addColorStop(0, "#c9a84c");
-  headerGrad.addColorStop(0.5, "#f0d080");
-  headerGrad.addColorStop(1, "#c9a84c");
-  ctx.fillStyle = headerGrad;
-  ctx.letterSpacing = "8px";
-  ctx.fillText("✦ COSMIC ORACLE ✦", 540, 110);
-  ctx.restore();
-
-  // Zodiac symbol (big)
-  ctx.save();
-  ctx.font = "130px Georgia, serif";
-  ctx.textAlign = "center";
-  ctx.fillStyle = signColor.primary;
-  ctx.shadowColor = signColor.primary;
-  ctx.shadowBlur = 40;
-  ctx.fillText(signSymbol, 540, 280);
-  ctx.restore();
-
-  // Sign name
-  ctx.save();
-  ctx.font = "bold 68px Georgia, serif";
-  ctx.textAlign = "center";
-  ctx.fillStyle = "#c9a84c";
-  ctx.shadowColor = "rgba(201,168,76,0.5)";
-  ctx.shadowBlur = 20;
-  ctx.fillText(result.sign.toUpperCase(), 540, 360);
-  ctx.restore();
-
-  // Rising / born info
-  ctx.save();
-  ctx.font = "24px Georgia, serif";
-  ctx.textAlign = "center";
-  ctx.fillStyle = "#6b5c7a";
-  ctx.fillText(`Rising ${result.ascendant}  •  Born ${form.day}/${form.month}/${form.year}`, 540, 400);
-  ctx.restore();
-
-  // Divider
-  ctx.save();
+  headerGrad.addColorStop(0, "#c9a84c"); headerGrad.addColorStop(0.5, "#f0d080"); headerGrad.addColorStop(1, "#c9a84c");
+  ctx.fillStyle = headerGrad; ctx.fillText("✦ COSMIC ORACLE ✦", 540, 110);
+  ctx.font = "130px Georgia, serif"; ctx.fillStyle = signColor.primary; ctx.shadowColor = signColor.primary; ctx.shadowBlur = 40; ctx.fillText(signSymbol, 540, 280); ctx.shadowBlur = 0;
+  ctx.font = "bold 68px Georgia, serif"; ctx.fillStyle = "#c9a84c"; ctx.shadowColor = "rgba(201,168,76,0.5)"; ctx.shadowBlur = 20; ctx.fillText(result.sign.toUpperCase(), 540, 360); ctx.shadowBlur = 0;
+  ctx.font = "24px Georgia, serif"; ctx.fillStyle = "#6b5c7a"; ctx.fillText(`Rising ${result.ascendant}  •  Born ${form.day}/${form.month}/${form.year}`, 540, 400);
   const divGrad = ctx.createLinearGradient(180, 0, 900, 0);
-  divGrad.addColorStop(0, "transparent");
-  divGrad.addColorStop(0.5, "rgba(201,168,76,0.4)");
-  divGrad.addColorStop(1, "transparent");
-  ctx.strokeStyle = divGrad;
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(180, 430);
-  ctx.lineTo(900, 430);
-  ctx.stroke();
-  ctx.restore();
-
-  // Essence text (wrapped)
-  ctx.save();
-  ctx.font = "italic 26px Georgia, serif";
-  ctx.textAlign = "center";
-  ctx.fillStyle = "#c8b89a";
-  const essenceWords = result.essence.split(" ");
-  let line = "";
-  let y = 480;
-  const maxWidth = 800;
+  divGrad.addColorStop(0, "transparent"); divGrad.addColorStop(0.5, "rgba(201,168,76,0.4)"); divGrad.addColorStop(1, "transparent");
+  ctx.strokeStyle = divGrad; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(180, 430); ctx.lineTo(900, 430); ctx.stroke();
+  ctx.font = "italic 26px Georgia, serif"; ctx.fillStyle = "#c8b89a";
+  const essenceWords = result.essence.split(" "); let line = ""; let y = 480;
   for (let i = 0; i < essenceWords.length; i++) {
     const testLine = line + essenceWords[i] + " ";
-    if (ctx.measureText(testLine).width > maxWidth && i > 0) {
-      ctx.fillText(line.trim(), 540, y);
-      line = essenceWords[i] + " ";
-      y += 38;
-    } else {
-      line = testLine;
-    }
+    if (ctx.measureText(testLine).width > 800 && i > 0) { ctx.fillText(line.trim(), 540, y); line = essenceWords[i] + " "; y += 38; } else { line = testLine; }
   }
   ctx.fillText(line.trim(), 540, y);
-  ctx.restore();
-
-  // Devil fruit section
   const fruitY = y + 60;
-  ctx.save();
-  ctx.font = "bold 20px Georgia, serif";
-  ctx.textAlign = "center";
-  ctx.fillStyle = "#c9a84c";
-  ctx.fillText("🏴‍☠️  YOUR DEVIL FRUIT", 540, fruitY);
-  ctx.restore();
-
-  ctx.save();
-  ctx.font = "italic 22px Georgia, serif";
-  ctx.textAlign = "center";
-  ctx.fillStyle = "#8a7a9b";
-  // wrap fruit text
-  const fruitWords = result.fruit.split(" ");
-  let fLine = "";
-  let fy = fruitY + 36;
+  ctx.font = "bold 20px Georgia, serif"; ctx.fillStyle = "#c9a84c"; ctx.fillText("YOUR DEVIL FRUIT", 540, fruitY);
+  ctx.font = "italic 22px Georgia, serif"; ctx.fillStyle = "#8a7a9b";
+  const fruitWords = result.fruit.split(" "); let fLine = ""; let fy = fruitY + 36;
   for (let i = 0; i < fruitWords.length; i++) {
     const testLine = fLine + fruitWords[i] + " ";
-    if (ctx.measureText(testLine).width > 820 && i > 0) {
-      ctx.fillText(fLine.trim(), 540, fy);
-      fLine = fruitWords[i] + " ";
-      fy += 32;
-    } else {
-      fLine = testLine;
-    }
+    if (ctx.measureText(testLine).width > 820 && i > 0) { ctx.fillText(fLine.trim(), 540, fy); fLine = fruitWords[i] + " "; fy += 32; } else { fLine = testLine; }
   }
   ctx.fillText(fLine.trim(), 540, fy);
-  ctx.restore();
-
-  // Compatibility block (if available)
   if (partnerSign && compatScore !== null) {
     const compatY = fy + 60;
-    // Background pill
-    ctx.save();
-    ctx.beginPath();
-    ctx.roundRect(190, compatY - 32, 700, 110, 16);
-    ctx.fillStyle = "rgba(201,168,76,0.07)";
-    ctx.strokeStyle = "rgba(201,168,76,0.25)";
-    ctx.lineWidth = 1;
-    ctx.fill();
-    ctx.stroke();
-    ctx.restore();
-
-    ctx.save();
-    ctx.font = "bold 22px Georgia, serif";
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#c9a84c";
-    ctx.fillText(`💞  ${result.sign} & ${partnerSign} — ${compatScore}% compatibility`, 540, compatY + 5);
-    ctx.restore();
-
-    ctx.save();
-    ctx.font = "italic 21px Georgia, serif";
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#8a7a9b";
-    ctx.fillText(compatText, 540, compatY + 42);
-    ctx.restore();
+    ctx.beginPath(); ctx.roundRect(190, compatY - 32, 700, 110, 16); ctx.fillStyle = "rgba(201,168,76,0.07)"; ctx.strokeStyle = "rgba(201,168,76,0.25)"; ctx.lineWidth = 1; ctx.fill(); ctx.stroke();
+    ctx.font = "bold 22px Georgia, serif"; ctx.fillStyle = "#c9a84c"; ctx.fillText(`${result.sign} & ${partnerSign} — ${compatScore}% compatibility`, 540, compatY + 5);
+    ctx.font = "italic 21px Georgia, serif"; ctx.fillStyle = "#8a7a9b"; ctx.fillText(compatText, 540, compatY + 42);
   }
-
-  // Bottom divider
-  ctx.save();
   const botDiv = ctx.createLinearGradient(180, 0, 900, 0);
-  botDiv.addColorStop(0, "transparent");
-  botDiv.addColorStop(0.5, "rgba(201,168,76,0.3)");
-  botDiv.addColorStop(1, "transparent");
-  ctx.strokeStyle = botDiv;
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(180, 1020);
-  ctx.lineTo(900, 1020);
-  ctx.stroke();
-  ctx.restore();
-
-  // Footer URL
-  ctx.save();
-  ctx.font = "22px Georgia, serif";
-  ctx.textAlign = "center";
-  ctx.fillStyle = "#4a3a5a";
-  ctx.fillText("cosmicoracleapp.com", 540, 1055);
-  ctx.restore();
-
+  botDiv.addColorStop(0, "transparent"); botDiv.addColorStop(0.5, "rgba(201,168,76,0.3)"); botDiv.addColorStop(1, "transparent");
+  ctx.strokeStyle = botDiv; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(180, 1020); ctx.lineTo(900, 1020); ctx.stroke();
+  ctx.font = "22px Georgia, serif"; ctx.fillStyle = "#4a3a5a"; ctx.fillText("cosmicoracleapp.com", 540, 1055);
   return canvas;
+}
+
+// ── STRIPE PAYMENT ──────────────────────────────────────────────────────────
+async function openStripePayment({ amount, description, onSuccess }) {
+  // Test mode simulation — replace with real backend PaymentIntent in production
+  const confirmed = window.confirm(`🔮 ${description}\n\nAmount: €${(amount / 100).toFixed(2)}\n\n(Test mode — click OK to simulate payment)`);
+  if (confirmed) setTimeout(() => onSuccess(), 300);
 }
 
 const stars = Array.from({ length: 80 }, (_, i) => ({ id: i, top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%`, size: Math.random() * 2 + 1, opacity: Math.random() * 0.6 + 0.2 }));
@@ -580,6 +424,174 @@ const inputStyle = { background: "rgba(255,255,255,0.05)", border: "1px solid rg
 const labelStyle = { color: "#c9a84c", fontSize: "0.75rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif" };
 const textStyle = { margin: "0.3rem 0", lineHeight: 1.8, color: "#c8b89a", fontSize: "0.95rem" };
 
+// ── ANNUAL DESTINY MODAL ────────────────────────────────────────────────────
+function AnnualDestinyModal({ result, onClose }) {
+  const [paying, setPaying] = useState(false);
+  const [unlocked, setUnlocked] = useState(false);
+  const destiny = ANNUAL_DESTINY[result.sign];
+  const signColor = SIGN_COLORS[result.sign] || { primary: "#c9a84c", glow: "rgba(201,168,76,0.12)", border: "rgba(201,168,76,0.2)" };
+
+  const handlePay = async () => {
+    setPaying(true);
+    await openStripePayment({
+      amount: 299,
+      description: `Annual Cosmic Destiny 2026 — ${result.sign}`,
+      onSuccess: () => { setUnlocked(true); setPaying(false); }
+    });
+    setPaying(false);
+  };
+
+  return (
+    <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}>
+      <div style={{ background: "linear-gradient(135deg, #0d0a1a, #110d22)", border: `1px solid ${signColor.border}`, borderRadius: "20px", padding: "2rem", width: "100%", maxWidth: "560px", maxHeight: "90vh", overflowY: "auto", position: "relative", boxShadow: `0 0 60px ${signColor.glow}` }}>
+        <button onClick={onClose} style={{ position: "absolute", top: "1rem", right: "1rem", background: "transparent", border: "none", color: "#6b5c7a", fontSize: "1.5rem", cursor: "pointer" }}>✕</button>
+        <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+          <div style={{ fontSize: "2.5rem", marginBottom: "0.5rem" }}>🔮</div>
+          <h2 style={{ fontFamily: "'Cinzel', serif", color: "#c9a84c", margin: "0 0 0.3rem 0", fontSize: "1.3rem" }}>Annual Cosmic Destiny 2026</h2>
+          <div style={{ color: signColor.primary, fontFamily: "'Cinzel', serif", fontSize: "0.85rem" }}>{result.sign} — A complete cosmic forecast</div>
+        </div>
+        {!unlocked ? (
+          <>
+            <div style={{ background: "rgba(201,168,76,0.05)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: "14px", padding: "1.2rem", marginBottom: "1.5rem" }}>
+              <p style={{ color: "#8a7a9b", fontStyle: "italic", fontSize: "0.9rem", margin: "0 0 1rem 0", textAlign: "center" }}>Unlock your complete 2026 cosmic forecast:</p>
+              {["🌟 Your year's cosmic theme", "📅 Quarter-by-quarter predictions", "❤️ Love forecast for each season", "💼 Career & financial guidance", "🌱 Personal growth milestones", "⚡ Your greatest challenge of the year", "✨ Your cosmic gift for 2026"].map((item, i) => (
+                <p key={i} style={{ color: "#c8b89a", fontSize: "0.85rem", margin: "0.4rem 0" }}>{item}</p>
+              ))}
+            </div>
+            <div style={{ textAlign: "center", marginBottom: "1rem" }}>
+              <div style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontSize: "2rem", fontWeight: "bold" }}>€2.99</div>
+              <div style={{ color: "#6b5c7a", fontSize: "0.8rem" }}>One-time payment — yours forever</div>
+            </div>
+            <button onClick={handlePay} disabled={paying} style={{ width: "100%", padding: "1rem", background: paying ? "rgba(201,168,76,0.3)" : "linear-gradient(135deg, #c9a84c, #8b6914)", border: "none", borderRadius: "12px", color: "#0d0a1a", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "1rem", cursor: paying ? "not-allowed" : "pointer", letterSpacing: "0.1em" }}>
+              {paying ? "Processing..." : "✦ Unlock My 2026 Destiny ✦"}
+            </button>
+            <p style={{ color: "#4a3a5a", fontSize: "0.75rem", textAlign: "center", marginTop: "0.8rem" }}>🔒 Secure payment via Stripe</p>
+          </>
+        ) : (
+          <div style={{ animation: "fadeIn 0.5s ease" }}>
+            <div style={{ textAlign: "center", marginBottom: "1.5rem", padding: "1rem", background: signColor.glow, borderRadius: "12px", border: `1px solid ${signColor.border}` }}>
+              <div style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontSize: "1.1rem", fontWeight: "bold", marginBottom: "0.3rem" }}>{destiny.theme}</div>
+              <p style={{ color: "#c8b89a", fontStyle: "italic", margin: 0, fontSize: "0.9rem", lineHeight: 1.7 }}>{destiny.overview}</p>
+            </div>
+            {destiny.quarters.map((q, i) => (
+              <div key={i} style={{ marginBottom: "1.2rem", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(201,168,76,0.1)", borderRadius: "12px", padding: "1rem" }}>
+                <div style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontSize: "0.85rem", fontWeight: "bold", marginBottom: "0.7rem" }}>{q.q}</div>
+                <p style={{ color: "#e07a9c", fontSize: "0.82rem", margin: "0 0 0.4rem 0" }}>❤️ <strong>Love:</strong> {q.love}</p>
+                <p style={{ color: "#8b9f5e", fontSize: "0.82rem", margin: "0 0 0.4rem 0" }}>💼 <strong>Work:</strong> {q.work}</p>
+                <p style={{ color: "#9b72cf", fontSize: "0.82rem", margin: 0 }}>🌱 <strong>Growth:</strong> {q.growth}</p>
+              </div>
+            ))}
+            <div style={{ background: "rgba(201,168,76,0.05)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: "12px", padding: "1rem" }}>
+              <p style={{ color: "#e63946", fontSize: "0.85rem", margin: "0 0 0.5rem 0" }}>⚡ <strong>Your greatest challenge:</strong> {destiny.challenge}</p>
+              <p style={{ color: "#c9a84c", fontSize: "0.85rem", margin: 0 }}>✨ <strong>Your cosmic gift:</strong> {destiny.gift}</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── GIFT A READING MODAL ────────────────────────────────────────────────────
+function GiftReadingModal({ onClose }) {
+  const [paying, setPaying] = useState(false);
+  const [unlocked, setUnlocked] = useState(false);
+  const [giftForm, setGiftForm] = useState({ name: "", day: "", month: "", year: "", hour: "", minute: "", message: "" });
+  const [giftResult, setGiftResult] = useState(null);
+  const [copied, setCopied] = useState(false);
+
+  const handlePay = async () => {
+    if (!giftForm.name || !giftForm.day || !giftForm.month || !giftForm.year || !giftForm.hour || !giftForm.minute) { alert("Please fill in all fields!"); return; }
+    setPaying(true);
+    await openStripePayment({
+      amount: 199,
+      description: `Cosmic Reading Gift for ${giftForm.name}`,
+      onSuccess: () => {
+        const sign = getZodiacSign(giftForm.day, giftForm.month);
+        const p = PERSONALITIES[sign] || {};
+        const asc = getAscendant(giftForm.hour);
+        setGiftResult({ ...p, sign, ascendant: asc });
+        setUnlocked(true); setPaying(false);
+      }
+    });
+    setPaying(false);
+  };
+
+  const handleCopyGift = () => {
+    if (!giftResult) return;
+    const text = `🔮 A COSMIC READING GIFT FOR ${giftForm.name.toUpperCase()}\n\n♾ Sign: ${giftResult.sign} | Rising: ${giftResult.ascendant}\n\n🌟 Cosmic Essence:\n${giftResult.essence}\n\n⚡ Hidden Powers:\n${(giftResult.strengths || []).map(s => `• ${s}`).join("\n")}\n\n🌑 Shadows of the Soul:\n${(giftResult.shadows || []).map(s => `• ${s}`).join("\n")}\n\n❤️ Love & Relationships:\n${giftResult.love}\n\n🏴‍☠️ Your Devil Fruit:\n${giftResult.fruit}\n\n🔮 Destiny:\n${giftResult.destiny}${giftForm.message ? `\n\n💌 A message from someone who cares:\n"${giftForm.message}"` : ""}\n\n✦ Discover your own cosmic reading at cosmicoracleapp.com ✦`;
+    navigator.clipboard.writeText(text).then(() => { setCopied(true); setTimeout(() => setCopied(false), 3000); });
+  };
+
+  return (
+    <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}>
+      <div style={{ background: "linear-gradient(135deg, #0d0a1a, #110d22)", border: "1px solid rgba(224,122,156,0.3)", borderRadius: "20px", padding: "2rem", width: "100%", maxWidth: "560px", maxHeight: "90vh", overflowY: "auto", position: "relative", boxShadow: "0 0 60px rgba(224,122,156,0.12)" }}>
+        <button onClick={onClose} style={{ position: "absolute", top: "1rem", right: "1rem", background: "transparent", border: "none", color: "#6b5c7a", fontSize: "1.5rem", cursor: "pointer" }}>✕</button>
+        <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+          <div style={{ fontSize: "2.5rem", marginBottom: "0.5rem" }}>💌</div>
+          <h2 style={{ fontFamily: "'Cinzel', serif", color: "#c9a84c", margin: "0 0 0.3rem 0", fontSize: "1.3rem" }}>Gift a Cosmic Reading</h2>
+          <div style={{ color: "#e07a9c", fontFamily: "'Cinzel', serif", fontSize: "0.85rem" }}>A personalized cosmic letter for someone special</div>
+        </div>
+        {!unlocked ? (
+          <>
+            <div style={{ marginBottom: "1rem" }}>
+              <label style={labelStyle}>Friend's Name</label>
+              <input value={giftForm.name} onChange={e => setGiftForm({ ...giftForm, name: e.target.value })} placeholder="Their name" style={{ ...inputStyle, marginTop: "0.5rem" }} />
+            </div>
+            <div style={{ marginBottom: "1rem" }}>
+              <label style={labelStyle}>Their Date of Birth</label>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1.5fr", gap: "0.7rem", marginTop: "0.5rem" }}>
+                {[{ name: "day", placeholder: "DD" }, { name: "month", placeholder: "MM" }, { name: "year", placeholder: "YYYY" }].map(f => (
+                  <input key={f.name} type="number" placeholder={f.placeholder} value={giftForm[f.name]} onChange={e => setGiftForm({ ...giftForm, [f.name]: e.target.value })} style={inputStyle} />
+                ))}
+              </div>
+            </div>
+            <div style={{ marginBottom: "1rem" }}>
+              <label style={labelStyle}>Their Time of Birth</label>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.7rem", marginTop: "0.5rem" }}>
+                {[{ name: "hour", placeholder: "Hour (0-23)" }, { name: "minute", placeholder: "Minutes" }].map(f => (
+                  <input key={f.name} type="number" placeholder={f.placeholder} value={giftForm[f.name]} onChange={e => setGiftForm({ ...giftForm, [f.name]: e.target.value })} style={inputStyle} />
+                ))}
+              </div>
+            </div>
+            <div style={{ marginBottom: "1.5rem" }}>
+              <label style={labelStyle}>Your Personal Message (optional)</label>
+              <textarea value={giftForm.message} onChange={e => setGiftForm({ ...giftForm, message: e.target.value })} placeholder="Write a message to include in the cosmic letter..." style={{ ...inputStyle, marginTop: "0.5rem", minHeight: "80px", resize: "vertical", textAlign: "left" }} />
+            </div>
+            <div style={{ textAlign: "center", marginBottom: "1rem" }}>
+              <div style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontSize: "2rem", fontWeight: "bold" }}>€1.99</div>
+              <div style={{ color: "#6b5c7a", fontSize: "0.8rem" }}>A complete cosmic reading for your friend</div>
+            </div>
+            <button onClick={handlePay} disabled={paying} style={{ width: "100%", padding: "1rem", background: paying ? "rgba(224,122,156,0.3)" : "linear-gradient(135deg, #e07a9c, #9b3a5a)", border: "none", borderRadius: "12px", color: "white", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "1rem", cursor: paying ? "not-allowed" : "pointer", letterSpacing: "0.1em" }}>
+              {paying ? "Processing..." : "💌 Generate the Cosmic Gift ✦"}
+            </button>
+            <p style={{ color: "#4a3a5a", fontSize: "0.75rem", textAlign: "center", marginTop: "0.8rem" }}>🔒 Secure payment via Stripe</p>
+          </>
+        ) : giftResult && (
+          <div style={{ animation: "fadeIn 0.5s ease" }}>
+            <div style={{ textAlign: "center", marginBottom: "1.2rem", padding: "1rem", background: "rgba(224,122,156,0.08)", borderRadius: "12px", border: "1px solid rgba(224,122,156,0.2)" }}>
+              <div style={{ fontSize: "1.5rem" }}>{ZODIAC_SIGNS.find(s => s.name === giftResult.sign)?.symbol}</div>
+              <div style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontSize: "1.1rem", fontWeight: "bold" }}>{giftForm.name} is a {giftResult.sign}</div>
+              <div style={{ color: "#6b5c7a", fontSize: "0.8rem" }}>Rising {giftResult.ascendant}</div>
+            </div>
+            <div style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(201,168,76,0.1)", borderRadius: "12px", padding: "1rem", marginBottom: "1rem", maxHeight: "200px", overflowY: "auto" }}>
+              <p style={{ color: "#c8b89a", fontSize: "0.82rem", lineHeight: 1.7, margin: 0 }}>{giftResult.essence}</p>
+              <p style={{ color: "#c9a84c", fontSize: "0.82rem", margin: "0.5rem 0 0 0", fontStyle: "italic" }}>🏴‍☠️ {giftResult.fruit}</p>
+              <p style={{ color: "#9b72cf", fontSize: "0.82rem", margin: "0.3rem 0 0 0", fontStyle: "italic" }}>🔮 {giftResult.destiny}</p>
+              {giftForm.message && <p style={{ color: "#e07a9c", fontSize: "0.82rem", margin: "0.5rem 0 0 0", fontStyle: "italic" }}>💌 "{giftForm.message}"</p>}
+            </div>
+            <button onClick={handleCopyGift} style={{ width: "100%", padding: "1rem", background: copied ? "linear-gradient(135deg, #3a7a3a, #2a5a2a)" : "linear-gradient(135deg, #e07a9c, #9b3a5a)", border: "none", borderRadius: "12px", color: "white", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "0.95rem", cursor: "pointer", letterSpacing: "0.1em" }}>
+              {copied ? "✓ Copied! Send it to your friend 💌" : "📋 Copy the Cosmic Letter"}
+            </button>
+            <p style={{ color: "#4a3a5a", fontSize: "0.75rem", textAlign: "center", marginTop: "0.8rem" }}>Copy and paste in WhatsApp, Instagram or email ✨</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── MAIN APP ────────────────────────────────────────────────────────────────
 export default function App() {
   const [lang, setLang] = useState("en");
   const t = TRANSLATIONS[lang];
@@ -590,6 +602,8 @@ export default function App() {
   const [autoSign, setAutoSign] = useState("");
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState("personality");
+  const [showAnnual, setShowAnnual] = useState(false);
+  const [showGift, setShowGift] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -597,16 +611,11 @@ export default function App() {
     setForm(updated);
     const d = name === "day" ? value : form.day;
     const m = name === "month" ? value : form.month;
-    if (d && m && parseInt(d) >= 1 && parseInt(m) >= 1 && parseInt(m) <= 12) {
-      setAutoSign(getZodiacSign(d, m));
-    }
+    if (d && m && parseInt(d) >= 1 && parseInt(m) >= 1 && parseInt(m) <= 12) setAutoSign(getZodiacSign(d, m));
   };
 
   const analyze = () => {
-    if (!form.day || !form.month || !form.year || !form.hour || !form.minute) {
-      alert(t.fillFields);
-      return;
-    }
+    if (!form.day || !form.month || !form.year || !form.hour || !form.minute) { alert(t.fillFields); return; }
     setStep("loading");
     setTimeout(() => {
       const sign = getZodiacSign(form.day, form.month);
@@ -617,37 +626,13 @@ export default function App() {
     }, 2500);
   };
 
-  const reset = () => {
-    setStep("form");
-    setForm({ day: "", month: "", year: "", hour: "", minute: "" });
-    setResult(null);
-    setAutoSign("");
-    setPartnerSign("");
-    setActiveTab("personality");
-  };
+  const reset = () => { setStep("form"); setForm({ day: "", month: "", year: "", hour: "", minute: "" }); setResult(null); setAutoSign(""); setPartnerSign(""); setActiveTab("personality"); };
 
   const handleShare = () => {
     if (!result) return;
     const compat = partnerSign ? COMPATIBILITY[result.sign]?.[partnerSign] : null;
-    const text = `🔮 COSMIC ORACLE — My Cosmic Reading
-
-♾ Sign: ${result.sign} | Rising: ${result.ascendant}
-📅 Born ${form.day}/${form.month}/${form.year} at ${form.hour}:${form.minute.padStart(2, "0")}
-
-🌟 Essence: ${result.essence}
-
-⚡ Powers: ${result.strengths.join(" • ")}
-
-🏴‍☠️ Devil Fruit: ${result.fruit}
-
-🔮 Destiny: ${result.destiny}
-${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat[1]}` : ""}
-
-✦ Discover your cosmic reading at cosmicoracleapp.com ✦`;
-    navigator.clipboard.writeText(text).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 3000);
-    });
+    const text = `🔮 COSMIC ORACLE — My Cosmic Reading\n\n♾ Sign: ${result.sign} | Rising: ${result.ascendant}\n📅 Born ${form.day}/${form.month}/${form.year} at ${form.hour}:${form.minute.padStart(2, "0")}\n\n🌟 Essence: ${result.essence}\n\n⚡ Powers: ${result.strengths.join(" • ")}\n\n🏴‍☠️ Devil Fruit: ${result.fruit}\n\n🔮 Destiny: ${result.destiny}${compat ? `\n\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat[1]}` : ""}\n\n✦ Discover your cosmic reading at cosmicoracleapp.com ✦`;
+    navigator.clipboard.writeText(text).then(() => { setCopied(true); setTimeout(() => setCopied(false), 3000); });
   };
 
   const handleDownloadCard = () => {
@@ -655,17 +640,7 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
     const compat = partnerSign ? COMPATIBILITY[result.sign]?.[partnerSign] : null;
     const signSymbol = ZODIAC_SIGNS.find(s => s.name === result.sign)?.symbol || "";
     const signColor = SIGN_COLORS[result.sign] || { primary: "#c9a84c", glow: "rgba(201,168,76,0.15)", border: "rgba(201,168,76,0.3)" };
-
-    const canvas = generateCosmicCard({
-      result,
-      form,
-      partnerSign,
-      compatScore: compat ? compat[0] : null,
-      compatText: compat ? compat[1] : "",
-      signColor,
-      signSymbol,
-    });
-
+    const canvas = generateCosmicCard({ result, form, partnerSign, compatScore: compat ? compat[0] : null, compatText: compat ? compat[1] : "", signColor, signSymbol });
     const link = document.createElement("a");
     link.download = `cosmic-card-${result.sign.toLowerCase()}.png`;
     link.href = canvas.toDataURL("image/png");
@@ -688,10 +663,14 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
         input::placeholder { color: rgba(201,168,76,0.3); }
+        textarea::placeholder { color: rgba(201,168,76,0.3); }
         select option { background: #0d0a1a; color: #e8d5a3; }
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 2px; }
       `}</style>
+
+      {showAnnual && result && <AnnualDestinyModal result={result} onClose={() => setShowAnnual(false)} />}
+      {showGift && <GiftReadingModal onClose={() => setShowGift(false)} />}
 
       {stars.map(s => <div key={s.id} style={{ position: "fixed", width: `${s.size}px`, height: `${s.size}px`, background: "white", borderRadius: "50%", top: s.top, left: s.left, opacity: s.opacity, animation: `twinkle ${2 + Math.random() * 3}s ease-in-out infinite`, animationDelay: `${Math.random() * 3}s` }} />)}
       <div style={{ position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)", width: "500px", height: "500px", background: `radial-gradient(circle, ${signColor.glow} 0%, transparent 70%)`, borderRadius: "50%", pointerEvents: "none", transition: "background 1s ease" }} />
@@ -700,13 +679,27 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
       <div style={{ textAlign: "center", marginBottom: "2rem", position: "relative", zIndex: 1 }}>
         <div style={{ fontSize: "2.5rem", filter: "drop-shadow(0 0 15px rgba(201,168,76,0.9))" }}>✦ 🔮 ✦</div>
         <h1 style={{ fontFamily: "'Cinzel', serif", fontSize: "clamp(1.6rem, 5vw, 2.8rem)", fontWeight: 900, background: "linear-gradient(135deg, #c9a84c, #f0d080, #c9a84c)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", margin: "0.3rem 0", letterSpacing: "0.1em" }}>COSMIC ORACLE</h1>
-        <p style={{ color: "#6b5c7a", fontStyle: "italic", margin: 0, fontSize: "0.9rem" }}>{t.subtitle}</p>
-        <div style={{ display: "flex", gap: "0.4rem", justifyContent: "center", marginTop: "0.8rem" }}>
+        <p style={{ color: "#6b5c7a", fontStyle: "italic", margin: "0 0 0.8rem 0", fontSize: "0.9rem" }}>{t.subtitle}</p>
+
+        {/* Language selector */}
+        <div style={{ display: "flex", gap: "0.4rem", justifyContent: "center", marginBottom: "0.8rem" }}>
           {Object.entries(TRANSLATIONS).map(([code, tr]) => (
             <button key={code} onClick={() => setLang(code)} style={{ padding: "0.3rem 0.7rem", background: lang === code ? "rgba(201,168,76,0.2)" : "transparent", border: lang === code ? "1px solid rgba(201,168,76,0.4)" : "1px solid rgba(255,255,255,0.1)", borderRadius: "6px", color: lang === code ? "#c9a84c" : "#6b5c7a", fontSize: "0.75rem", cursor: "pointer", fontFamily: "'Cinzel', serif" }}>
               {tr.flag} {tr.label}
             </button>
           ))}
+        </div>
+
+        {/* Premium header buttons */}
+        <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", flexWrap: "wrap" }}>
+          <button onClick={() => setShowGift(true)} style={{ padding: "0.4rem 1rem", background: "linear-gradient(135deg, #2a1020, #1a0815)", border: "1px solid rgba(224,122,156,0.4)", borderRadius: "20px", color: "#e07a9c", fontSize: "0.78rem", cursor: "pointer", fontFamily: "'Cinzel', serif" }}>
+            {t.giftBtn}
+          </button>
+          {result && (
+            <button onClick={() => setShowAnnual(true)} style={{ padding: "0.4rem 1rem", background: "linear-gradient(135deg, #1a1020, #0d0815)", border: "1px solid rgba(201,168,76,0.4)", borderRadius: "20px", color: "#c9a84c", fontSize: "0.78rem", cursor: "pointer", fontFamily: "'Cinzel', serif" }}>
+              {t.annualBtn}
+            </button>
+          )}
         </div>
       </div>
 
@@ -744,30 +737,24 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
             <div style={{ color: "#c9a84c", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.5rem" }}>✦ {t.cosmicMessage} — {formatTodayDate()} ✦</div>
             <p style={{ color: "#8a7a9b", fontStyle: "italic", margin: 0, lineHeight: 1.7, fontSize: "0.85rem" }}>"{getCosmicDailyQuote()}"</p>
           </div>
-          {(() => {
-            const moon = getMoonPhase();
-            return (
-              <div style={{ marginTop: "1rem", background: "rgba(147,51,234,0.06)", border: "1px solid rgba(147,51,234,0.2)", borderRadius: "14px", padding: "1rem 1.2rem", textAlign: "center" }}>
-                <div style={{ color: "#9b72cf", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.4rem" }}>🌙 {t.moonPhase}</div>
-                <div style={{ fontSize: "2rem", marginBottom: "0.3rem" }}>{moon.emoji}</div>
-                <div style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "0.95rem", marginBottom: "0.3rem" }}>{moon.name}</div>
-                <div style={{ color: "#9b72cf", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.4rem" }}>{t.energy}: {moon.energy}</div>
-                <p style={{ color: "#8a7a9b", fontStyle: "italic", margin: 0, lineHeight: 1.6, fontSize: "0.82rem" }}>{moon.meaning}</p>
-              </div>
-            );
-          })()}
-          {(() => {
-            const card = getDailyTarot();
-            return (
-              <div style={{ marginTop: "1rem", background: "rgba(201,168,76,0.04)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: "14px", padding: "1rem 1.2rem", textAlign: "center" }}>
-                <div style={{ color: "#c9a84c", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.4rem" }}>🎴 {t.tarotCard}</div>
-                <div style={{ fontSize: "2rem", marginBottom: "0.3rem" }}>{card.emoji}</div>
-                <div style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "0.95rem", marginBottom: "0.2rem" }}>{card.number} — {card.name}</div>
-                <div style={{ color: "#9b72cf", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.4rem" }}>{t.energy}: {card.energy}</div>
-                <p style={{ color: "#8a7a9b", fontStyle: "italic", margin: 0, lineHeight: 1.6, fontSize: "0.82rem" }}>{card.meaning}</p>
-              </div>
-            );
-          })()}
+          {(() => { const moon = getMoonPhase(); return (
+            <div style={{ marginTop: "1rem", background: "rgba(147,51,234,0.06)", border: "1px solid rgba(147,51,234,0.2)", borderRadius: "14px", padding: "1rem 1.2rem", textAlign: "center" }}>
+              <div style={{ color: "#9b72cf", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.4rem" }}>🌙 {t.moonPhase}</div>
+              <div style={{ fontSize: "2rem", marginBottom: "0.3rem" }}>{moon.emoji}</div>
+              <div style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "0.95rem", marginBottom: "0.3rem" }}>{moon.name}</div>
+              <div style={{ color: "#9b72cf", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.4rem" }}>{t.energy}: {moon.energy}</div>
+              <p style={{ color: "#8a7a9b", fontStyle: "italic", margin: 0, lineHeight: 1.6, fontSize: "0.82rem" }}>{moon.meaning}</p>
+            </div>
+          ); })()}
+          {(() => { const card = getDailyTarot(); return (
+            <div style={{ marginTop: "1rem", background: "rgba(201,168,76,0.04)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: "14px", padding: "1rem 1.2rem", textAlign: "center" }}>
+              <div style={{ color: "#c9a84c", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.4rem" }}>🎴 {t.tarotCard}</div>
+              <div style={{ fontSize: "2rem", marginBottom: "0.3rem" }}>{card.emoji}</div>
+              <div style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "0.95rem", marginBottom: "0.2rem" }}>{card.number} — {card.name}</div>
+              <div style={{ color: "#9b72cf", fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.4rem" }}>{t.energy}: {card.energy}</div>
+              <p style={{ color: "#8a7a9b", fontStyle: "italic", margin: 0, lineHeight: 1.6, fontSize: "0.82rem" }}>{card.meaning}</p>
+            </div>
+          ); })()}
         </div>
       )}
 
@@ -787,6 +774,23 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
             <div style={{ fontSize: "2.5rem" }}>{ZODIAC_SIGNS.find(s => s.name === result.sign)?.symbol}</div>
             <h2 style={{ fontFamily: "'Cinzel', serif", color: "#c9a84c", margin: "0.4rem 0", fontSize: "1.4rem" }}>{result.sign}</h2>
             <div style={{ color: "#6b5c7a", fontSize: "0.8rem" }}>{t.rising} {result.ascendant} • {t.bornOn} {form.day}/{form.month}/{form.year} {t.at} {form.hour}:{form.minute.padStart(2, "0")}</div>
+          </div>
+
+          {/* Daily quote for their sign */}
+          {getDailyQuote(result.sign) && (
+            <div style={{ background: signColor.glow, border: `1px solid ${signColor.border}`, borderRadius: "12px", padding: "0.9rem 1rem", marginBottom: "1.2rem", textAlign: "center" }}>
+              <div style={{ color: signColor.primary, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", fontFamily: "'Cinzel', serif", marginBottom: "0.4rem" }}>✦ {t.cosmicMessage} ✦</div>
+              <p style={{ color: "#c8b89a", fontStyle: "italic", margin: 0, fontSize: "0.85rem", lineHeight: 1.6 }}>"{getDailyQuote(result.sign)}"</p>
+            </div>
+          )}
+
+          {/* Annual Destiny CTA */}
+          <div onClick={() => setShowAnnual(true)} style={{ background: "linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03))", border: "1px solid rgba(201,168,76,0.25)", borderRadius: "12px", padding: "0.8rem 1rem", marginBottom: "1.2rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div>
+              <div style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontSize: "0.8rem", fontWeight: "bold" }}>🔮 Your 2026 Annual Destiny</div>
+              <div style={{ color: "#6b5c7a", fontSize: "0.72rem" }}>Quarter by quarter cosmic forecast</div>
+            </div>
+            <div style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontSize: "0.85rem", fontWeight: "bold" }}>€2.99 →</div>
           </div>
 
           {/* Tabs */}
@@ -828,12 +832,7 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
                   </div>
                 </div>
               )}
-              {!partnerSign && (
-                <div style={{ textAlign: "center", padding: "2rem", color: "#4a3a5a" }}>
-                  <div style={{ fontSize: "2rem" }}>💫</div>
-                  <p style={{ fontStyle: "italic", fontSize: "0.9rem" }}>Select a sign to discover your cosmic compatibility</p>
-                </div>
-              )}
+              {!partnerSign && <div style={{ textAlign: "center", padding: "2rem", color: "#4a3a5a" }}><div style={{ fontSize: "2rem" }}>💫</div><p style={{ fontStyle: "italic", fontSize: "0.9rem" }}>Select a sign to discover your cosmic compatibility</p></div>}
             </div>
           )}
 
@@ -850,28 +849,20 @@ ${compat ? `\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat
                   {compat ? `💞 ${t.with} ${partnerSign}: ${compatScore}%` : ""}
                 </p>
               </div>
-
-              {/* Copy button */}
               <button onClick={handleShare} style={{ width: "100%", padding: "0.9rem", background: copied ? "linear-gradient(135deg, #3a7a3a, #2a5a2a)" : "linear-gradient(135deg, #c9a84c, #8b6914)", border: "none", borderRadius: "12px", color: copied ? "#90ff90" : "#0d0a1a", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "0.95rem", cursor: "pointer", letterSpacing: "0.1em", transition: "all 0.3s ease", boxShadow: copied ? "0 0 20px rgba(0,200,0,0.3)" : "0 0 20px rgba(201,168,76,0.2)", marginBottom: "0.7rem" }}>
                 {copied ? t.copied : t.copyBtn}
               </button>
-
-              {/* Download Cosmic Card button */}
-              <button onClick={handleDownloadCard} style={{ width: "100%", padding: "0.9rem", background: "linear-gradient(135deg, #2a1a4a, #1a0d30)", border: "1px solid rgba(201,168,76,0.4)", borderRadius: "12px", color: "#c9a84c", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "0.95rem", cursor: "pointer", letterSpacing: "0.1em", transition: "all 0.3s ease", boxShadow: "0 0 20px rgba(201,168,76,0.1)", marginBottom: "1.5rem" }}>
+              <button onClick={handleDownloadCard} style={{ width: "100%", padding: "0.9rem", background: "linear-gradient(135deg, #2a1a4a, #1a0d30)", border: "1px solid rgba(201,168,76,0.4)", borderRadius: "12px", color: "#c9a84c", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "0.95rem", cursor: "pointer", letterSpacing: "0.1em", transition: "all 0.3s ease", boxShadow: "0 0 20px rgba(201,168,76,0.1)", marginBottom: "0.7rem" }}>
                 {t.downloadBtn}
               </button>
-
-              {/* Hint */}
-              <p style={{ color: "#4a3a5a", fontSize: "0.75rem", fontStyle: "italic", marginBottom: "1.2rem" }}>
-                ✦ Download a beautiful 1080×1080 image perfect for Instagram & Stories ✦
-              </p>
-
-              <div style={{ marginTop: "0.5rem", padding: "1rem", background: "rgba(201,168,76,0.05)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: "12px" }}>
+              <button onClick={() => setShowGift(true)} style={{ width: "100%", padding: "0.9rem", background: "linear-gradient(135deg, #2a0a1a, #1a0510)", border: "1px solid rgba(224,122,156,0.4)", borderRadius: "12px", color: "#e07a9c", fontFamily: "'Cinzel', serif", fontWeight: "bold", fontSize: "0.95rem", cursor: "pointer", letterSpacing: "0.1em", marginBottom: "1.5rem" }}>
+                {t.giftShareBtn}
+              </button>
+              <p style={{ color: "#4a3a5a", fontSize: "0.75rem", fontStyle: "italic", marginBottom: "1.2rem" }}>✦ Download a beautiful 1080×1080 image perfect for Instagram & Stories ✦</p>
+              <div style={{ padding: "1rem", background: "rgba(201,168,76,0.05)", border: "1px solid rgba(201,168,76,0.15)", borderRadius: "12px" }}>
                 <p style={{ color: "#c9a84c", fontFamily: "'Cinzel', serif", fontSize: "0.8rem", margin: "0 0 0.8rem 0" }}>{t.support}</p>
                 <p style={{ color: "#6b5c7a", fontSize: "0.8rem", margin: "0 0 0.8rem 0", fontStyle: "italic" }}>{t.supportText}</p>
-                <a href="https://ko-fi.com" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", padding: "0.6rem 1.5rem", background: "linear-gradient(135deg, #FF5E5B, #c0392b)", borderRadius: "8px", color: "white", textDecoration: "none", fontSize: "0.85rem", fontFamily: "'Cinzel', serif" }}>
-                  {t.coffeeBtn}
-                </a>
+                <a href="https://ko-fi.com" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", padding: "0.6rem 1.5rem", background: "linear-gradient(135deg, #FF5E5B, #c0392b)", borderRadius: "8px", color: "white", textDecoration: "none", fontSize: "0.85rem", fontFamily: "'Cinzel', serif" }}>{t.coffeeBtn}</a>
               </div>
               {compat && <p style={{ color: "#6b5c7a", fontSize: "0.8rem", marginTop: "0.8rem", fontStyle: "italic" }}>{t.include} {partnerSign}</p>}
             </div>
