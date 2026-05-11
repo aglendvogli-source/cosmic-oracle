@@ -798,8 +798,19 @@ export default function App() {
                 <button onClick={saveJournal} style={{ width:"100%", padding:".75rem", background:"rgba(201,150,58,0.08)", border:"1px solid rgba(201,150,58,0.3)", borderRadius:10, color:"#c9a84c", fontFamily:"'Cinzel',serif", fontSize:".8rem", letterSpacing:".1em", cursor:"pointer", marginBottom:"1rem" }}>✦ Save Entry ✦</button>
                 <div>
                   {journalEntries.map((e, i) => (
-                    <div key={i} style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:10, padding:".8rem", marginBottom:".6rem" }}>
-                      <div style={{ fontFamily:"'Cinzel',serif", fontSize:".68rem", color:"#6b5c7a", marginBottom:".4rem" }}>✦ {e.date}</div>
+                    <div key={i} style={{ background:"rgba(255,255,255,0.02)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:10, padding:".8rem", marginBottom:".6rem", position:"relative" }}>
+                      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:".4rem" }}>
+                        <div style={{ fontFamily:"'Cinzel',serif", fontSize:".68rem", color:"#6b5c7a" }}>✦ {e.date}</div>
+                        <button onClick={() => {
+                          const updated = journalEntries.filter((_, idx) => idx !== i);
+                          setJournalEntries(updated);
+                          localStorage.setItem("cosmic_journal", JSON.stringify(updated));
+                        }} style={{ background:"transparent", border:"none", color:"#4a3a5a", fontSize:"1rem", cursor:"pointer", padding:"0 .2rem", lineHeight:1, transition:"color .2s" }}
+                          onMouseEnter={e => e.target.style.color="#e07a9c"}
+                          onMouseLeave={e => e.target.style.color="#4a3a5a"}>
+                          🗑️
+                        </button>
+                      </div>
                       <p style={{ fontSize:".82rem", color:"#a897c8", lineHeight:1.6 }}>{e.text}</p>
                     </div>
                   ))}
