@@ -470,6 +470,94 @@ export default function App() {
     }, 2200);
   };
 
+  const downloadCard = () => {
+    if (!result) return;
+    const canvas = document.createElement("canvas");
+    canvas.width = 1080; canvas.height = 1080;
+    const ctx = canvas.getContext("2d");
+    // Background
+    const bg = ctx.createRadialGradient(540, 300, 0, 540, 540, 900);
+    bg.addColorStop(0, "#12003a"); bg.addColorStop(.5, "#090614"); bg.addColorStop(1, "#040108");
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, 1080, 1080);
+    // Stars
+    for (let i = 0; i < 200; i++) {
+      const x = (Math.sin(i * 3.1) * 500 + 540) % 1080;
+      const y = (Math.sin(i * 7.3) * 500 + 540) % 1080;
+      const r = Math.random() * 1.8 + .2;
+      ctx.beginPath(); ctx.arc(Math.abs(x), Math.abs(y), r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(255,255,255,${Math.random()*.6+.1})`; ctx.fill();
+    }
+    // Nebula glow
+    const neb = ctx.createRadialGradient(540, 400, 0, 540, 400, 400);
+    neb.addColorStop(0, "rgba(100,30,220,0.2)"); neb.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = neb; ctx.fillRect(0, 0, 1080, 1080);
+    // Header
+    const hGrad = ctx.createLinearGradient(200, 0, 880, 0);
+    hGrad.addColorStop(0, "#c9a84c"); hGrad.addColorStop(.5, "#f0d080"); hGrad.addColorStop(1, "#c9a84c");
+    ctx.font = "bold 42px Georgia,serif"; ctx.textAlign = "center"; ctx.fillStyle = hGrad;
+    ctx.fillText("✦ COSMIC ORACLE ✦", 540, 80);
+    // Sign symbol
+    const z = ZODIAC.find(z => z.name === result.sign);
+    ctx.font = "130px serif"; ctx.fillStyle = z.color;
+    ctx.shadowColor = z.color; ctx.shadowBlur = 50;
+    ctx.fillText(z.sym, 540, 250); ctx.shadowBlur = 0;
+    // Sign name
+    ctx.font = "bold 68px Georgia,serif"; ctx.fillStyle = "#c9a84c";
+    ctx.shadowColor = "rgba(201,168,76,0.5)"; ctx.shadowBlur = 20;
+    ctx.fillText(result.sign.toUpperCase(), 540, 330); ctx.shadowBlur = 0;
+    // Sub
+    ctx.font = "24px Georgia,serif"; ctx.fillStyle = "#6b5c7a";
+    ctx.fillText(`Rising ${result.ascendant}  ·  Born ${form.day}/${form.month}/${form.year}`, 540, 375);
+    // Divider
+    const div1 = ctx.createLinearGradient(150, 0, 930, 0);
+    div1.addColorStop(0,"transparent"); div1.addColorStop(.5,"rgba(201,150,58,0.4)"); div1.addColorStop(1,"transparent");
+    ctx.strokeStyle = div1; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(150, 405); ctx.lineTo(930, 405); ctx.stroke();
+    // Essence
+    ctx.font = "italic 30px Georgia,serif"; ctx.fillStyle = "#c8b89a";
+    const words = result.essence.split(" "); let line = "", y = 460;
+    words.forEach(w => {
+      const t = line + w + " ";
+      if (ctx.measureText(t).width > 840 && line) { ctx.fillText(line.trim(), 540, y); line = w + " "; y += 44; }
+      else line = t;
+    });
+    ctx.fillText(line.trim(), 540, y);
+    // Devil Fruit
+    y += 70;
+    ctx.font = "bold 22px Georgia,serif"; ctx.fillStyle = "#c9a84c";
+    ctx.fillText("🏴‍☠️  YOUR DEVIL FRUIT", 540, y);
+    y += 38;
+    ctx.font = "italic 24px Georgia,serif"; ctx.fillStyle = "#8a7a9b";
+    const fw = result.fruit.split(" "); let fl = "";
+    fw.forEach(w => {
+      const t = fl + w + " ";
+      if (ctx.measureText(t).width > 860 && fl) { ctx.fillText(fl.trim(), 540, y); fl = w + " "; y += 34; }
+      else fl = t;
+    });
+    ctx.fillText(fl.trim(), 540, y);
+    // Destiny
+    y += 60;
+    ctx.font = "italic 28px Georgia,serif"; ctx.fillStyle = "#c9a84c";
+    ctx.shadowColor = "rgba(201,150,58,0.4)"; ctx.shadowBlur = 10;
+    const dy = result.destiny.split(" "); let dl = "";
+    dy.forEach(w => {
+      const t = dl + w + " ";
+      if (ctx.measureText(t).width > 860 && dl) { ctx.fillText(`"${dl.trim()}"`, 540, y); dl = w + " "; y += 38; }
+      else dl = t;
+    });
+    ctx.fillText(`"${dl.trim()}"`, 540, y); ctx.shadowBlur = 0;
+    // Bottom divider
+    const div2 = ctx.createLinearGradient(150, 0, 930, 0);
+    div2.addColorStop(0,"transparent"); div2.addColorStop(.5,"rgba(201,150,58,0.3)"); div2.addColorStop(1,"transparent");
+    ctx.strokeStyle = div2; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(150, 990); ctx.lineTo(930, 990); ctx.stroke();
+    // Branding
+    ctx.font = "26px Georgia,serif"; ctx.fillStyle = "#4a3a5a"; ctx.shadowBlur = 0;
+    ctx.fillText("cosmicoracleapp.com", 540, 1048);
+    // Download
+    const link = document.createElement("a");
+    link.download = `cosmic-oracle-${result.sign.toLowerCase()}-${form.day}-${form.month}-${form.year}.png`;
+    link.href = canvas.toDataURL("image/png"); link.click();
+  };
+
   const copyReading = () => {
     if (!result) return;
     const compat = partnerSign ? COMPAT[result.sign]?.[partnerSign] : null;
@@ -553,6 +641,8 @@ export default function App() {
         @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
         @keyframes twinkle{0%,100%{opacity:.15}50%{opacity:.9}}
         .fade-up{animation:fadeUp .35s ease;}
+        @media(max-width:768px){.desktop-sidebar{display:none!important;}.desktop-right{display:none!important;}.content-grid{grid-template-columns:1fr!important;}.center-col{padding:.8rem!important;}.mobile-nav{display:flex!important;}.app-wrap{padding-bottom:72px!important;overflow-y:auto!important;}.topbar-date{display:none!important;}.wheel-wrap{width:min(340px,95vw)!important;}}
+        @media(min-width:769px){.mobile-nav{display:none!important;}}
       `}</style>
 
       {/* Stars */}
@@ -575,7 +665,7 @@ export default function App() {
       )}
 
       {/* SIDEBAR */}
-      <div style={S.sidebar}>
+      <div style={S.sidebar} className="desktop-sidebar">
         <div style={S.logo}>
           <div style={{ fontSize:"1.5rem", marginBottom:".3rem" }}>🌙</div>
           <div style={S.logoTitle}>COSMIC ORACLE</div>
@@ -603,9 +693,9 @@ export default function App() {
           <div style={{ fontSize:".75rem", color:"#6b5c7a", fontStyle:"italic" }}>{formatDate()}</div>
         </div>
 
-        <div style={S.content}>
+        <div style={S.content} className="content-grid">
           {/* CENTER */}
-          <div style={S.center}>
+          <div style={S.center} className="center-col app-wrap">
 
             {/* HOME */}
             {page === "home" && (
@@ -735,7 +825,11 @@ export default function App() {
                         <button onClick={copyReading} style={{ width:"100%", padding:".85rem", background: copied?"linear-gradient(135deg,#3a7a3a,#2a5a2a)":"linear-gradient(135deg,#c9a84c,#8b6914)", border:"none", borderRadius:12, color: copied?"#90ff90":"#0d0a1a", fontFamily:"'Cinzel',serif", fontWeight:700, fontSize:".9rem", cursor:"pointer", letterSpacing:".08em", marginBottom:".5rem" }}>
                           {copied ? "✓ Copied to clipboard!" : "📋 Copy Cosmic Reading"}
                         </button>
+                        <button onClick={downloadCard} style={{ width:"100%", padding:".85rem", background:"linear-gradient(135deg,#2a1a4a,#1a0d30)", border:"1px solid rgba(201,150,58,0.4)", borderRadius:12, color:"#c9a84c", fontFamily:"'Cinzel',serif", fontWeight:700, fontSize:".9rem", cursor:"pointer", letterSpacing:".08em", marginBottom:".5rem" }}>
+                          🖼️ Download Cosmic Card
+                        </button>
                         <button onClick={() => setShowGift(true)} style={{ width:"100%", padding:".85rem", background:"rgba(224,122,156,0.1)", border:"1px solid rgba(224,122,156,0.35)", borderRadius:12, color:"#e07a9c", fontFamily:"'Cinzel',serif", fontWeight:700, fontSize:".9rem", cursor:"pointer", letterSpacing:".08em" }}>💌 Gift a Reading — €1.99</button>
+                        <p style={{ fontSize:".72rem", color:"#4a3a5a", fontStyle:"italic", marginTop:".7rem" }}>✦ Download a beautiful 1080×1080 image perfect for Instagram & Stories ✦</p>
                       </div>
                     )}
 
@@ -821,7 +915,7 @@ export default function App() {
           </div>{/* end center */}
 
           {/* RIGHT PANEL */}
-          <div style={S.rightPanel}>
+          <div style={S.rightPanel} className="desktop-right">
             <div style={S.rpCard()}>
               <div style={S.rpTitle()}>Your Sign</div>
               {selectedZ ? (
