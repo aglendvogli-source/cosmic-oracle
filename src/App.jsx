@@ -6,18 +6,18 @@ const STRIPE_GIFT   = "https://buy.stripe.com/9B6eVf1O84FNcHe8Jzf3a02";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 const ZODIAC = [
-  { name:"Aries",      sym:"♈", dates:"Mar 21 - Apr 19", el:"Fire",  color:"#e63946" },
-  { name:"Taurus",     sym:"♉", dates:"Apr 20 - May 20", el:"Earth", color:"#2d9e6e" },
-  { name:"Gemini",     sym:"♊", dates:"May 21 - Jun 20", el:"Air",   color:"#e9c46a" },
-  { name:"Cancer",     sym:"♋", dates:"Jun 21 - Jul 22", el:"Water", color:"#a8dadc" },
-  { name:"Leo",        sym:"♌", dates:"Jul 23 - Aug 22", el:"Fire",  color:"#f4a261" },
-  { name:"Virgo",      sym:"♍", dates:"Aug 23 - Sep 22", el:"Earth", color:"#6a994e" },
-  { name:"Libra",      sym:"♎", dates:"Sep 23 - Oct 22", el:"Air",   color:"#e07a9c" },
-  { name:"Scorpio",    sym:"♏", dates:"Oct 23 - Nov 21", el:"Water", color:"#9b2335" },
-  { name:"Sagittarius",sym:"♐", dates:"Nov 22 - Dec 21", el:"Fire",  color:"#9b72cf" },
-  { name:"Capricorn",  sym:"♑", dates:"Dec 22 - Jan 19", el:"Earth", color:"#4cc9f0" },
-  { name:"Aquarius",   sym:"♒", dates:"Jan 20 - Feb 18", el:"Air",   color:"#4cc9f0" },
-  { name:"Pisces",     sym:"♓", dates:"Feb 19 - Mar 20", el:"Water", color:"#48cae4" },
+  { name:"Aries",      sym:"AR", dates:"Mar 21 - Apr 19", el:"Fire",  color:"#e63946" },
+  { name:"Taurus",     sym:"TA", dates:"Apr 20 - May 20", el:"Earth", color:"#2d9e6e" },
+  { name:"Gemini",     sym:"GE", dates:"May 21 - Jun 20", el:"Air",   color:"#e9c46a" },
+  { name:"Cancer",     sym:"CN", dates:"Jun 21 - Jul 22", el:"Water", color:"#a8dadc" },
+  { name:"Leo",        sym:"LE", dates:"Jul 23 - Aug 22", el:"Fire",  color:"#f4a261" },
+  { name:"Virgo",      sym:"VI", dates:"Aug 23 - Sep 22", el:"Earth", color:"#6a994e" },
+  { name:"Libra",      sym:"LI", dates:"Sep 23 - Oct 22", el:"Air",   color:"#e07a9c" },
+  { name:"Scorpio",    sym:"SC", dates:"Oct 23 - Nov 21", el:"Water", color:"#9b2335" },
+  { name:"Sagittarius",sym:"SG", dates:"Nov 22 - Dec 21", el:"Fire",  color:"#9b72cf" },
+  { name:"Capricorn",  sym:"CP", dates:"Dec 22 - Jan 19", el:"Earth", color:"#4cc9f0" },
+  { name:"Aquarius",   sym:"AQ", dates:"Jan 20 - Feb 18", el:"Air",   color:"#4cc9f0" },
+  { name:"Pisces",     sym:"PI", dates:"Feb 19 - Mar 20", el:"Water", color:"#48cae4" },
 ];
 
 const COMPAT = {Aries:{Aries:[85,"Fire against fire — explosive passion but also epic clashes."],Taurus:[45,"Too different in pace — one runs, the other waits."],Gemini:[78,"Energy and curiosity meet — never a dull moment."],Cancer:[40,"Aries burns where Cancer seeks protection."],Leo:[92,"Two fire signs — they understand each other without words."],Virgo:[38,"Virgo slows Aries down — constant tension."],Libra:[72,"Complementary opposites — magnetic attraction."],Scorpio:[65,"Both intense — they either love madly or destroy each other."],Sagittarius:[88,"Adventure and freedom — the most dynamic couple of the zodiac."],Capricorn:[50,"Aries wants it now, Capricorn waits — conflict of timing."],Aquarius:[75,"Both original and rebellious — they understand each other deeply."],Pisces:[55,"Different worlds but mysterious attraction."]},Taurus:{Aries:[45,"Too different in rhythm."],Taurus:[80,"Two rocks together — absolute stability but little surprise."],Gemini:[42,"Taurus wants roots, Gemini wants to fly."],Cancer:[90,"Earth and water — deep love, home and family."],Leo:[55,"Leo wants the spotlight, Taurus wants peace."],Virgo:[88,"Two earth signs — something solid is built."],Libra:[68,"Both love beauty — harmony is possible."],Scorpio:[72,"Powerful and complex attraction — all or nothing."],Sagittarius:[40,"Sagittarius flees where Taurus roots."],Capricorn:[92,"The most solid couple of the zodiac — they build together."],Aquarius:[38,"Too far apart."],Pisces:[82,"Infinite tenderness — they protect each other."]},Gemini:{Aries:[78,"They stimulate each other — never a moment of boredom."],Taurus:[42,"Taurus slows Gemini down — mutual frustration."],Gemini:[75,"Two brilliant minds — endless conversations but little depth."],Cancer:[50,"Cancer wants stability, Gemini fears it."],Leo:[80,"Both love being center stage — positive sparks."],Virgo:[55,"They understand but criticize each other."],Libra:[88,"Air and air — lightness, intelligence, natural affinity."],Scorpio:[48,"Scorpio is too intense for Gemini."],Sagittarius:[85,"Complementary opposites — adventure and freedom."],Capricorn:[40,"Capricorn structures, Gemini escapes."],Aquarius:[90,"Two extraordinary minds — revolutionary couple."],Pisces:[58,"Different worlds but mutual curiosity."]},Cancer:{Aries:[40,"Aries burns where Cancer seeks protection."],Taurus:[90,"Earth and water — deep and lasting love."],Gemini:[50,"Gemini changes too much for Cancer."],Cancer:[78,"They understand each other's soul — but too much sensitivity."],Leo:[62,"Leo illuminates Cancer — but can also blind them."],Virgo:[82,"Mutual care and devotion — a thoughtful couple."],Libra:[58,"Libra is too rational for emotional Cancer."],Scorpio:[92,"Water and water — emotional depth without equal."],Sagittarius:[38,"Sagittarius flees where Cancer wants to stay."],Capricorn:[70,"Opposites that attract — balance between heart and mind."],Aquarius:[42,"Aquarius is too detached for Cancer."],Pisces:[90,"Two water souls — total empathy and romantic love."]},Leo:{Aries:[92,"Fire and fire — immediate passion and mutual respect."],Taurus:[55,"Taurus doesn't always applaud — Leo takes offense."],Gemini:[80,"Gemini feeds Leo's ego — works well."],Cancer:[62,"Cancer nurtures Leo — a tender relationship."],Leo:[70,"Two kings together — grand but who yields?"],Virgo:[48,"Virgo criticizes Leo — inevitable clashes."],Libra:[85,"Libra adores Leo — elegant and harmonious couple."],Scorpio:[60,"Both want control — silent war."],Sagittarius:[90,"Fire and adventure — the most vibrant couple."],Capricorn:[52,"Capricorn is too sober for Leo."],Aquarius:[68,"Opposites that challenge each other — creative tension."],Pisces:[65,"Pisces admires Leo — fascinating dynamic."]},Virgo:{Aries:[38,"Aries is too impulsive for Virgo."],Taurus:[88,"Two earth signs — solidity and understanding."],Gemini:[55,"They stimulate each other mentally but get irritated."],Cancer:[82,"Mutual care — a thoughtful and stable couple."],Leo:[48,"Leo is too dramatic for practical Virgo."],Virgo:[72,"They understand each other perfectly — maybe too similar."],Libra:[65,"Both seek balance — good understanding."],Scorpio:[80,"Intensity and precision — they respect each other deeply."],Sagittarius:[42,"Sagittarius is too chaotic for Virgo."],Capricorn:[90,"The most efficient couple — they build the future."],Aquarius:[50,"Too different in their approach to life."],Pisces:[70,"Opposites that complete each other."]},Libra:{Aries:[72,"Magnetic attraction between opposites."],Taurus:[68,"Both love beauty — harmony is possible."],Gemini:[88,"Air and air — intellectual and light couple."],Cancer:[58,"Emotion vs rationality — difficult balance."],Leo:[85,"Elegance and charisma — an enviable couple."],Virgo:[65,"They respect but criticize each other."],Libra:[75,"Perfect harmony but who decides?"],Scorpio:[55,"Scorpio is too intense for Libra."],Sagittarius:[80,"Freedom and dialogue — open and dynamic couple."],Capricorn:[60,"Capricorn is too serious for Libra."],Aquarius:[88,"Two air signs — progressive and brilliant couple."],Pisces:[72,"Romance and harmony — a sensitive couple."]},Scorpio:{Aries:[65,"Both intense — passion or destruction."],Taurus:[72,"Complex and powerful attraction."],Gemini:[48,"Scorpio is too deep for Gemini."],Cancer:[92,"Two water souls — total connection."],Leo:[60,"Both dominant — power struggle."],Virgo:[80,"They respect and complete each other."],Libra:[55,"Too different in depth."],Scorpio:[82,"Double intensity — either wonderful or devastating."],Sagittarius:[45,"Sagittarius is too free for Scorpio."],Capricorn:[88,"Shared determination — an unbeatable couple."],Aquarius:[50,"Too emotionally distant."],Pisces:[92,"The deepest encounter of the zodiac."]},Sagittarius:{Aries:[88,"Pure adventure — the most dynamic couple."],Taurus:[40,"Too different — Taurus anchors, Sagittarius flies."],Gemini:[85,"Freedom and dialogue — never still."],Cancer:[38,"Cancer holds back where Sagittarius wants to fly."],Leo:[90,"Fire and passion — magnetic couple."],Virgo:[42,"Virgo slows Sagittarius down."],Libra:[80,"Freedom and harmony — open couple."],Scorpio:[45,"Scorpio wants to possess, Sagittarius wants to flee."],Sagittarius:[80,"Two free riders — wonderful while it lasts."],Capricorn:[50,"Capricorn plans, Sagittarius improvises."],Aquarius:[88,"Two free spirits — revolutionary couple."],Pisces:[62,"Different worlds but mystical attraction."]},Capricorn:{Aries:[50,"Too different in rhythms and goals."],Taurus:[92,"The most solid couple — they build the future."],Gemini:[40,"Gemini is too volatile for Capricorn."],Cancer:[70,"Complementary opposites — heart and mind."],Leo:[52,"Leo is too exuberant for Capricorn."],Virgo:[90,"Efficiency and determination — an unbeatable couple."],Libra:[60,"Libra is too indecisive for Capricorn."],Scorpio:[88,"Strength and determination — they respect each other deeply."],Sagittarius:[50,"Too different in approach."],Capricorn:[78,"They understand each other — but who warms up?"],Aquarius:[55,"Tradition vs revolution — constant tension."],Pisces:[72,"Pisces warms Capricorn — beautiful complementarity."]},Aquarius:{Aries:[75,"Both original — good understanding."],Taurus:[38,"Too far apart in lifestyle."],Gemini:[90,"Two brilliant minds — revolutionary couple."],Cancer:[42,"Aquarius is too detached for Cancer."],Leo:[68,"Creative challenge — opposites that attract."],Virgo:[50,"Approaches to life too different."],Libra:[88,"Air and air — progressive couple."],Scorpio:[50,"Too emotionally different."],Sagittarius:[88,"Two free spirits — open and dynamic couple."],Capricorn:[55,"Tradition vs innovation."],Aquarius:[80,"They understand each other perfectly."],Pisces:[65,"Rational vs emotional — fascination of opposites."]},Pisces:{Aries:[55,"Mystical attraction but different worlds."],Taurus:[82,"Tenderness and mutual protection."],Gemini:[58,"Mutual curiosity but little in common."],Cancer:[90,"Total empathy — romantic and deep love."],Leo:[65,"Leo fascinates Pisces."],Virgo:[70,"They complete each other."],Libra:[72,"Romance and harmony."],Scorpio:[92,"The deepest connection of the zodiac."],Sagittarius:[62,"Mystical attraction but unstable."],Capricorn:[72,"They complete each other — earth and water."],Aquarius:[65,"Fascination of opposites."],Pisces:[80,"Two romantic souls — ocean of feelings."]}};
@@ -212,9 +212,10 @@ function ZodiacWheel({ selectedSign, onSelect }) {
 
       {/* Symbols */}
       {slices.map(({ z, sx, sy }) => (
-        <text key={z.name} x={sx} y={sy + 7} textAnchor="middle"
+        <text key={z.name} x={sx} y={sy + 5} textAnchor="middle"
           fill={selectedSign === z.name ? "#ffffff" : z.color}
-          fontSize="17" filter={selectedSign === z.name ? "url(#strongGlow)" : "url(#glow)"}
+          fontSize="13" fontFamily="Cinzel,serif" fontWeight="700"
+          filter={selectedSign === z.name ? "url(#strongGlow)" : "url(#glow)"}
           style={{ cursor:"pointer", transition:"all .3s" }}
           onClick={() => onSelect(z.name)}>
           {z.sym}
@@ -641,7 +642,9 @@ export default function App() {
         @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
         @keyframes twinkle{0%,100%{opacity:.15}50%{opacity:.9}}
         .fade-up{animation:fadeUp .35s ease;}
-        @media(max-width:768px){.desktop-sidebar{display:none!important;}.desktop-right{display:none!important;}.content-grid{grid-template-columns:1fr!important;}.center-col{padding:.8rem!important;}.mobile-nav{display:flex!important;}.app-wrap{padding-bottom:72px!important;overflow-y:auto!important;}.topbar-date{display:none!important;}.wheel-wrap{width:min(340px,95vw)!important;}}
+        @media(max-width:768px){.desktop-sidebar{display:none!important;}.desktop-right{display:none!important;}.content-grid{grid-template-columns:1fr!important;}.center-col{padding:.8rem!important;}.mobile-nav{display:flex!important;justify-content:space-around;}.app-wrap{padding-bottom:72px!important;overflow-y:auto!important;}.topbar-date{display:none!important;}.wheel-wrap{width:min(340px,95vw)!important;}}
+        .mobile-nav{display:none;}
+        @media(max-width:768px){.mobile-nav{display:flex!important;justify-content:space-around;}}
         @media(min-width:769px){.mobile-nav{display:none!important;}}
       `}</style>
 
@@ -690,7 +693,7 @@ export default function App() {
         {/* TOPBAR */}
         <div style={S.topbar}>
           <div style={{ fontFamily:"'Cinzel',serif", fontSize:".78rem", color:"#8b7aa8" }}>✦ {greeting}, <span style={{ color:"#c9a84c" }}>cosmic soul</span></div>
-          <div style={{ fontSize:".75rem", color:"#6b5c7a", fontStyle:"italic" }}>{formatDate()}</div>
+          <div className="topbar-date" style={{ fontSize:".75rem", color:"#6b5c7a", fontStyle:"italic" }}>{formatDate()}</div>
         </div>
 
         <div style={S.content} className="content-grid">
@@ -954,6 +957,16 @@ export default function App() {
 
         </div>
       </div>
+      {/* MOBILE BOTTOM NAV */}
+      <div className="mobile-nav" style={{ position:"fixed", bottom:0, left:0, right:0, background:"rgba(4,1,15,0.97)", borderTop:"1px solid rgba(201,150,58,0.25)", zIndex:50, backdropFilter:"blur(20px)" }}>
+        {[["home","\u{1F3E0}","Home"],["today","\u2600\uFE0F","Today"],["oracle","\u{1F52E}","Oracle"],["journal","\u{1F4D3}","Journal"]].map(([id,icon,label]) => (
+          <button key={id} onClick={() => setPage(id)} style={{ flex:1, padding:".7rem .2rem", background:"transparent", border:"none", color: page===id ? "#c9a84c" : "#4a3a6a", cursor:"pointer", display:"flex", flexDirection:"column", alignItems:"center", gap:".2rem", fontSize:".6rem", fontFamily:"'Cinzel',serif", letterSpacing:".05em", transition:"color .2s", borderTop: page===id ? "2px solid #c9a84c" : "2px solid transparent" }}>
+            <span style={{ fontSize:"1.2rem" }}>{icon}</span>
+            <span>{label}</span>
+          </button>
+        ))}
+      </div>
+
     </div>
   );
 }
