@@ -6,18 +6,18 @@ const STRIPE_GIFT   = "https://buy.stripe.com/9B6eVf1O84FNcHe8Jzf3a02";
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 const ZODIAC = [
-  { name:"Aries",      sym:"AR", dates:"Mar 21 - Apr 19", el:"Fire",  color:"#e63946" },
-  { name:"Taurus",     sym:"TA", dates:"Apr 20 - May 20", el:"Earth", color:"#2d9e6e" },
-  { name:"Gemini",     sym:"GE", dates:"May 21 - Jun 20", el:"Air",   color:"#e9c46a" },
-  { name:"Cancer",     sym:"CN", dates:"Jun 21 - Jul 22", el:"Water", color:"#a8dadc" },
-  { name:"Leo",        sym:"LE", dates:"Jul 23 - Aug 22", el:"Fire",  color:"#f4a261" },
-  { name:"Virgo",      sym:"VI", dates:"Aug 23 - Sep 22", el:"Earth", color:"#6a994e" },
-  { name:"Libra",      sym:"LI", dates:"Sep 23 - Oct 22", el:"Air",   color:"#e07a9c" },
-  { name:"Scorpio",    sym:"SC", dates:"Oct 23 - Nov 21", el:"Water", color:"#9b2335" },
-  { name:"Sagittarius",sym:"SG", dates:"Nov 22 - Dec 21", el:"Fire",  color:"#9b72cf" },
-  { name:"Capricorn",  sym:"CP", dates:"Dec 22 - Jan 19", el:"Earth", color:"#4cc9f0" },
-  { name:"Aquarius",   sym:"AQ", dates:"Jan 20 - Feb 18", el:"Air",   color:"#4cc9f0" },
-  { name:"Pisces",     sym:"PI", dates:"Feb 19 - Mar 20", el:"Water", color:"#48cae4" },
+  { name:"Aries",      sym:"♈︎", dates:"Mar 21 - Apr 19", el:"Fire",  color:"#e63946" },
+  { name:"Taurus",     sym:"♉︎", dates:"Apr 20 - May 20", el:"Earth", color:"#2d9e6e" },
+  { name:"Gemini",     sym:"♊︎", dates:"May 21 - Jun 20", el:"Air",   color:"#e9c46a" },
+  { name:"Cancer",     sym:"♋︎", dates:"Jun 21 - Jul 22", el:"Water", color:"#a8dadc" },
+  { name:"Leo",        sym:"♌︎", dates:"Jul 23 - Aug 22", el:"Fire",  color:"#f4a261" },
+  { name:"Virgo",      sym:"♍︎", dates:"Aug 23 - Sep 22", el:"Earth", color:"#6a994e" },
+  { name:"Libra",      sym:"♎︎", dates:"Sep 23 - Oct 22", el:"Air",   color:"#e07a9c" },
+  { name:"Scorpio",    sym:"♏︎", dates:"Oct 23 - Nov 21", el:"Water", color:"#9b2335" },
+  { name:"Sagittarius",sym:"♐︎", dates:"Nov 22 - Dec 21", el:"Fire",  color:"#9b72cf" },
+  { name:"Capricorn",  sym:"♑︎", dates:"Dec 22 - Jan 19", el:"Earth", color:"#4cc9f0" },
+  { name:"Aquarius",   sym:"♒︎", dates:"Jan 20 - Feb 18", el:"Air",   color:"#4cc9f0" },
+  { name:"Pisces",     sym:"♓︎", dates:"Feb 19 - Mar 20", el:"Water", color:"#48cae4" },
 ];
 
 const COMPAT = {Aries:{Aries:[85,"Fire against fire — explosive passion but also epic clashes."],Taurus:[45,"Too different in pace — one runs, the other waits."],Gemini:[78,"Energy and curiosity meet — never a dull moment."],Cancer:[40,"Aries burns where Cancer seeks protection."],Leo:[92,"Two fire signs — they understand each other without words."],Virgo:[38,"Virgo slows Aries down — constant tension."],Libra:[72,"Complementary opposites — magnetic attraction."],Scorpio:[65,"Both intense — they either love madly or destroy each other."],Sagittarius:[88,"Adventure and freedom — the most dynamic couple of the zodiac."],Capricorn:[50,"Aries wants it now, Capricorn waits — conflict of timing."],Aquarius:[75,"Both original and rebellious — they understand each other deeply."],Pisces:[55,"Different worlds but mysterious attraction."]},Taurus:{Aries:[45,"Too different in rhythm."],Taurus:[80,"Two rocks together — absolute stability but little surprise."],Gemini:[42,"Taurus wants roots, Gemini wants to fly."],Cancer:[90,"Earth and water — deep love, home and family."],Leo:[55,"Leo wants the spotlight, Taurus wants peace."],Virgo:[88,"Two earth signs — something solid is built."],Libra:[68,"Both love beauty — harmony is possible."],Scorpio:[72,"Powerful and complex attraction — all or nothing."],Sagittarius:[40,"Sagittarius flees where Taurus roots."],Capricorn:[92,"The most solid couple of the zodiac — they build together."],Aquarius:[38,"Too far apart."],Pisces:[82,"Infinite tenderness — they protect each other."]},Gemini:{Aries:[78,"They stimulate each other — never a moment of boredom."],Taurus:[42,"Taurus slows Gemini down — mutual frustration."],Gemini:[75,"Two brilliant minds — endless conversations but little depth."],Cancer:[50,"Cancer wants stability, Gemini fears it."],Leo:[80,"Both love being center stage — positive sparks."],Virgo:[55,"They understand but criticize each other."],Libra:[88,"Air and air — lightness, intelligence, natural affinity."],Scorpio:[48,"Scorpio is too intense for Gemini."],Sagittarius:[85,"Complementary opposites — adventure and freedom."],Capricorn:[40,"Capricorn structures, Gemini escapes."],Aquarius:[90,"Two extraordinary minds — revolutionary couple."],Pisces:[58,"Different worlds but mutual curiosity."]},Cancer:{Aries:[40,"Aries burns where Cancer seeks protection."],Taurus:[90,"Earth and water — deep and lasting love."],Gemini:[50,"Gemini changes too much for Cancer."],Cancer:[78,"They understand each other's soul — but too much sensitivity."],Leo:[62,"Leo illuminates Cancer — but can also blind them."],Virgo:[82,"Mutual care and devotion — a thoughtful couple."],Libra:[58,"Libra is too rational for emotional Cancer."],Scorpio:[92,"Water and water — emotional depth without equal."],Sagittarius:[38,"Sagittarius flees where Cancer wants to stay."],Capricorn:[70,"Opposites that attract — balance between heart and mind."],Aquarius:[42,"Aquarius is too detached for Cancer."],Pisces:[90,"Two water souls — total empathy and romantic love."]},Leo:{Aries:[92,"Fire and fire — immediate passion and mutual respect."],Taurus:[55,"Taurus doesn't always applaud — Leo takes offense."],Gemini:[80,"Gemini feeds Leo's ego — works well."],Cancer:[62,"Cancer nurtures Leo — a tender relationship."],Leo:[70,"Two kings together — grand but who yields?"],Virgo:[48,"Virgo criticizes Leo — inevitable clashes."],Libra:[85,"Libra adores Leo — elegant and harmonious couple."],Scorpio:[60,"Both want control — silent war."],Sagittarius:[90,"Fire and adventure — the most vibrant couple."],Capricorn:[52,"Capricorn is too sober for Leo."],Aquarius:[68,"Opposites that challenge each other — creative tension."],Pisces:[65,"Pisces admires Leo — fascinating dynamic."]},Virgo:{Aries:[38,"Aries is too impulsive for Virgo."],Taurus:[88,"Two earth signs — solidity and understanding."],Gemini:[55,"They stimulate each other mentally but get irritated."],Cancer:[82,"Mutual care — a thoughtful and stable couple."],Leo:[48,"Leo is too dramatic for practical Virgo."],Virgo:[72,"They understand each other perfectly — maybe too similar."],Libra:[65,"Both seek balance — good understanding."],Scorpio:[80,"Intensity and precision — they respect each other deeply."],Sagittarius:[42,"Sagittarius is too chaotic for Virgo."],Capricorn:[90,"The most efficient couple — they build the future."],Aquarius:[50,"Too different in their approach to life."],Pisces:[70,"Opposites that complete each other."]},Libra:{Aries:[72,"Magnetic attraction between opposites."],Taurus:[68,"Both love beauty — harmony is possible."],Gemini:[88,"Air and air — intellectual and light couple."],Cancer:[58,"Emotion vs rationality — difficult balance."],Leo:[85,"Elegance and charisma — an enviable couple."],Virgo:[65,"They respect but criticize each other."],Libra:[75,"Perfect harmony but who decides?"],Scorpio:[55,"Scorpio is too intense for Libra."],Sagittarius:[80,"Freedom and dialogue — open and dynamic couple."],Capricorn:[60,"Capricorn is too serious for Libra."],Aquarius:[88,"Two air signs — progressive and brilliant couple."],Pisces:[72,"Romance and harmony — a sensitive couple."]},Scorpio:{Aries:[65,"Both intense — passion or destruction."],Taurus:[72,"Complex and powerful attraction."],Gemini:[48,"Scorpio is too deep for Gemini."],Cancer:[92,"Two water souls — total connection."],Leo:[60,"Both dominant — power struggle."],Virgo:[80,"They respect and complete each other."],Libra:[55,"Too different in depth."],Scorpio:[82,"Double intensity — either wonderful or devastating."],Sagittarius:[45,"Sagittarius is too free for Scorpio."],Capricorn:[88,"Shared determination — an unbeatable couple."],Aquarius:[50,"Too emotionally distant."],Pisces:[92,"The deepest encounter of the zodiac."]},Sagittarius:{Aries:[88,"Pure adventure — the most dynamic couple."],Taurus:[40,"Too different — Taurus anchors, Sagittarius flies."],Gemini:[85,"Freedom and dialogue — never still."],Cancer:[38,"Cancer holds back where Sagittarius wants to fly."],Leo:[90,"Fire and passion — magnetic couple."],Virgo:[42,"Virgo slows Sagittarius down."],Libra:[80,"Freedom and harmony — open couple."],Scorpio:[45,"Scorpio wants to possess, Sagittarius wants to flee."],Sagittarius:[80,"Two free riders — wonderful while it lasts."],Capricorn:[50,"Capricorn plans, Sagittarius improvises."],Aquarius:[88,"Two free spirits — revolutionary couple."],Pisces:[62,"Different worlds but mystical attraction."]},Capricorn:{Aries:[50,"Too different in rhythms and goals."],Taurus:[92,"The most solid couple — they build the future."],Gemini:[40,"Gemini is too volatile for Capricorn."],Cancer:[70,"Complementary opposites — heart and mind."],Leo:[52,"Leo is too exuberant for Capricorn."],Virgo:[90,"Efficiency and determination — an unbeatable couple."],Libra:[60,"Libra is too indecisive for Capricorn."],Scorpio:[88,"Strength and determination — they respect each other deeply."],Sagittarius:[50,"Too different in approach."],Capricorn:[78,"They understand each other — but who warms up?"],Aquarius:[55,"Tradition vs revolution — constant tension."],Pisces:[72,"Pisces warms Capricorn — beautiful complementarity."]},Aquarius:{Aries:[75,"Both original — good understanding."],Taurus:[38,"Too far apart in lifestyle."],Gemini:[90,"Two brilliant minds — revolutionary couple."],Cancer:[42,"Aquarius is too detached for Cancer."],Leo:[68,"Creative challenge — opposites that attract."],Virgo:[50,"Approaches to life too different."],Libra:[88,"Air and air — progressive couple."],Scorpio:[50,"Too emotionally different."],Sagittarius:[88,"Two free spirits — open and dynamic couple."],Capricorn:[55,"Tradition vs innovation."],Aquarius:[80,"They understand each other perfectly."],Pisces:[65,"Rational vs emotional — fascination of opposites."]},Pisces:{Aries:[55,"Mystical attraction but different worlds."],Taurus:[82,"Tenderness and mutual protection."],Gemini:[58,"Mutual curiosity but little in common."],Cancer:[90,"Total empathy — romantic and deep love."],Leo:[65,"Leo fascinates Pisces."],Virgo:[70,"They complete each other."],Libra:[72,"Romance and harmony."],Scorpio:[92,"The deepest connection of the zodiac."],Sagittarius:[62,"Mystical attraction but unstable."],Capricorn:[72,"They complete each other — earth and water."],Aquarius:[65,"Fascination of opposites."],Pisces:[80,"Two romantic souls — ocean of feelings."]}};
@@ -212,11 +212,12 @@ function ZodiacWheel({ selectedSign, onSelect }) {
 
       {/* Symbols */}
       {slices.map(({ z, sx, sy }) => (
-        <text key={z.name} x={sx} y={sy + 5} textAnchor="middle"
+        <text key={z.name} x={sx} y={sy + 8} textAnchor="middle"
           fill={selectedSign === z.name ? "#ffffff" : z.color}
-          fontSize="13" fontFamily="Cinzel,serif" fontWeight="700"
+          fontSize="20"
+          fontFamily="serif"
           filter={selectedSign === z.name ? "url(#strongGlow)" : "url(#glow)"}
-          style={{ cursor:"pointer", transition:"all .3s" }}
+          style={{ cursor:"pointer", transition:"all .3s", fontVariant:"normal", fontStyle:"normal" }}
           onClick={() => onSelect(z.name)}>
           {z.sym}
         </text>
@@ -420,9 +421,103 @@ function GiftModal({ onClose }) {
   );
 }
 
+
+// ─── SIGN POPUP ───────────────────────────────────────────────────────────────
+function SignPopup({ sign, onClose, onReveal }) {
+  const z = ZODIAC.find(z => z.name === sign);
+  const p = PERS[sign];
+  if (!z || !p) return null;
+
+  const elEmoji = { Fire:"🔥", Earth:"🌍", Air:"💨", Water:"💧" }[z.el] || "✨";
+
+  // Best compatibility
+  const compatData = COMPAT[sign] || {};
+  const best = Object.entries(compatData).reduce((a, [k, v]) => v[0] > a[1] ? [k, v[0]] : a, ["", 0]);
+  const worst = Object.entries(compatData).reduce((a, [k, v]) => v[0] < a[1] ? [k, v[0]] : a, ["", 100]);
+  const bestZ = ZODIAC.find(z => z.name === best[0]);
+  const worstZ = ZODIAC.find(z => z.name === worst[0]);
+
+  const quote = getDailyQuote(sign);
+
+  return (
+    <div onClick={onClose} style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.75)", zIndex:150, display:"flex", alignItems:"flex-end", justifyContent:"center", backdropFilter:"blur(4px)" }}>
+      <div onClick={e => e.stopPropagation()}
+        style={{ width:"100%", maxWidth:520, background:"linear-gradient(180deg,#0d0822 0%,#060314 100%)", borderTop:"2px solid rgba(201,150,58,0.5)", borderRadius:"24px 24px 0 0", padding:"1.5rem 1.5rem 2rem", animation:"slideUp .4s cubic-bezier(.16,1,.3,1)", position:"relative", boxShadow:`0 -20px 60px ${z.color}33` }}>
+        <style>{`@keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}`}</style>
+
+        {/* Handle bar */}
+        <div style={{ width:40, height:4, background:"rgba(255,255,255,0.15)", borderRadius:2, margin:"0 auto 1.2rem" }} />
+
+        {/* Close */}
+        <button onClick={onClose} style={{ position:"absolute", top:"1rem", right:"1rem", background:"transparent", border:"none", color:"#4a3a6a", fontSize:"1.3rem", cursor:"pointer" }}>✕</button>
+
+        {/* Header */}
+        <div style={{ display:"flex", alignItems:"center", gap:"1rem", marginBottom:"1.2rem" }}>
+          <div style={{ width:64, height:64, borderRadius:"50%", background:`${z.color}22`, border:`2px solid ${z.color}88`, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, boxShadow:`0 0 20px ${z.color}44` }}>
+            <span style={{ fontFamily:"'Cinzel',serif", fontSize:"1.1rem", fontWeight:900, color:z.color }}>{z.sym}</span>
+          </div>
+          <div>
+            <div style={{ fontFamily:"'Cinzel',serif", fontSize:"1.6rem", fontWeight:900, color:"#f0d080", lineHeight:1 }}>{sign}</div>
+            <div style={{ fontSize:".78rem", color:"#8b7aa8", marginTop:".2rem" }}>{z.dates}</div>
+            <div style={{ display:"inline-block", marginTop:".3rem", padding:".15rem .6rem", background:`${z.color}22`, border:`1px solid ${z.color}55`, borderRadius:20, fontSize:".7rem", color:z.color, fontFamily:"'Cinzel',serif" }}>{elEmoji} {z.el}</div>
+          </div>
+        </div>
+
+        {/* Quote of the day */}
+        <div style={{ background:"rgba(124,58,237,0.1)", border:"1px solid rgba(124,58,237,0.25)", borderRadius:12, padding:".85rem 1rem", marginBottom:"1rem" }}>
+          <div style={{ fontFamily:"'Cinzel',serif", fontSize:".6rem", letterSpacing:".15em", color:"#9b72cf", marginBottom:".35rem" }}>✦ YOUR COSMIC MESSAGE TODAY ✦</div>
+          <p style={{ color:"#c8b89a", fontStyle:"italic", fontSize:".84rem", lineHeight:1.7, margin:0 }}>"{quote}"</p>
+        </div>
+
+        {/* Essence */}
+        <div style={{ marginBottom:"1rem" }}>
+          <div style={{ fontFamily:"'Cinzel',serif", fontSize:".65rem", letterSpacing:".14em", color:"#c9a84c", marginBottom:".4rem" }}>🌟 COSMIC ESSENCE</div>
+          <p style={{ color:"#ddd0f0", fontSize:".85rem", lineHeight:1.7, margin:0 }}>{p.essence}</p>
+        </div>
+
+        {/* Powers row */}
+        <div style={{ display:"flex", gap:".5rem", flexWrap:"wrap", marginBottom:"1rem" }}>
+          {p.strengths.slice(0,3).map((s,i) => (
+            <div key={i} style={{ padding:".3rem .7rem", background:"rgba(201,150,58,0.08)", border:"1px solid rgba(201,150,58,0.2)", borderRadius:20, fontSize:".72rem", color:"#c9a84c" }}>
+              ⚡ {s.split(" — ")[0]}
+            </div>
+          ))}
+        </div>
+
+        {/* Compatibility row */}
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:".6rem", marginBottom:"1.2rem" }}>
+          <div style={{ background:"rgba(0,200,100,0.06)", border:"1px solid rgba(0,200,100,0.2)", borderRadius:12, padding:".7rem", textAlign:"center" }}>
+            <div style={{ fontSize:".6rem", color:"#6b9f7a", fontFamily:"'Cinzel',serif", letterSpacing:".1em", marginBottom:".3rem" }}>BEST MATCH</div>
+            <div style={{ fontFamily:"'Cinzel',serif", fontSize:".95rem", fontWeight:700, color:"#80d0a0" }}>{best[0]}</div>
+            <div style={{ fontSize:".72rem", color:"#4a7a5a" }}>{best[1]}% 💫</div>
+          </div>
+          <div style={{ background:"rgba(200,50,50,0.06)", border:"1px solid rgba(200,50,50,0.2)", borderRadius:12, padding:".7rem", textAlign:"center" }}>
+            <div style={{ fontSize:".6rem", color:"#9f6b6b", fontFamily:"'Cinzel',serif", letterSpacing:".1em", marginBottom:".3rem" }}>CHALLENGE</div>
+            <div style={{ fontFamily:"'Cinzel',serif", fontSize:".95rem", fontWeight:700, color:"#d08080" }}>{worst[0]}</div>
+            <div style={{ fontSize:".72rem", color:"#7a4a4a" }}>{worst[1]}% ⚡</div>
+          </div>
+        </div>
+
+        {/* Destiny preview */}
+        <div style={{ background:`${z.color}11`, border:`1px solid ${z.color}33`, borderRadius:12, padding:".8rem 1rem", marginBottom:"1.2rem", textAlign:"center" }}>
+          <div style={{ fontFamily:"'Cinzel',serif", fontSize:".6rem", letterSpacing:".14em", color:z.color, marginBottom:".3rem" }}>🔮 DESTINY</div>
+          <p style={{ color:"#e8d5a3", fontStyle:"italic", fontSize:".83rem", lineHeight:1.6, margin:0 }}>{p.destiny}</p>
+        </div>
+
+        {/* CTA Button */}
+        <button onClick={onReveal} style={{ width:"100%", padding:"1rem", background:`linear-gradient(135deg,${z.color},${z.color}99)`, border:"none", borderRadius:14, color:"white", fontFamily:"'Cinzel',serif", fontWeight:700, fontSize:"1rem", letterSpacing:".1em", cursor:"pointer", boxShadow:`0 0 25px ${z.color}44`, marginBottom:".6rem" }}>
+          ✦ Reveal My Full Destiny ✦
+        </button>
+        <p style={{ textAlign:"center", fontSize:".72rem", color:"#4a3a6a", margin:0 }}>Enter your birth date for a complete personalized reading</p>
+      </div>
+    </div>
+  );
+}
+
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function App() {
   const [page, setPage]         = useState("home");
+  const [showSignPopup, setShowSignPopup] = useState(false);
   const [selectedSign, setSelectedSign] = useState(null);
   const [form, setForm]         = useState({ day:"", month:"", year:"", hour:"", minute:"" });
   const [result, setResult]     = useState(null);
@@ -445,8 +540,7 @@ export default function App() {
 
   const handleSignSelect = (name) => {
     setSelectedSign(name);
-    const z = ZODIAC.find(z => z.name === name);
-    if (!form.day) setForm(f => ({ ...f }));
+    setShowSignPopup(true);
   };
 
   const handleFormChange = (field, value) => {
@@ -657,6 +751,21 @@ export default function App() {
       {/* Modals */}
       {showAnnual && <AnnualModal sign={result?.sign || selectedSign || "Aries"} onClose={() => setShowAnnual(false)} />}
       {showGift   && <GiftModal onClose={() => setShowGift(false)} />}
+      {showSignPopup && selectedSign && (
+        <SignPopup
+          sign={selectedSign}
+          onClose={() => setShowSignPopup(false)}
+          onReveal={() => {
+            setShowSignPopup(false);
+            setPage("home");
+            // scroll to form
+            setTimeout(() => {
+              const el = document.getElementById("birth-form");
+              if (el) el.scrollIntoView({ behavior:"smooth" });
+            }, 100);
+          }}
+        />
+      )}
 
       {/* Loading */}
       {loading && (
@@ -710,7 +819,7 @@ export default function App() {
                 <p style={{ fontSize:".72rem", color:"#6b5c7a", marginBottom:".8rem", fontStyle:"italic" }}>Click a sign to explore · Enter your birth data below</p>
 
                 {!result ? (
-                  <div style={{ ...S.formPanel, width:"100%", maxWidth:440 }}>
+                  <div id="birth-form" style={{ ...S.formPanel, width:"100%", maxWidth:440 }}>
                     <p style={{ fontFamily:"'Cinzel',serif", fontSize:".72rem", letterSpacing:".18em", color:"#c9a84c", textAlign:"center", marginBottom:"1.1rem" }}>ENTER YOUR COSMIC DATA</p>
                     <div style={{ marginBottom:"1rem" }}>
                       <label style={S.lbl}>DATE OF BIRTH</label>
