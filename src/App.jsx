@@ -96,6 +96,13 @@ function formatDate() {
   return new Date().toLocaleDateString("en-US", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
 }
 
+// ─── TRACK EVENT ─────────────────────────────────────────────────────────────
+function trackEvent(name, data) {
+  try {
+    import("@vercel/analytics").then(({ track }) => track(name, data)).catch(() => {});
+  } catch {}
+}
+
 // ─── ZODIAC WHEEL ─────────────────────────────────────────────────────────────
 function ZodiacWheel({ selectedSign, onSelect }) {
   const cx = 250, cy = 250, R = 228, ri = 158, rLabel = 198, rSym = 122;
@@ -115,20 +122,13 @@ function ZodiacWheel({ selectedSign, onSelect }) {
     return { z, d, lx, ly, sx, sy, startAngle, isSelected, midAngle };
   });
 
-  // constellation points
   const constPts = ZODIAC.map((_, i) => {
     const a = (i * 30 - 90) * Math.PI / 180;
     return { x: cx + 108 * Math.cos(a), y: cy + 108 * Math.sin(a) };
   });
 
   return (
-    <svg
-      viewBox="0 0 500 500"
-      style={{
-        width:"100%", height:"100%", cursor:"pointer",
-        filter:"drop-shadow(0 0 35px rgba(124,58,237,0.6)) drop-shadow(0 0 70px rgba(80,20,160,0.35))"
-      }}
-    >
+    <svg viewBox="0 0 500 500" style={{ width:"100%", height:"100%", cursor:"pointer", filter:"drop-shadow(0 0 35px rgba(124,58,237,0.6)) drop-shadow(0 0 70px rgba(80,20,160,0.35))" }}>
       <defs>
         <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="3" result="blur"/>
@@ -152,33 +152,22 @@ function ZodiacWheel({ selectedSign, onSelect }) {
           <stop offset="100%" stopColor="rgba(0,0,0,0)"/>
         </radialGradient>
       </defs>
-
-      {/* Background radial glow */}
       <circle cx={cx} cy={cy} r={R} fill="url(#wheelBg)" />
-
-      {/* Outer rings */}
       <circle cx={cx} cy={cy} r={R}  fill="none" stroke="rgba(201,150,58,0.7)" strokeWidth="2"   filter="url(#ringGlow)" />
       <circle cx={cx} cy={cy} r={R}  fill="none" stroke="rgba(201,150,58,0.3)" strokeWidth="0.5" />
       <circle cx={cx} cy={cy} r={ri} fill="none" stroke="rgba(201,150,58,0.5)" strokeWidth="1.5" filter="url(#ringGlow)" />
       <circle cx={cx} cy={cy} r={95} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
       <circle cx={cx} cy={cy} r={55} fill="none" stroke="rgba(180,120,255,0.4)" strokeWidth="1" filter="url(#purpleGlow)" />
-
-      {/* Sacred geometry lines */}
       {ZODIAC.map((_, i) => {
         const a = (i * 30 - 90) * Math.PI / 180;
         return <line key={i} x1={cx} y1={cy} x2={cx+95*Math.cos(a)} y2={cy+95*Math.sin(a)} stroke="rgba(201,150,58,0.07)" strokeWidth="0.5" />;
       })}
-
-      {/* Constellation lines */}
       {constPts.map((p, i) => {
         const next = constPts[(i + 1) % 12];
         return <line key={i} x1={p.x} y1={p.y} x2={next.x} y2={next.y} stroke="rgba(201,150,58,0.2)" strokeWidth="0.7" />;
       })}
-
-      {/* Slices */}
       {slices.map(({ z, d, isSelected }) => (
-        <path
-          key={z.name} d={d}
+        <path key={z.name} d={d}
           fill={isSelected ? z.color + "44" : "rgba(255,255,255,0.02)"}
           stroke={isSelected ? "rgba(180,100,255,0.95)" : "rgba(201,150,58,0.15)"}
           strokeWidth={isSelected ? "2" : "1"}
@@ -189,8 +178,6 @@ function ZodiacWheel({ selectedSign, onSelect }) {
           onMouseLeave={e => { if (!isSelected) e.target.setAttribute("fill", "rgba(255,255,255,0.02)"); }}
         />
       ))}
-
-      {/* Separator lines */}
       {slices.map(({ z, startAngle }) => (
         <line key={z.name}
           x1={cx + ri * Math.cos(startAngle)} y1={cy + ri * Math.sin(startAngle)}
@@ -198,8 +185,6 @@ function ZodiacWheel({ selectedSign, onSelect }) {
           stroke="rgba(201,150,58,0.22)" strokeWidth="1"
         />
       ))}
-
-      {/* Sign names */}
       {slices.map(({ z, lx, ly }) => (
         <text key={z.name} x={lx} y={ly + 4} textAnchor="middle"
           fill={selectedSign === z.name ? "#f0d080" : "rgba(224,215,200,0.65)"}
@@ -209,26 +194,19 @@ function ZodiacWheel({ selectedSign, onSelect }) {
           {z.name.toUpperCase()}
         </text>
       ))}
-
-      {/* Symbols */}
       {slices.map(({ z, sx, sy }) => (
         <text key={z.name} x={sx} y={sy + 8} textAnchor="middle"
           fill={selectedSign === z.name ? "#ffffff" : z.color}
-          fontSize="20"
-          fontFamily="serif"
+          fontSize="20" fontFamily="serif"
           filter={selectedSign === z.name ? "url(#strongGlow)" : "url(#glow)"}
           style={{ cursor:"pointer", transition:"all .3s", fontVariant:"normal", fontStyle:"normal" }}
           onClick={() => onSelect(z.name)}>
           {z.sym}
         </text>
       ))}
-
-      {/* Constellation dots */}
       {constPts.map((p, i) => (
         <circle key={i} cx={p.x} cy={p.y} r="2.8" fill="#f0c060" filter="url(#glow)" opacity="0.8" />
       ))}
-
-      {/* Outer sparkle dots */}
       {[0, 60, 120, 180, 240, 300].map((deg, i) => {
         const a = deg * Math.PI / 180;
         return (
@@ -238,14 +216,10 @@ function ZodiacWheel({ selectedSign, onSelect }) {
           </circle>
         );
       })}
-
-      {/* Center purple pulse */}
       <circle cx={cx} cy={cy} r="54" fill="rgba(124,58,237,0.2)" filter="url(#purpleGlow)">
         <animate attributeName="r" values="50;62;50" dur="3s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="0.3;0.65;0.3" dur="3s" repeatCount="indefinite"/>
       </circle>
-
-      {/* Moon */}
       <text x={cx} y={cy+18} textAnchor="middle" fontSize="46" filter="url(#purpleGlow)">🌙</text>
     </svg>
   );
@@ -261,25 +235,19 @@ function ScoreBar({ score }) {
   );
 }
 
-// ─── SECTION ──────────────────────────────────────────────────────────────────
-function Section({ title, children }) {
-  return (
-    <div style={{ marginBottom:"1.1rem" }}>
-      <div style={{ fontFamily:"'Cinzel',serif", color:"#c9a84c", fontSize:".82rem", fontWeight:700, marginBottom:".4rem", paddingBottom:".3rem", borderBottom:"1px solid rgba(201,150,58,0.12)" }}>{title}</div>
-      {children}
-    </div>
-  );
-}
-
 // ─── MODALS ───────────────────────────────────────────────────────────────────
 function AnnualModal({ sign, onClose }) {
   const [unlocked, setUnlocked] = useState(false);
   const d = ANNUAL[sign] || ANNUAL["Aries"];
 
   const pay = () => {
+    trackEvent("clicked_annual", { sign });
     window.open(STRIPE_ANNUAL, "_blank");
     setTimeout(() => {
-      if (window.confirm("✅ Did you complete the payment? Click OK to unlock your 2026 Destiny.")) setUnlocked(true);
+      if (window.confirm("✅ Did you complete the payment? Click OK to unlock your 2026 Destiny.")) {
+        trackEvent("purchased_annual", { sign });
+        setUnlocked(true);
+      }
     }, 800);
   };
 
@@ -338,11 +306,13 @@ function GiftModal({ onClose }) {
 
   const pay = () => {
     if (!form.name || !form.day || !form.month || !form.year || !form.hour || form.minute === "") { alert("Please fill in all fields!"); return; }
+    trackEvent("clicked_gift", {});
     window.open(STRIPE_GIFT, "_blank");
     setTimeout(() => {
       if (window.confirm("✅ Did you complete the payment? Click OK to generate the cosmic gift.")) {
         const sign = getSign(form.day, form.month);
         const p = PERS[sign];
+        trackEvent("purchased_gift", { sign });
         setResult({ ...p, sign, ascendant: getAscendant(form.hour), friendName: form.name, friendMsg: form.message });
       }
     }, 800);
@@ -421,7 +391,6 @@ function GiftModal({ onClose }) {
   );
 }
 
-
 // ─── SIGN POPUP ───────────────────────────────────────────────────────────────
 function SignPopup({ sign, onClose, onReveal }) {
   const z = ZODIAC.find(z => z.name === sign);
@@ -429,32 +398,25 @@ function SignPopup({ sign, onClose, onReveal }) {
   if (!z || !p) return null;
 
   const elEmoji = { Fire:"🔥", Earth:"🌍", Air:"💨", Water:"💧" }[z.el] || "✨";
-
-  // Best compatibility
   const compatData = COMPAT[sign] || {};
-  const best = Object.entries(compatData).reduce((a, [k, v]) => v[0] > a[1] ? [k, v[0]] : a, ["", 0]);
+  const best  = Object.entries(compatData).reduce((a, [k, v]) => v[0] > a[1] ? [k, v[0]] : a, ["", 0]);
   const worst = Object.entries(compatData).reduce((a, [k, v]) => v[0] < a[1] ? [k, v[0]] : a, ["", 100]);
-  const bestZ = ZODIAC.find(z => z.name === best[0]);
-  const worstZ = ZODIAC.find(z => z.name === worst[0]);
-
   const quote = getDailyQuote(sign);
+
+  useEffect(() => {
+    trackEvent("viewed_sign_popup", { sign });
+  }, [sign]);
 
   return (
     <div onClick={onClose} style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.75)", zIndex:150, display:"flex", alignItems:"flex-end", justifyContent:"center", backdropFilter:"blur(4px)" }}>
       <div onClick={e => e.stopPropagation()}
         style={{ width:"100%", maxWidth:520, background:"linear-gradient(180deg,#0d0822 0%,#060314 100%)", borderTop:"2px solid rgba(201,150,58,0.5)", borderRadius:"24px 24px 0 0", padding:"1.5rem 1.5rem 2rem", animation:"slideUp .4s cubic-bezier(.16,1,.3,1)", position:"relative", boxShadow:`0 -20px 60px ${z.color}33` }}>
         <style>{`@keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}`}</style>
-
-        {/* Handle bar */}
         <div style={{ width:40, height:4, background:"rgba(255,255,255,0.15)", borderRadius:2, margin:"0 auto 1.2rem" }} />
-
-        {/* Close */}
         <button onClick={onClose} style={{ position:"absolute", top:"1rem", right:"1rem", background:"transparent", border:"none", color:"#4a3a6a", fontSize:"1.3rem", cursor:"pointer" }}>✕</button>
-
-        {/* Header */}
         <div style={{ display:"flex", alignItems:"center", gap:"1rem", marginBottom:"1.2rem" }}>
           <div style={{ width:64, height:64, borderRadius:"50%", background:`${z.color}22`, border:`2px solid ${z.color}88`, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, boxShadow:`0 0 20px ${z.color}44` }}>
-            <span style={{ fontFamily:"'Cinzel',serif", fontSize:"1.1rem", fontWeight:900, color:z.color }}>{z.sym}</span>
+            <span style={{ fontFamily:"'Cinzel',serif", fontSize:"1.5rem", fontWeight:900, color:z.color }}>{z.sym}</span>
           </div>
           <div>
             <div style={{ fontFamily:"'Cinzel',serif", fontSize:"1.6rem", fontWeight:900, color:"#f0d080", lineHeight:1 }}>{sign}</div>
@@ -462,20 +424,14 @@ function SignPopup({ sign, onClose, onReveal }) {
             <div style={{ display:"inline-block", marginTop:".3rem", padding:".15rem .6rem", background:`${z.color}22`, border:`1px solid ${z.color}55`, borderRadius:20, fontSize:".7rem", color:z.color, fontFamily:"'Cinzel',serif" }}>{elEmoji} {z.el}</div>
           </div>
         </div>
-
-        {/* Quote of the day */}
         <div style={{ background:"rgba(124,58,237,0.1)", border:"1px solid rgba(124,58,237,0.25)", borderRadius:12, padding:".85rem 1rem", marginBottom:"1rem" }}>
           <div style={{ fontFamily:"'Cinzel',serif", fontSize:".6rem", letterSpacing:".15em", color:"#9b72cf", marginBottom:".35rem" }}>✦ YOUR COSMIC MESSAGE TODAY ✦</div>
           <p style={{ color:"#c8b89a", fontStyle:"italic", fontSize:".84rem", lineHeight:1.7, margin:0 }}>"{quote}"</p>
         </div>
-
-        {/* Essence */}
         <div style={{ marginBottom:"1rem" }}>
           <div style={{ fontFamily:"'Cinzel',serif", fontSize:".65rem", letterSpacing:".14em", color:"#c9a84c", marginBottom:".4rem" }}>🌟 COSMIC ESSENCE</div>
           <p style={{ color:"#ddd0f0", fontSize:".85rem", lineHeight:1.7, margin:0 }}>{p.essence}</p>
         </div>
-
-        {/* Powers row */}
         <div style={{ display:"flex", gap:".5rem", flexWrap:"wrap", marginBottom:"1rem" }}>
           {p.strengths.slice(0,3).map((s,i) => (
             <div key={i} style={{ padding:".3rem .7rem", background:"rgba(201,150,58,0.08)", border:"1px solid rgba(201,150,58,0.2)", borderRadius:20, fontSize:".72rem", color:"#c9a84c" }}>
@@ -483,8 +439,6 @@ function SignPopup({ sign, onClose, onReveal }) {
             </div>
           ))}
         </div>
-
-        {/* Compatibility row */}
         <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:".6rem", marginBottom:"1.2rem" }}>
           <div style={{ background:"rgba(0,200,100,0.06)", border:"1px solid rgba(0,200,100,0.2)", borderRadius:12, padding:".7rem", textAlign:"center" }}>
             <div style={{ fontSize:".6rem", color:"#6b9f7a", fontFamily:"'Cinzel',serif", letterSpacing:".1em", marginBottom:".3rem" }}>BEST MATCH</div>
@@ -497,14 +451,10 @@ function SignPopup({ sign, onClose, onReveal }) {
             <div style={{ fontSize:".72rem", color:"#7a4a4a" }}>{worst[1]}% ⚡</div>
           </div>
         </div>
-
-        {/* Destiny preview */}
         <div style={{ background:`${z.color}11`, border:`1px solid ${z.color}33`, borderRadius:12, padding:".8rem 1rem", marginBottom:"1.2rem", textAlign:"center" }}>
           <div style={{ fontFamily:"'Cinzel',serif", fontSize:".6rem", letterSpacing:".14em", color:z.color, marginBottom:".3rem" }}>🔮 DESTINY</div>
           <p style={{ color:"#e8d5a3", fontStyle:"italic", fontSize:".83rem", lineHeight:1.6, margin:0 }}>{p.destiny}</p>
         </div>
-
-        {/* CTA Button */}
         <button onClick={onReveal} style={{ width:"100%", padding:"1rem", background:`linear-gradient(135deg,${z.color},${z.color}99)`, border:"none", borderRadius:14, color:"white", fontFamily:"'Cinzel',serif", fontWeight:700, fontSize:"1rem", letterSpacing:".1em", cursor:"pointer", boxShadow:`0 0 25px ${z.color}44`, marginBottom:".6rem" }}>
           ✦ Reveal My Full Destiny ✦
         </button>
@@ -516,21 +466,21 @@ function SignPopup({ sign, onClose, onReveal }) {
 
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function App() {
-  const [page, setPage]         = useState("home");
+  const [page, setPage]           = useState("home");
   const [showSignPopup, setShowSignPopup] = useState(false);
-  const [selectedSign, setSelectedSign] = useState(null);
-  const [form, setForm]         = useState({ day:"", month:"", year:"", hour:"", minute:"" });
-  const [result, setResult]     = useState(null);
-  const [loading, setLoading]   = useState(false);
+  const [selectedSign, setSelectedSign]   = useState(null);
+  const [form, setForm]           = useState({ day:"", month:"", year:"", hour:"", minute:"" });
+  const [result, setResult]       = useState(null);
+  const [loading, setLoading]     = useState(false);
   const [activeTab, setActiveTab] = useState("personality");
   const [partnerSign, setPartnerSign] = useState("");
   const [showAnnual, setShowAnnual] = useState(false);
-  const [showGift, setShowGift] = useState(false);
-  const [copied, setCopied]     = useState(false);
-  const [oracleQ, setOracleQ]   = useState("");
-  const [oracleA, setOracleA]   = useState("");
+  const [showGift, setShowGift]   = useState(false);
+  const [copied, setCopied]       = useState(false);
+  const [oracleQ, setOracleQ]     = useState("");
+  const [oracleA, setOracleA]     = useState("");
   const [oracleLoading, setOracleLoading] = useState(false);
-  const [journalText, setJournalText] = useState("");
+  const [journalText, setJournalText]     = useState("");
   const [journalEntries, setJournalEntries] = useState(() => {
     try { return JSON.parse(localStorage.getItem("cosmic_journal") || "[]"); } catch { return []; }
   });
@@ -562,95 +512,8 @@ export default function App() {
       setSelectedSign(sign);
       setLoading(false);
       setActiveTab("personality");
+      trackEvent("reading_completed", { sign });
     }, 2200);
-  };
-
-  const downloadCard = () => {
-    if (!result) return;
-    const canvas = document.createElement("canvas");
-    canvas.width = 1080; canvas.height = 1080;
-    const ctx = canvas.getContext("2d");
-    // Background
-    const bg = ctx.createRadialGradient(540, 300, 0, 540, 540, 900);
-    bg.addColorStop(0, "#12003a"); bg.addColorStop(.5, "#090614"); bg.addColorStop(1, "#040108");
-    ctx.fillStyle = bg; ctx.fillRect(0, 0, 1080, 1080);
-    // Stars
-    for (let i = 0; i < 200; i++) {
-      const x = (Math.sin(i * 3.1) * 500 + 540) % 1080;
-      const y = (Math.sin(i * 7.3) * 500 + 540) % 1080;
-      const r = Math.random() * 1.8 + .2;
-      ctx.beginPath(); ctx.arc(Math.abs(x), Math.abs(y), r, 0, Math.PI*2);
-      ctx.fillStyle = `rgba(255,255,255,${Math.random()*.6+.1})`; ctx.fill();
-    }
-    // Nebula glow
-    const neb = ctx.createRadialGradient(540, 400, 0, 540, 400, 400);
-    neb.addColorStop(0, "rgba(100,30,220,0.2)"); neb.addColorStop(1, "rgba(0,0,0,0)");
-    ctx.fillStyle = neb; ctx.fillRect(0, 0, 1080, 1080);
-    // Header
-    const hGrad = ctx.createLinearGradient(200, 0, 880, 0);
-    hGrad.addColorStop(0, "#c9a84c"); hGrad.addColorStop(.5, "#f0d080"); hGrad.addColorStop(1, "#c9a84c");
-    ctx.font = "bold 42px Georgia,serif"; ctx.textAlign = "center"; ctx.fillStyle = hGrad;
-    ctx.fillText("✦ COSMIC ORACLE ✦", 540, 80);
-    // Sign symbol
-    const z = ZODIAC.find(z => z.name === result.sign);
-    ctx.font = "130px serif"; ctx.fillStyle = z.color;
-    ctx.shadowColor = z.color; ctx.shadowBlur = 50;
-    ctx.fillText(z.sym, 540, 250); ctx.shadowBlur = 0;
-    // Sign name
-    ctx.font = "bold 68px Georgia,serif"; ctx.fillStyle = "#c9a84c";
-    ctx.shadowColor = "rgba(201,168,76,0.5)"; ctx.shadowBlur = 20;
-    ctx.fillText(result.sign.toUpperCase(), 540, 330); ctx.shadowBlur = 0;
-    // Sub
-    ctx.font = "24px Georgia,serif"; ctx.fillStyle = "#6b5c7a";
-    ctx.fillText(`Rising ${result.ascendant}  ·  Born ${form.day}/${form.month}/${form.year}`, 540, 375);
-    // Divider
-    const div1 = ctx.createLinearGradient(150, 0, 930, 0);
-    div1.addColorStop(0,"transparent"); div1.addColorStop(.5,"rgba(201,150,58,0.4)"); div1.addColorStop(1,"transparent");
-    ctx.strokeStyle = div1; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(150, 405); ctx.lineTo(930, 405); ctx.stroke();
-    // Essence
-    ctx.font = "italic 30px Georgia,serif"; ctx.fillStyle = "#c8b89a";
-    const words = result.essence.split(" "); let line = "", y = 460;
-    words.forEach(w => {
-      const t = line + w + " ";
-      if (ctx.measureText(t).width > 840 && line) { ctx.fillText(line.trim(), 540, y); line = w + " "; y += 44; }
-      else line = t;
-    });
-    ctx.fillText(line.trim(), 540, y);
-    // Devil Fruit
-    y += 70;
-    ctx.font = "bold 22px Georgia,serif"; ctx.fillStyle = "#c9a84c";
-    ctx.fillText("🏴‍☠️  YOUR DEVIL FRUIT", 540, y);
-    y += 38;
-    ctx.font = "italic 24px Georgia,serif"; ctx.fillStyle = "#8a7a9b";
-    const fw = result.fruit.split(" "); let fl = "";
-    fw.forEach(w => {
-      const t = fl + w + " ";
-      if (ctx.measureText(t).width > 860 && fl) { ctx.fillText(fl.trim(), 540, y); fl = w + " "; y += 34; }
-      else fl = t;
-    });
-    ctx.fillText(fl.trim(), 540, y);
-    // Destiny
-    y += 60;
-    ctx.font = "italic 28px Georgia,serif"; ctx.fillStyle = "#c9a84c";
-    ctx.shadowColor = "rgba(201,150,58,0.4)"; ctx.shadowBlur = 10;
-    const dy = result.destiny.split(" "); let dl = "";
-    dy.forEach(w => {
-      const t = dl + w + " ";
-      if (ctx.measureText(t).width > 860 && dl) { ctx.fillText(`"${dl.trim()}"`, 540, y); dl = w + " "; y += 38; }
-      else dl = t;
-    });
-    ctx.fillText(`"${dl.trim()}"`, 540, y); ctx.shadowBlur = 0;
-    // Bottom divider
-    const div2 = ctx.createLinearGradient(150, 0, 930, 0);
-    div2.addColorStop(0,"transparent"); div2.addColorStop(.5,"rgba(201,150,58,0.3)"); div2.addColorStop(1,"transparent");
-    ctx.strokeStyle = div2; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(150, 990); ctx.lineTo(930, 990); ctx.stroke();
-    // Branding
-    ctx.font = "26px Georgia,serif"; ctx.fillStyle = "#4a3a5a"; ctx.shadowBlur = 0;
-    ctx.fillText("cosmicoracleapp.com", 540, 1048);
-    // Download
-    const link = document.createElement("a");
-    link.download = `cosmic-oracle-${result.sign.toLowerCase()}-${form.day}-${form.month}-${form.year}.png`;
-    link.href = canvas.toDataURL("image/png"); link.click();
   };
 
   const copyReading = () => {
@@ -659,12 +522,17 @@ export default function App() {
     let text = `🔮 COSMIC ORACLE — My Cosmic Reading\n\n♾ Sign: ${result.sign} | Rising: ${result.ascendant}\n📅 Born ${form.day}/${form.month}/${form.year}\n\n🌟 Essence:\n${result.essence}\n\n⚡ Powers:\n${result.strengths.join(" • ")}\n\n🏴‍☠️ Devil Fruit: ${result.fruit}\n\n🔮 Destiny: ${result.destiny}`;
     if (compat) text += `\n\n💞 Compatibility with ${partnerSign}: ${compat[0]}% — ${compat[1]}`;
     text += "\n\n✦ cosmicoracleapp.com ✦";
-    navigator.clipboard.writeText(text).then(() => { setCopied(true); setTimeout(() => setCopied(false), 3000); });
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      trackEvent("copied_reading", { sign: result.sign });
+      setTimeout(() => setCopied(false), 3000);
+    });
   };
 
   const askOracle = async () => {
     if (!oracleQ.trim()) return;
     setOracleLoading(true); setOracleA("");
+    trackEvent("asked_oracle", {});
     try {
       const res = await fetch("https://api.anthropic.com/v1/messages", {
         method:"POST", headers:{"Content-Type":"application/json"},
@@ -687,12 +555,11 @@ export default function App() {
     setJournalText("");
   };
 
-  const compat = result && partnerSign ? COMPAT[result.sign]?.[partnerSign] : null;
+  const compat      = result && partnerSign ? COMPAT[result.sign]?.[partnerSign] : null;
   const compatScore = compat ? compat[0] : null;
-  const selectedZ = ZODIAC.find(z => z.name === selectedSign);
-  const resultZ   = result ? ZODIAC.find(z => z.name === result.sign) : null;
+  const selectedZ   = ZODIAC.find(z => z.name === selectedSign);
+  const resultZ     = result ? ZODIAC.find(z => z.name === result.sign) : null;
 
-  // ── STYLES ────────────────────────────────────────────────────────────────
   const S = {
     app: { minHeight:"100vh", background:"radial-gradient(ellipse at top,#0d0a1a 0%,#050308 55%,#0a0515 100%)", display:"flex", fontFamily:"Georgia,serif", color:"#e8e0f8", overflow:"hidden", position:"relative" },
     sidebar: { width:220, minWidth:220, height:"100vh", background:"rgba(4,1,15,0.96)", borderRight:"1px solid rgba(255,255,255,0.07)", display:"flex", flexDirection:"column", padding:"1.5rem 0", zIndex:10, backdropFilter:"blur(20px)" },
@@ -742,13 +609,11 @@ export default function App() {
         @media(min-width:769px){.mobile-nav{display:none!important;}}
       `}</style>
 
-      {/* Stars */}
       {Array.from({length:90},(_,i) => (
         <div key={i} style={{ position:"fixed", width:`${Math.random()*2+.3}px`, height:`${Math.random()*2+.3}px`, background:"white", borderRadius:"50%", top:`${Math.random()*100}%`, left:`${Math.random()*100}%`, opacity:Math.random()*.6+.1, animation:`twinkle ${2+Math.random()*4}s ${Math.random()*4}s infinite ease-in-out`, pointerEvents:"none", zIndex:0 }} />
       ))}
       <div style={{ position:"fixed", width:600, height:600, top:-100, left:"20%", background:"radial-gradient(circle,rgba(80,20,180,0.18) 0%,transparent 70%)", borderRadius:"50%", pointerEvents:"none", zIndex:0 }} />
 
-      {/* Modals */}
       {showAnnual && <AnnualModal sign={result?.sign || selectedSign || "Aries"} onClose={() => setShowAnnual(false)} />}
       {showGift   && <GiftModal onClose={() => setShowGift(false)} />}
       {showSignPopup && selectedSign && (
@@ -758,7 +623,7 @@ export default function App() {
           onReveal={() => {
             setShowSignPopup(false);
             setPage("home");
-            // scroll to form
+            trackEvent("clicked_reveal_from_popup", { sign: selectedSign });
             setTimeout(() => {
               const el = document.getElementById("birth-form");
               if (el) el.scrollIntoView({ behavior:"smooth" });
@@ -767,7 +632,6 @@ export default function App() {
         />
       )}
 
-      {/* Loading */}
       {loading && (
         <div style={{ position:"fixed", inset:0, background:"rgba(4,1,15,0.95)", zIndex:100, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center" }}>
           <div style={{ fontSize:"4rem", animation:"spin 3s linear infinite" }}>🔮</div>
@@ -799,20 +663,17 @@ export default function App() {
 
       {/* MAIN */}
       <div style={S.main}>
-        {/* TOPBAR */}
         <div style={S.topbar}>
           <div style={{ fontFamily:"'Cinzel',serif", fontSize:".78rem", color:"#8b7aa8" }}>✦ {greeting}, <span style={{ color:"#c9a84c" }}>cosmic soul</span></div>
           <div className="topbar-date" style={{ fontSize:".75rem", color:"#6b5c7a", fontStyle:"italic" }}>{formatDate()}</div>
         </div>
 
         <div style={S.content} className="content-grid">
-          {/* CENTER */}
           <div style={S.center} className="center-col app-wrap">
 
             {/* HOME */}
             {page === "home" && (
               <>
-                {/* Wheel */}
                 <div style={{ width:"min(460px,100%)", aspectRatio:"1", margin:"0 auto .8rem", flexShrink:0 }}>
                   <ZodiacWheel selectedSign={selectedSign} onSelect={handleSignSelect} />
                 </div>
@@ -845,7 +706,6 @@ export default function App() {
                       </div>
                     )}
                     <button style={S.revealBtn} onClick={reveal}>✦ Reveal My Destiny ✦</button>
-                    {/* Daily quote */}
                     <div style={{ marginTop:"1.2rem", borderTop:"1px solid rgba(201,150,58,0.1)", paddingTop:"1rem", textAlign:"center" }}>
                       <div style={{ fontFamily:"'Cinzel',serif", fontSize:".6rem", letterSpacing:".15em", color:"#6b5c7a", marginBottom:".4rem" }}>✦ COSMIC MESSAGE TODAY ✦</div>
                       <p style={{ color:"#8a7a9b", fontStyle:"italic", fontSize:".82rem", lineHeight:1.7 }}>"{getCosmicQuote()}"</p>
@@ -853,20 +713,15 @@ export default function App() {
                   </div>
                 ) : (
                   <div style={{ width:"100%", maxWidth:490 }} className="fade-up">
-                    {/* Result header */}
                     <div style={{ textAlign:"center", marginBottom:"1.1rem" }}>
                       <div style={{ fontSize:"2.8rem" }}>{resultZ?.sym}</div>
                       <div style={{ fontFamily:"'Cinzel',serif", fontSize:"1.5rem", fontWeight:900, color:"#c9a84c" }}>{result.sign}</div>
                       <div style={{ fontSize:".78rem", color:"#8b7aa8", marginTop:".2rem" }}>Rising {result.ascendant} · Born {form.day}/{form.month}/{form.year} at {form.hour}:{String(form.minute).padStart(2,"0")}</div>
                     </div>
-
-                    {/* Daily msg */}
                     <div style={S.dailyMsg}>
                       <div style={{ fontFamily:"'Cinzel',serif", fontSize:".6rem", letterSpacing:".14em", color:"#9b72cf", marginBottom:".35rem" }}>✦ YOUR COSMIC MESSAGE TODAY ✦</div>
                       <p style={{ color:"#c8b89a", fontStyle:"italic", fontSize:".84rem", lineHeight:1.7 }}>"{getDailyQuote(result.sign)}"</p>
                     </div>
-
-                    {/* Annual CTA */}
                     <div onClick={() => setShowAnnual(true)} style={{ background:"rgba(201,150,58,0.07)", border:"1px solid rgba(201,150,58,0.22)", borderRadius:12, padding:".75rem 1rem", marginBottom:"1rem", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
                       <div>
                         <div style={{ fontFamily:"'Cinzel',serif", fontSize:".78rem", color:"#c9a84c" }}>🔮 Your 2026 Annual Destiny</div>
@@ -874,23 +729,34 @@ export default function App() {
                       </div>
                       <div style={{ fontFamily:"'Cinzel',serif", fontSize:".88rem", fontWeight:700, color:"#c9a84c" }}>€2.99 →</div>
                     </div>
-
-                    {/* Tabs */}
                     <div style={{ display:"flex", gap:".4rem", marginBottom:"1.1rem", background:"rgba(0,0,0,0.25)", borderRadius:10, padding:".25rem" }}>
                       {[["personality","🌟 Personality"],["compatibility","💞 Compat"],["share","📤 Share"]].map(([id,label]) => (
                         <button key={id} style={S.tab(activeTab===id)} onClick={() => setActiveTab(id)}>{label}</button>
                       ))}
                     </div>
 
-                    {/* PERSONALITY */}
                     {activeTab === "personality" && (
                       <div className="fade-up">
-                        {[["🌟 COSMIC ESSENCE", <p style={S.pText}>{result.essence}</p>],
+                        {[
+                          ["🌟 COSMIC ESSENCE", <p style={S.pText}>{result.essence}</p>],
                           ["⚡ HIDDEN POWERS", result.strengths.map((s,i) => <p key={i} style={S.pText}>• {s}</p>)],
                           ["🌑 SHADOWS OF THE SOUL", result.shadows.map((s,i) => <p key={i} style={S.pText}>• {s}</p>)],
                           ["❤️ LOVE & RELATIONSHIPS", <p style={S.pText}>{result.love}</p>],
                           ["🏴‍☠️ YOUR DEVIL FRUIT", <p style={S.pText}>{result.fruit}</p>],
-                          ["🔮 DESTINY", <p style={{ ...S.pText, fontStyle:"italic", color:"#c9a84c" }}>{result.destiny}</p>],
+                          ["🔮 DESTINY", <p
+                            style={{ ...S.pText, fontStyle:"italic", color:"#c9a84c" }}
+                            ref={el => {
+                              if (el) {
+                                const observer = new IntersectionObserver(([entry]) => {
+                                  if (entry.isIntersecting) {
+                                    trackEvent("destiny_read", { sign: result.sign });
+                                    observer.disconnect();
+                                  }
+                                });
+                                observer.observe(el);
+                              }
+                            }}
+                          >{result.destiny}</p>],
                         ].map(([title, content]) => (
                           <div key={title} style={{ marginBottom:"1rem" }}>
                             <div style={S.sectionTitle}>{title}</div>
@@ -900,11 +766,10 @@ export default function App() {
                       </div>
                     )}
 
-                    {/* COMPATIBILITY */}
                     {activeTab === "compatibility" && (
                       <div className="fade-up">
                         <p style={{ color:"#6b5c7a", fontStyle:"italic", textAlign:"center", marginBottom:"1rem", fontSize:".85rem" }}>Choose your partner's sign</p>
-                        <select value={partnerSign} onChange={e => setPartnerSign(e.target.value)} style={{ ...S.inp, marginBottom:"1rem", cursor:"pointer" }}>
+                        <select value={partnerSign} onChange={e => { setPartnerSign(e.target.value); if(e.target.value) trackEvent("viewed_compatibility",{sign:result.sign,partner:e.target.value}); }} style={{ ...S.inp, marginBottom:"1rem", cursor:"pointer" }}>
                           <option value="">— Select sign —</option>
                           {ZODIAC.map(z => <option key={z.name} value={z.name}>{z.sym} {z.name}</option>)}
                         </select>
@@ -926,7 +791,6 @@ export default function App() {
                       </div>
                     )}
 
-                    {/* SHARE */}
                     {activeTab === "share" && (
                       <div className="fade-up" style={{ textAlign:"center" }}>
                         <div style={{ fontSize:"2.5rem", marginBottom:"1rem" }}>📤</div>
@@ -937,11 +801,7 @@ export default function App() {
                         <button onClick={copyReading} style={{ width:"100%", padding:".85rem", background: copied?"linear-gradient(135deg,#3a7a3a,#2a5a2a)":"linear-gradient(135deg,#c9a84c,#8b6914)", border:"none", borderRadius:12, color: copied?"#90ff90":"#0d0a1a", fontFamily:"'Cinzel',serif", fontWeight:700, fontSize:".9rem", cursor:"pointer", letterSpacing:".08em", marginBottom:".5rem" }}>
                           {copied ? "✓ Copied to clipboard!" : "📋 Copy Cosmic Reading"}
                         </button>
-                        <button onClick={downloadCard} style={{ width:"100%", padding:".85rem", background:"linear-gradient(135deg,#2a1a4a,#1a0d30)", border:"1px solid rgba(201,150,58,0.4)", borderRadius:12, color:"#c9a84c", fontFamily:"'Cinzel',serif", fontWeight:700, fontSize:".9rem", cursor:"pointer", letterSpacing:".08em", marginBottom:".5rem" }}>
-                          🖼️ Download Cosmic Card
-                        </button>
                         <button onClick={() => setShowGift(true)} style={{ width:"100%", padding:".85rem", background:"rgba(224,122,156,0.1)", border:"1px solid rgba(224,122,156,0.35)", borderRadius:12, color:"#e07a9c", fontFamily:"'Cinzel',serif", fontWeight:700, fontSize:".9rem", cursor:"pointer", letterSpacing:".08em" }}>💌 Gift a Reading — €1.99</button>
-                        <p style={{ fontSize:".72rem", color:"#4a3a5a", fontStyle:"italic", marginTop:".7rem" }}>✦ Download a beautiful 1080×1080 image perfect for Instagram & Stories ✦</p>
                       </div>
                     )}
 
@@ -1024,7 +884,7 @@ export default function App() {
               </div>
             )}
 
-          </div>{/* end center */}
+          </div>
 
           {/* RIGHT PANEL */}
           <div style={S.rightPanel} className="desktop-right">
@@ -1066,9 +926,10 @@ export default function App() {
 
         </div>
       </div>
+
       {/* MOBILE BOTTOM NAV */}
       <div className="mobile-nav" style={{ position:"fixed", bottom:0, left:0, right:0, background:"rgba(4,1,15,0.97)", borderTop:"1px solid rgba(201,150,58,0.25)", zIndex:50, backdropFilter:"blur(20px)" }}>
-        {[["home","\u{1F3E0}","Home"],["today","\u2600\uFE0F","Today"],["oracle","\u{1F52E}","Oracle"],["journal","\u{1F4D3}","Journal"]].map(([id,icon,label]) => (
+        {[["home","🏠","Home"],["today","☀️","Today"],["oracle","🔮","Oracle"],["journal","📓","Journal"]].map(([id,icon,label]) => (
           <button key={id} onClick={() => setPage(id)} style={{ flex:1, padding:".7rem .2rem", background:"transparent", border:"none", color: page===id ? "#c9a84c" : "#4a3a6a", cursor:"pointer", display:"flex", flexDirection:"column", alignItems:"center", gap:".2rem", fontSize:".6rem", fontFamily:"'Cinzel',serif", letterSpacing:".05em", transition:"color .2s", borderTop: page===id ? "2px solid #c9a84c" : "2px solid transparent" }}>
             <span style={{ fontSize:"1.2rem" }}>{icon}</span>
             <span>{label}</span>
